@@ -9,7 +9,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var snippetItems: [SnippetItem] = []
+    @State var snippetItems: [SnippetItem] = [
+        .init(
+            program: .init(
+                programName: Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String,
+                programIcon: NSImage(named: "test")!,
+                programIdentifier: Bundle.main.infoDictionary![kCFBundleIdentifierKey as String]
+                    as! String), content: "Hello!")
+    ]
     var body: some View {
         Clipboard(snippets: $snippetItems)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -27,7 +34,8 @@ struct ContentView: View {
                                 frontmost?.bundleIdentifier ?? "com.example.untitled"
                             let content = item.data(forType: type)
                             snippetItems = snippetItems.filter({ item in
-                                return item.program.programIdentifier != programIdentifier || item.content != content
+                                return item.program.programIdentifier != programIdentifier
+                                    || item.content != content
                             })
 
                             snippetItems.insert(

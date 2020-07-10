@@ -17,6 +17,7 @@ struct Clipboard: View {
     var body: some View {
         GeometryReader { geometry in
             let globalGeometry = geometry.frame(in: .global)
+            let geometryGetted = geometryGetter(geometry)
 
             ScrollView(.horizontal, showsIndicators: true) {
                 HStack {
@@ -30,8 +31,8 @@ struct Clipboard: View {
                                 : "\(snippet.type) type doesn't support string.",
                             selected: selected == snippet.id
                         )
-                        .padding(.all, geometryGetter(geometry) * 0.076923077)
-                        .frame(width: geometryGetter(geometry))
+                        .padding(.all, geometryGetted * 0.076923077)
+                        .frame(width: geometryGetted)
                         .onAppear {
                             setFirstSelected()
                         }
@@ -63,6 +64,13 @@ struct Clipboard: View {
                                     snippets.insert(
                                         snippet, at: 0)
                                 })
+                            Button(
+                                "Delete",
+                                action: {
+                                    if let index = snippets.firstIndex(of: snippet) {
+                                        snippets.remove(at: index)
+                                    }
+                                })
                         }
                     }
                 }
@@ -72,15 +80,23 @@ struct Clipboard: View {
             )
         }
     }
-    
+
     func setFirstSelected() {
         self.selected = self.snippets.first?.id ?? ""
     }
 }
 
-
 struct Clipboard_Previews: PreviewProvider {
+    @State static var snippetItems: [SnippetItem] = [
+        .init(
+            program: .init(
+                programName: Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String,
+                programIcon: NSImage(named: "test")!,
+                programIdentifier: Bundle.main.infoDictionary![kCFBundleIdentifierKey as String]
+                    as! String), content: "Hello!")
+    ]
+
     static var previews: some View {
-        Text("Previews are not supported.")
+        Clipboard(snippets: $snippetItems)
     }
 }

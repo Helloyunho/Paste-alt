@@ -37,12 +37,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var timer: Timer!
     let pasteboard: NSPasteboard = .general
     var lastChangeCount: Int = 0
+    var firstRun = true
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (t) in
             if self.lastChangeCount != self.pasteboard.changeCount {
                 self.lastChangeCount = self.pasteboard.changeCount
-                if dontUpdatePasteboard {
+                if dontUpdatePasteboard || self.firstRun {
+                    self.firstRun = false
                     dontUpdatePasteboard = false
                     return
                 }

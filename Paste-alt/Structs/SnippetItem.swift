@@ -17,7 +17,11 @@ struct SnippetProgram {
 
 var programs: [String: SnippetProgram] = [:]
 
-struct SnippetItem: Identifiable {
+struct SnippetItem: Identifiable, Equatable {
+    static func == (lhs: SnippetItem, rhs: SnippetItem) -> Bool {
+        lhs.id == rhs.id
+    }
+
     var id = UUID().uuidString
     var program: SnippetProgram
     var content: Data?
@@ -34,5 +38,15 @@ struct SnippetItem: Identifiable {
         self.program = programs[bundleID]!
         self.content = content
         self.type = type
+    }
+
+    init(program: SnippetProgram, content: String) {
+        let bundleID = program.programIdentifier
+        if !programs.keys.contains(bundleID) {
+            programs[bundleID] = program
+        }
+        self.program = programs[bundleID]!
+        self.content = content.data(using: .utf8)
+        self.type = .string
     }
 }

@@ -15,7 +15,7 @@ struct ContentView: View {
                 programName: Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String,
                 programIcon: NSImage(named: "test")!,
                 programIdentifier: Bundle.main.infoDictionary![kCFBundleIdentifierKey as String]
-                    as! String), content: "Hello!")
+                    as! String), content: "Hello! This is just a hello message. If you want to use this, try copying something text!")
     ]
     var body: some View {
         Clipboard(snippets: $snippetItems)

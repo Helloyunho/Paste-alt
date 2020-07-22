@@ -38,10 +38,17 @@ struct ContentView: View {
                                     || item.content != content
                             })
 
-                            snippetItems.insert(
-                                SnippetItem(
-                                    program: frontmost,
-                                    content: content, type: type), at: 0)
+                            if snippetItems.count != 0 {
+                                snippetItems.insert(
+                                    SnippetItem(
+                                        program: frontmost,
+                                        content: content, type: type), at: 0)
+                            } else {
+                                snippetItems.append(
+                                    SnippetItem(
+                                        program: frontmost,
+                                        content: content, type: type))
+                            }
                         }
                     }
                 }

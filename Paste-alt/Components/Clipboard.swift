@@ -79,6 +79,23 @@ struct Clipboard: View {
                 height: globalGeometry.size.height
             )
         }
+        .onReceive(NotificationCenter.default.publisher(for: .CopyCommandCalled)) { _ in
+            if let snippet = snippets.first(where: {$0.id == self.selected}) {
+                let item = NSPasteboardItem()
+                item.setData(
+                    snippet.content ?? Data(), forType: snippet.type)
+                NSPasteboard.general.clearContents()
+                dontUpdatePasteboard = true
+                NSPasteboard.general.writeObjects([item])
+                snippets = snippets.filter({ item in
+                    return item.program.programIdentifier
+                        != snippet.program.programIdentifier
+                        || item.content != snippet.content
+                })
+                snippets.insert(
+                    snippet, at: 0)
+            }
+        }
     }
 
     func setFirstSelected() {

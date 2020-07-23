@@ -31,7 +31,7 @@ var dontUpdatePasteboard = false
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
+    
     var window: NSWindow!
 
     var timer: Timer!
@@ -75,4 +75,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
 
+    @IBAction func copyCommand(_ sender: Any) {
+        NotificationCenter.default.post(
+            name: .CopyCommandCalled, object: nil)
+    }
 }

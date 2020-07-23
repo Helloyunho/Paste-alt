@@ -11,4 +11,6 @@ import Foundation
 extension NSNotification.Name {
     public static let NSPasteboardDidChange: NSNotification.Name = .init(
         rawValue: "pasteboardDidChangeNotification")
+    public static let CopyCommandCalled: NSNotification.Name = .init(
+        rawValue: "CopyCommandCalled")
 }

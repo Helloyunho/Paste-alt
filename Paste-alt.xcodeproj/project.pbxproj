@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,6 +20,12 @@
 		5561D46A24A511A30048C50F /* NSNotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5561D46924A511A30048C50F /* NSNotificationExtension.swift */; };
 		5561D46D24A516150048C50F /* SnippetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5561D46C24A516150048C50F /* SnippetItem.swift */; };
 		556C3B9624A66BC500090020 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556C3B9524A66BC500090020 /* ViewExtension.swift */; };
+		55801E7724D1A1230049F6F0 /* KeyHolder in Frameworks */ = {isa = PBXBuildFile; productRef = 55801E7624D1A1230049F6F0 /* KeyHolder */; };
+		55801E7A24D1A16E0049F6F0 /* Magnet in Frameworks */ = {isa = PBXBuildFile; productRef = 55801E7924D1A16E0049F6F0 /* Magnet */; };
+		55801E7C24D1A1D70049F6F0 /* KeyHolderAsSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55801E7B24D1A1D70049F6F0 /* KeyHolderAsSwiftUI.swift */; };
+		55801E8024D1A81E0049F6F0 /* PreferencesVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55801E7F24D1A81E0049F6F0 /* PreferencesVIew.swift */; };
+		55801E8324D1A89A0049F6F0 /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 55801E8224D1A89A0049F6F0 /* Preferences */; };
+		55801E8624D1A9700049F6F0 /* Sauce in Frameworks */ = {isa = PBXBuildFile; productRef = 55801E8524D1A9700049F6F0 /* Sauce */; };
 		5587C9A224A3B5870072F1BA /* NSColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5587C9A124A3B5870072F1BA /* NSColorExtension.swift */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +67,8 @@
 		5561D46924A511A30048C50F /* NSNotificationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotificationExtension.swift; sourceTree = "<group>"; };
 		5561D46C24A516150048C50F /* SnippetItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetItem.swift; sourceTree = "<group>"; };
 		556C3B9524A66BC500090020 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		55801E7B24D1A1D70049F6F0 /* KeyHolderAsSwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyHolderAsSwiftUI.swift; sourceTree = "<group>"; };
+		55801E7F24D1A81E0049F6F0 /* PreferencesVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesVIew.swift; sourceTree = "<group>"; };
 		5587C9A124A3B5870072F1BA /* NSColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,6 +77,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55801E7A24D1A16E0049F6F0 /* Magnet in Frameworks */,
+				55801E8324D1A89A0049F6F0 /* Preferences in Frameworks */,
+				55801E8624D1A9700049F6F0 /* Sauce in Frameworks */,
+				55801E7724D1A1230049F6F0 /* KeyHolder in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +124,7 @@
 		555D446B249F1C02000054E4 /* Paste-alt */ = {
 			isa = PBXGroup;
 			children = (
+				55801E7E24D1A7ED0049F6F0 /* Views */,
 				5561D46E24A591AA0048C50F /* Classes */,
 				5561D46B24A515CE0048C50F /* Structs */,
 				555D449B249F1C35000054E4 /* Components */,
@@ -157,7 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				555D449E249F1CBA000054E4 /* ClipboardElement.swift */,
-				555D449C249F1C51000054E4 /* Clipboard.swift */,
+				55801E7B24D1A1D70049F6F0 /* KeyHolderAsSwiftUI.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -189,6 +202,15 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		55801E7E24D1A7ED0049F6F0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				555D449C249F1C51000054E4 /* Clipboard.swift */,
+				55801E7F24D1A81E0049F6F0 /* PreferencesVIew.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -206,6 +228,10 @@
 			);
 			name = "Paste-alt";
 			packageProductDependencies = (
+				55801E7624D1A1230049F6F0 /* KeyHolder */,
+				55801E7924D1A16E0049F6F0 /* Magnet */,
+				55801E8224D1A89A0049F6F0 /* Preferences */,
+				55801E8524D1A9700049F6F0 /* Sauce */,
 			);
 			productName = "Paste-alt";
 			productReference = 555D4469249F1C02000054E4 /* Paste-alt.app */;
@@ -280,6 +306,10 @@
 			);
 			mainGroup = 555D4460249F1C02000054E4;
 			packageReferences = (
+				55801E7524D1A1230049F6F0 /* XCRemoteSwiftPackageReference "KeyHolder" */,
+				55801E7824D1A16E0049F6F0 /* XCRemoteSwiftPackageReference "Magnet" */,
+				55801E8124D1A89A0049F6F0 /* XCRemoteSwiftPackageReference "Preferences" */,
+				55801E8424D1A9700049F6F0 /* XCRemoteSwiftPackageReference "Sauce" */,
 			);
 			productRefGroup = 555D446A249F1C02000054E4 /* Products */;
 			projectDirPath = "";
@@ -325,10 +355,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				556C3B9624A66BC500090020 /* ViewExtension.swift in Sources */,
+				55801E7C24D1A1D70049F6F0 /* KeyHolderAsSwiftUI.swift in Sources */,
 				555D446F249F1C02000054E4 /* ContentView.swift in Sources */,
 				555D446D249F1C02000054E4 /* AppDelegate.swift in Sources */,
 				5587C9A224A3B5870072F1BA /* NSColorExtension.swift in Sources */,
 				555D449D249F1C51000054E4 /* Clipboard.swift in Sources */,
+				55801E8024D1A81E0049F6F0 /* PreferencesVIew.swift in Sources */,
 				555D44A2249F7A00000054E4 /* NSImageExtension.swift in Sources */,
 				5561D46A24A511A30048C50F /* NSNotificationExtension.swift in Sources */,
 				5561D46D24A516150048C50F /* SnippetItem.swift in Sources */,
@@ -512,6 +544,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "xyz.helloyunho.Paste-alt";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -536,6 +569,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "xyz.helloyunho.Paste-alt";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -666,6 +700,64 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		55801E7524D1A1230049F6F0 /* XCRemoteSwiftPackageReference "KeyHolder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Clipy/KeyHolder";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+		55801E7824D1A16E0049F6F0 /* XCRemoteSwiftPackageReference "Magnet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Clipy/Magnet";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.0;
+			};
+		};
+		55801E8124D1A89A0049F6F0 /* XCRemoteSwiftPackageReference "Preferences" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Preferences";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.1;
+			};
+		};
+		55801E8424D1A9700049F6F0 /* XCRemoteSwiftPackageReference "Sauce" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Clipy/Sauce";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		55801E7624D1A1230049F6F0 /* KeyHolder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55801E7524D1A1230049F6F0 /* XCRemoteSwiftPackageReference "KeyHolder" */;
+			productName = KeyHolder;
+		};
+		55801E7924D1A16E0049F6F0 /* Magnet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55801E7824D1A16E0049F6F0 /* XCRemoteSwiftPackageReference "Magnet" */;
+			productName = Magnet;
+		};
+		55801E8224D1A89A0049F6F0 /* Preferences */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55801E8124D1A89A0049F6F0 /* XCRemoteSwiftPackageReference "Preferences" */;
+			productName = Preferences;
+		};
+		55801E8524D1A9700049F6F0 /* Sauce */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55801E8424D1A9700049F6F0 /* XCRemoteSwiftPackageReference "Sauce" */;
+			productName = Sauce;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 555D4461249F1C02000054E4 /* Project object */;
 }

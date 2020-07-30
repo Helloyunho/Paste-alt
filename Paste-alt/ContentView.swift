@@ -33,18 +33,18 @@ struct ContentView: View {
                             let programIdentifier =
                                 frontmost?.bundleIdentifier ?? "com.example.untitled"
                             let content = item.data(forType: type)
-                            snippetItems = snippetItems.filter({ item in
+                            self.snippetItems = self.snippetItems.filter({ item in
                                 return item.program.programIdentifier != programIdentifier
                                     || item.content != content
                             })
 
-                            if snippetItems.count != 0 {
-                                snippetItems.insert(
+                            if self.snippetItems.count != 0 {
+                                self.snippetItems.insert(
                                     SnippetItem(
                                         program: frontmost,
                                         content: content, type: type), at: 0)
                             } else {
-                                snippetItems.append(
+                                self.snippetItems.append(
                                     SnippetItem(
                                         program: frontmost,
                                         content: content, type: type))

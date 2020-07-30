@@ -36,12 +36,6 @@ struct Clipboard: View {
                         .onAppear {
                             setFirstSelected()
                         }
-                        .highPriorityGesture(
-                            TapGesture().modifiers(.control).onEnded({ _ in
-                                print("called")
-                                self.selected = snippet.id
-                            })
-                        )
                         .gesture(
                             TapGesture().onEnded({ _ in
                                 self.selected = snippet.id

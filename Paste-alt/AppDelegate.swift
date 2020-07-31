@@ -8,6 +8,8 @@
 
 import Cocoa
 import SwiftUI
+import Preferences
+import KeyboardShortcuts
 
 struct VisualEffectView: NSViewRepresentable {
     var material: NSVisualEffectView.Material
@@ -38,6 +40,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let pasteboard: NSPasteboard = .general
     var lastChangeCount: Int = 0
     var firstRun = true
+    
+    lazy var preferencesWindowController = PreferencesWindowController(
+        panes: [
+            Preferences.Pane(
+                identifier: Preferences.PaneIdentifier(rawValue: "general"),
+                title: "General",
+                toolbarIcon: NSImage(named: NSImage.preferencesGeneralName)!
+            ) {
+                PreferencesView()
+            }
+        ]
+    )
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (t) in
@@ -69,6 +83,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     blendingMode: NSVisualEffectView.BlendingMode.behindWindow)))
         window.makeKeyAndOrderFront(nil)
         window.level = .floating
+        
+        KeyboardShortcuts.onKeyDown(for: .openSnippetsView) {
+            NSApplication.shared.activate(ignoringOtherApps: true)
+        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -82,5 +100,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func copyCommand(_ sender: Any) {
         NotificationCenter.default.post(
             name: .CopyCommandCalled, object: nil)
+    }
+    
+    @IBAction func preferencesCommand(_ sender: Any) {
+        preferencesWindowController.show()
     }
 }

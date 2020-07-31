@@ -8,21 +8,22 @@
 
 import SwiftUI
 import Preferences
+import KeyboardShortcuts
 
-struct PreferencesVIew: View {
+struct PreferencesView: View {
     var body: some View {
         Preferences.Container(contentWidth: 450.0) {
-            Preferences.Section(title: "General") {
+            Preferences.Section(title: "Set open snippet key:") {
                 HStack {
-                    Text("Test")
+                    KeyboardShortcuts.Recorder(for: .openSnippetsView)
                 }
             }
         }
     }
 }
 
-struct PreferencesVIew_Previews: PreviewProvider {
+struct PreferencesView_Previews: PreviewProvider {
     static var previews: some View {
-        PreferencesVIew()
+        PreferencesView()
     }
 }

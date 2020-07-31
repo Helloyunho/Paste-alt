@@ -25,6 +25,8 @@
 		5587C9A224A3B5870072F1BA /* NSColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5587C9A124A3B5870072F1BA /* NSColorExtension.swift */; };
 		55C7E90524D4286300664371 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 55C7E90424D4286300664371 /* KeyboardShortcuts */; };
 		55C7E90724D4289A00664371 /* KeyboardShortcutsNameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C7E90624D4289A00664371 /* KeyboardShortcutsNameExtension.swift */; };
+		55C7E90A24D4301F00664371 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 55C7E90924D4301F00664371 /* LaunchAtLogin */; };
+		55C7E90D24D4359F00664371 /* DetectLaunchAtLoginChangeClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C7E90C24D4359F00664371 /* DetectLaunchAtLoginChangeClass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,7 @@
 		55801E7F24D1A81E0049F6F0 /* PreferencesVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesVIew.swift; sourceTree = "<group>"; };
 		5587C9A124A3B5870072F1BA /* NSColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSColorExtension.swift; sourceTree = "<group>"; };
 		55C7E90624D4289A00664371 /* KeyboardShortcutsNameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcutsNameExtension.swift; sourceTree = "<group>"; };
+		55C7E90C24D4359F00664371 /* DetectLaunchAtLoginChangeClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectLaunchAtLoginChangeClass.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55C7E90A24D4301F00664371 /* LaunchAtLogin in Frameworks */,
 				55801E8324D1A89A0049F6F0 /* Preferences in Frameworks */,
 				55C7E90524D4286300664371 /* KeyboardShortcuts in Frameworks */,
 			);
@@ -194,6 +198,7 @@
 		5561D46E24A591AA0048C50F /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				55C7E90C24D4359F00664371 /* DetectLaunchAtLoginChangeClass.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -217,6 +222,7 @@
 				555D4465249F1C02000054E4 /* Sources */,
 				555D4466249F1C02000054E4 /* Frameworks */,
 				555D4467249F1C02000054E4 /* Resources */,
+				55C7E90B24D4307700664371 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -226,6 +232,7 @@
 			packageProductDependencies = (
 				55801E8224D1A89A0049F6F0 /* Preferences */,
 				55C7E90424D4286300664371 /* KeyboardShortcuts */,
+				55C7E90924D4301F00664371 /* LaunchAtLogin */,
 			);
 			productName = "Paste-alt";
 			productReference = 555D4469249F1C02000054E4 /* Paste-alt.app */;
@@ -302,6 +309,7 @@
 			packageReferences = (
 				55801E8124D1A89A0049F6F0 /* XCRemoteSwiftPackageReference "Preferences" */,
 				55C7E90324D4286300664371 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+				55C7E90824D4301F00664371 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
 			);
 			productRefGroup = 555D446A249F1C02000054E4 /* Products */;
 			projectDirPath = "";
@@ -341,12 +349,33 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		55C7E90B24D4307700664371 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILT_PRODUCTS_DIR}/LaunchAtLogin_LaunchAtLogin.bundle/Contents/Resources/copy-helper-swiftpm.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		555D4465249F1C02000054E4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				556C3B9624A66BC500090020 /* ViewExtension.swift in Sources */,
+				55C7E90D24D4359F00664371 /* DetectLaunchAtLoginChangeClass.swift in Sources */,
 				555D446F249F1C02000054E4 /* ContentView.swift in Sources */,
 				555D446D249F1C02000054E4 /* AppDelegate.swift in Sources */,
 				5587C9A224A3B5870072F1BA /* NSColorExtension.swift in Sources */,
@@ -710,6 +739,14 @@
 				minimumVersion = 0.4.0;
 			};
 		};
+		55C7E90824D4301F00664371 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SergeyKuryanov/LaunchAtLogin.git";
+			requirement = {
+				branch = 4_swift_package_manager_support;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -722,6 +759,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 55C7E90324D4286300664371 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
 			productName = KeyboardShortcuts;
+		};
+		55C7E90924D4301F00664371 /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55C7E90824D4301F00664371 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
+			productName = LaunchAtLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

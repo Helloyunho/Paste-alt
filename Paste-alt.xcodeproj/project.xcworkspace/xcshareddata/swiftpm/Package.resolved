@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "LaunchAtLogin",
+        "repositoryURL": "https://github.com/SergeyKuryanov/LaunchAtLogin.git",
+        "state": {
+          "branch": "4_swift_package_manager_support",
+          "revision": "215919e9baf446629d4aa366c652e6a34c39aaca",
+          "version": null
+        }
+      },
+      {
         "package": "Preferences",
         "repositoryURL": "https://github.com/sindresorhus/Preferences",
         "state": {

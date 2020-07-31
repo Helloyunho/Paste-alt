@@ -11,12 +11,15 @@ import Preferences
 import KeyboardShortcuts
 
 struct PreferencesView: View {
+    @ObservedObject private var launchAtLogin = DetectLaunchAtLoginChange()
     var body: some View {
         Preferences.Container(contentWidth: 450.0) {
             Preferences.Section(title: "Set open snippet key:") {
-                HStack {
-                    KeyboardShortcuts.Recorder(for: .openSnippetsView)
-                }
+                KeyboardShortcuts.Recorder(for: .openSnippetsView)
+            }
+            Preferences.Section(title: "Launch at login:") {
+                Toggle("Launch at login button", isOn: $launchAtLogin.launchAtLoginBool)
+                    .labelsHidden()
             }
         }
     }

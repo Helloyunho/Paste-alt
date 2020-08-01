@@ -27,6 +27,8 @@
 		55C7E90724D4289A00664371 /* KeyboardShortcutsNameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C7E90624D4289A00664371 /* KeyboardShortcutsNameExtension.swift */; };
 		55C7E90A24D4301F00664371 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 55C7E90924D4301F00664371 /* LaunchAtLogin */; };
 		55C7E90D24D4359F00664371 /* DetectLaunchAtLoginChangeClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C7E90C24D4359F00664371 /* DetectLaunchAtLoginChangeClass.swift */; };
+		55C7E91024D5AEB900664371 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 55C7E90F24D5AEB900664371 /* SQLite */; };
+		55C7E91224D5B03400664371 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C7E91124D5B03400664371 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,7 @@
 		5587C9A124A3B5870072F1BA /* NSColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSColorExtension.swift; sourceTree = "<group>"; };
 		55C7E90624D4289A00664371 /* KeyboardShortcutsNameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcutsNameExtension.swift; sourceTree = "<group>"; };
 		55C7E90C24D4359F00664371 /* DetectLaunchAtLoginChangeClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectLaunchAtLoginChangeClass.swift; sourceTree = "<group>"; };
+		55C7E91124D5B03400664371 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55C7E91024D5AEB900664371 /* SQLite in Frameworks */,
 				55C7E90A24D4301F00664371 /* LaunchAtLogin in Frameworks */,
 				55801E8324D1A89A0049F6F0 /* Preferences in Frameworks */,
 				55C7E90524D4286300664371 /* KeyboardShortcuts in Frameworks */,
@@ -136,6 +140,7 @@
 				555D4478249F1C05000054E4 /* Info.plist */,
 				555D4479249F1C05000054E4 /* Paste_alt.entitlements */,
 				555D4472249F1C05000054E4 /* Preview Content */,
+				55C7E91124D5B03400664371 /* Constants.swift */,
 			);
 			path = "Paste-alt";
 			sourceTree = "<group>";
@@ -233,6 +238,7 @@
 				55801E8224D1A89A0049F6F0 /* Preferences */,
 				55C7E90424D4286300664371 /* KeyboardShortcuts */,
 				55C7E90924D4301F00664371 /* LaunchAtLogin */,
+				55C7E90F24D5AEB900664371 /* SQLite */,
 			);
 			productName = "Paste-alt";
 			productReference = 555D4469249F1C02000054E4 /* Paste-alt.app */;
@@ -310,6 +316,7 @@
 				55801E8124D1A89A0049F6F0 /* XCRemoteSwiftPackageReference "Preferences" */,
 				55C7E90324D4286300664371 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
 				55C7E90824D4301F00664371 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
+				55C7E90E24D5AEB800664371 /* XCRemoteSwiftPackageReference "SQLite" */,
 			);
 			productRefGroup = 555D446A249F1C02000054E4 /* Products */;
 			projectDirPath = "";
@@ -381,6 +388,7 @@
 				5587C9A224A3B5870072F1BA /* NSColorExtension.swift in Sources */,
 				555D449D249F1C51000054E4 /* Clipboard.swift in Sources */,
 				55801E8024D1A81E0049F6F0 /* PreferencesVIew.swift in Sources */,
+				55C7E91224D5B03400664371 /* Constants.swift in Sources */,
 				555D44A2249F7A00000054E4 /* NSImageExtension.swift in Sources */,
 				55C7E90724D4289A00664371 /* KeyboardShortcutsNameExtension.swift in Sources */,
 				5561D46A24A511A30048C50F /* NSNotificationExtension.swift in Sources */,
@@ -747,6 +755,14 @@
 				kind = branch;
 			};
 		};
+		55C7E90E24D5AEB800664371 /* XCRemoteSwiftPackageReference "SQLite" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.12.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -764,6 +780,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 55C7E90824D4301F00664371 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
 			productName = LaunchAtLogin;
+		};
+		55C7E90F24D5AEB900664371 /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55C7E90E24D5AEB800664371 /* XCRemoteSwiftPackageReference "SQLite" */;
+			productName = SQLite;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

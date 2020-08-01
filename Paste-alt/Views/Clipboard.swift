@@ -106,11 +106,11 @@ struct Clipboard: View {
 struct Clipboard_Previews: PreviewProvider {
     @State static var snippetItems: [SnippetItem] = [
         .init(
-            program: .init(
+            id: nil, program: .init(
                 programName: Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String,
                 programIcon: NSImage(named: "test")!,
                 programIdentifier: Bundle.main.infoDictionary![kCFBundleIdentifierKey as String]
-                    as! String), contentForType: [.string: "Hello!".data(using: .utf8)])
+                    as! String), contentForType: [.string: "Hello!".data(using: .utf8)], time: nil)
     ]
 
     static var previews: some View {

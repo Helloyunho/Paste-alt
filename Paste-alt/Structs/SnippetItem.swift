@@ -22,11 +22,12 @@ struct SnippetItem: Identifiable, Equatable {
         lhs.id == rhs.id
     }
 
-    var id = UUID().uuidString
+    var id: String
     var program: SnippetProgram
     var contentForType: [NSPasteboard.PasteboardType: Data?]
+    var time: Date
 
-    init(program: NSRunningApplication?, contentForType: [NSPasteboard.PasteboardType: Data?]) {
+    init(id: String?, program: NSRunningApplication?, contentForType: [NSPasteboard.PasteboardType: Data?], time: Date?) {
         let bundleID = program?.bundleIdentifier ?? "com.example.untitled"
         if !programs.keys.contains(bundleID) {
             programs[bundleID] = .init(
@@ -36,14 +37,18 @@ struct SnippetItem: Identifiable, Equatable {
 
         self.program = programs[bundleID]!
         self.contentForType = contentForType
+        self.id = id ?? UUID().uuidString
+        self.time = time ?? Date()
     }
 
-    init(program: SnippetProgram, contentForType: [NSPasteboard.PasteboardType: Data?]) {
+    init(id: String?, program: SnippetProgram, contentForType: [NSPasteboard.PasteboardType: Data?], time: Date?) {
         let bundleID = program.programIdentifier
         if !programs.keys.contains(bundleID) {
             programs[bundleID] = program
         }
         self.program = programs[bundleID]!
         self.contentForType = contentForType
+        self.id = id ?? UUID().uuidString
+        self.time = time ?? Date()
     }
 }

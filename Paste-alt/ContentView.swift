@@ -15,7 +15,7 @@ struct ContentView: View {
                 programName: Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String,
                 programIcon: NSImage(named: "test")!,
                 programIdentifier: Bundle.main.infoDictionary![kCFBundleIdentifierKey as String]
-                    as! String), content: "Hello! This is just a hello message. If you want to use this, try copying something text!")
+                    as! String), contentForType: [.string: "Hello! This is just a hello message. If you want to use this, try copying something text!".data(using: .utf8)])
     ]
     var body: some View {
         Clipboard(snippets: $snippetItems)
@@ -26,29 +26,60 @@ struct ContentView: View {
                 guard let items = pasteboard.pasteboardItems else { return }
 
                 for item in items {
-                    let workspace = NSWorkspace.shared
-                    let frontmost = workspace.frontmostApplication
+                    var isHandoff = false
+                    var contents: [NSPasteboard.PasteboardType: Data?] = [:]
                     for type in item.types {
-                        if type == .string {
-                            let programIdentifier =
-                                frontmost?.bundleIdentifier ?? "com.example.untitled"
-                            let content = item.data(forType: type)
-                            self.snippetItems = self.snippetItems.filter({ item in
-                                return item.program.programIdentifier != programIdentifier
-                                    || item.content != content
-                            })
+                        if type == .init("com.apple.is-remote-clipboard") {
+                            isHandoff = true
+                        }
+                        contents[type] = item.data(forType: type)
+                    }
 
-                            if self.snippetItems.count != 0 {
-                                self.snippetItems.insert(
-                                    SnippetItem(
-                                        program: frontmost,
-                                        content: content, type: type), at: 0)
-                            } else {
-                                self.snippetItems.append(
-                                    SnippetItem(
-                                        program: frontmost,
-                                        content: content, type: type))
-                            }
+                    if isHandoff {
+                        let programName = "Hand-off"
+                        let programIcon = NSImage(named: "hand-off")!
+                        let programIdentifier = "com.apple.handoff"
+                        let program = SnippetProgram(
+                            programName: programName,
+                            programIcon: programIcon,
+                            programIdentifier: programIdentifier
+                        )
+                        self.snippetItems = self.snippetItems.filter({ item in
+                            return item.program.programIdentifier != programIdentifier
+                                || item.contentForType != contents
+                        })
+                        
+                        if self.snippetItems.count != 0 {
+                            self.snippetItems.insert(
+                                SnippetItem(
+                                    program: program,
+                                    contentForType: contents), at: 0)
+                        } else {
+                            self.snippetItems.append(
+                                SnippetItem(
+                                    program: program,
+                                    contentForType: contents))
+                        }
+                    } else {
+                        let workspace = NSWorkspace.shared
+                        let frontmost = workspace.frontmostApplication
+                        let programIdentifier =
+                            frontmost?.bundleIdentifier ?? "com.example.untitled"
+                        self.snippetItems = self.snippetItems.filter({ item in
+                            return item.program.programIdentifier != programIdentifier
+                                || item.contentForType != contents
+                        })
+
+                        if self.snippetItems.count != 0 {
+                            self.snippetItems.insert(
+                                SnippetItem(
+                                    program: frontmost,
+                                    contentForType: contents), at: 0)
+                        } else {
+                            self.snippetItems.append(
+                                SnippetItem(
+                                    program: frontmost,
+                                    contentForType: contents))
                         }
                     }
                 }

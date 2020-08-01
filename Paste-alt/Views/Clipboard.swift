@@ -24,11 +24,11 @@ struct Clipboard: View {
                     ForEach(snippets) { snippet in
                         ClipboardElement(
                             image: snippet.program.programIcon, name: snippet.program.programName,
-                            content: snippet.content != nil
+                            content: snippet.contentForType[.string] != nil && snippet.contentForType[.string]! != nil
                                 ? String(
-                                    decoding: snippet.content!, as: UTF8.self
+                                    decoding: snippet.contentForType[.string]!!, as: UTF8.self
                                 )
-                                : "\(snippet.type) type doesn't support string.",
+                                : "This snippet does not have any strings to preview. But you can still copy it!",
                             selected: selected == snippet.id
                         )
                         .padding(.all, geometryGetted * 0.076923077)
@@ -45,15 +45,18 @@ struct Clipboard: View {
                                 "Copy",
                                 action: {
                                     let item = NSPasteboardItem()
-                                    item.setData(
-                                        snippet.content ?? Data(), forType: snippet.type)
+                                    for (type, content) in snippet.contentForType {
+                                        if let contentUnwrap = content {
+                                            item.setData(contentUnwrap, forType: type)
+                                        }
+                                    }
                                     NSPasteboard.general.clearContents()
                                     dontUpdatePasteboard = true
                                     NSPasteboard.general.writeObjects([item])
                                     snippets = snippets.filter({ item in
                                         return item.program.programIdentifier
                                             != snippet.program.programIdentifier
-                                            || item.content != snippet.content
+                                            || item.contentForType != snippet.contentForType
                                     })
                                     snippets.insert(
                                         snippet, at: 0)
@@ -76,15 +79,18 @@ struct Clipboard: View {
         .onReceive(NotificationCenter.default.publisher(for: .CopyCommandCalled)) { _ in
             if let snippet = snippets.first(where: {$0.id == self.selected}) {
                 let item = NSPasteboardItem()
-                item.setData(
-                    snippet.content ?? Data(), forType: snippet.type)
+                for (type, content) in snippet.contentForType {
+                    if let contentUnwrap = content {
+                        item.setData(contentUnwrap, forType: type)
+                    }
+                }
                 NSPasteboard.general.clearContents()
                 dontUpdatePasteboard = true
                 NSPasteboard.general.writeObjects([item])
                 snippets = snippets.filter({ item in
                     return item.program.programIdentifier
                         != snippet.program.programIdentifier
-                        || item.content != snippet.content
+                        || item.contentForType != snippet.contentForType
                 })
                 snippets.insert(
                     snippet, at: 0)
@@ -104,7 +110,7 @@ struct Clipboard_Previews: PreviewProvider {
                 programName: Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String,
                 programIcon: NSImage(named: "test")!,
                 programIdentifier: Bundle.main.infoDictionary![kCFBundleIdentifierKey as String]
-                    as! String), content: "Hello!")
+                    as! String), contentForType: [.string: "Hello!".data(using: .utf8)])
     ]
 
     static var previews: some View {

@@ -70,7 +70,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 table.column(programIdentifier)
                 table.column(date, unique: true)
             })
-            
+
             let snippetDatas = Table("snippetDatas")
             let type = Expression<String>("type")
             let data = Expression<SQLite.Blob>("data")
@@ -79,7 +79,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 table.column(type)
                 table.column(data)
             })
-            
+
             let snippetPrograms = Table("snippetPrograms")
             let name = Expression<String>("name")
             let image = Expression<SQLite.Blob>("image")
@@ -88,16 +88,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 table.column(name)
                 table.column(image)
             })
-            
+
             for snippet in try conn.prepare(snippets.order(date.desc)) {
                 let snippetUUID = snippet[uuid]
                 let snippetProgramIdentifier = snippet[programIdentifier]
-                
+
                 var datas: [NSPasteboard.PasteboardType: Data?] = [:]
                 for snippetData in try conn.prepare(snippetDatas.filter(uuid == snippetUUID).select(data, type)) {
                     datas[NSPasteboard.PasteboardType(rawValue: snippetData[type])] = Data.fromDatatypeValue(snippetData[data])
                 }
-                
+
                 if let snippetProgram = try conn.pluck(snippetPrograms.filter(programIdentifier == snippetProgramIdentifier).select(name, image)) {
                     self.snippetsItems.append(SnippetItem(
                         id: snippetUUID,
@@ -120,7 +120,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     ))
                 }
             }
-            
+
             self.olderItemsCount = self.snippetsItems.count
         } catch {
             NSLog(error.localizedDescription)
@@ -151,7 +151,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Create the window and set the content view. 
         window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: screen.visibleFrame.width, height: screen.visibleFrame.height * 0.3),
+            contentRect: NSRect(x: 0, y: 0, width: screen.frame.width, height: screen.frame.height * 0.3),
             styleMask: [.closable, .miniaturizable],
             backing: .buffered, defer: false)
         window.contentView = NSHostingView(

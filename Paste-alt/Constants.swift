@@ -56,10 +56,10 @@ func insertNewSnippet(snippet: SnippetItem) -> Void {
             table.column(image)
         })
         
-        try conn.run(snippets.insert(or: .ignore, uuid <- snippet.id, programIdentifier <- snippet.program.programIdentifier, date <- snippet.time))
+        try conn.run(snippets.insert(or: .replace, uuid <- snippet.id, programIdentifier <- snippet.program.programIdentifier, date <- snippet.time))
         try conn.run(snippetPrograms.insert(or: .replace, programIdentifier <- snippet.program.programIdentifier, name <- snippet.program.programName, image <- (snippet.program.programIcon.tiffRepresentation ?? Data()).datatypeValue))
         for (snippetType, snippetData) in snippet.contentForType {
-            try conn.run(snippetDatas.insert(or: .ignore, uuid <- snippet.id, type <- snippetType.rawValue, data <- (snippetData ?? Data()).datatypeValue))
+            try conn.run(snippetDatas.insert(or: .replace, uuid <- snippet.id, type <- snippetType.rawValue, data <- (snippetData ?? Data()).datatypeValue))
         }
     } catch {
         NSLog(error.localizedDescription)

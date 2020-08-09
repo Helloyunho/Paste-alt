@@ -51,7 +51,9 @@ struct ContentView: View {
                             self.snippetItems.append(snippetItem)
                         }
                         
-                        insertNewSnippet(snippet: snippetItem)
+                        DispatchQueue.main.async {
+                            insertNewSnippet(snippet: snippetItem)
+                        }
                     } else {
                         let workspace = NSWorkspace.shared
                         let frontmost = workspace.frontmostApplication
@@ -71,7 +73,9 @@ struct ContentView: View {
                             self.snippetItems.append(snippetItem)
                         }
                         
-                        insertNewSnippet(snippet: snippetItem)
+                        DispatchQueue.main.async {
+                            insertNewSnippet(snippet: snippetItem)
+                        }
                     }
                 }
             }

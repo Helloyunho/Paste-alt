@@ -12,6 +12,7 @@
 		55C3FB2725FDEAF20052E75C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55C3FB2625FDEAF20052E75C /* Assets.xcassets */; };
 		55C3FB2A25FDEAF20052E75C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55C3FB2925FDEAF20052E75C /* Preview Assets.xcassets */; };
 		55C3FB2D25FDEAF20052E75C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55C3FB2B25FDEAF20052E75C /* Main.storyboard */; };
+		55C6764B26021A0A006CCE15 /* ClipboardElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C6764A26021A0A006CCE15 /* ClipboardElement.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		55C3FB2C25FDEAF20052E75C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		55C3FB2E25FDEAF20052E75C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55C3FB2F25FDEAF20052E75C /* Paste_alt_rewrite.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Paste_alt_rewrite.entitlements; sourceTree = "<group>"; };
+		55C6764A26021A0A006CCE15 /* ClipboardElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardElement.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 		55C3FB2125FDEAEE0052E75C /* Paste-alt-rewrite */ = {
 			isa = PBXGroup;
 			children = (
+				55C67649260219E8006CCE15 /* Views */,
 				55C3FB2225FDEAEE0052E75C /* AppDelegate.swift */,
 				55C3FB2425FDEAEE0052E75C /* ContentView.swift */,
 				55C3FB2625FDEAF20052E75C /* Assets.xcassets */,
@@ -72,6 +75,14 @@
 				55C3FB2925FDEAF20052E75C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		55C67649260219E8006CCE15 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				55C6764A26021A0A006CCE15 /* ClipboardElement.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,6 +157,7 @@
 			files = (
 				55C3FB2525FDEAEE0052E75C /* ContentView.swift in Sources */,
 				55C3FB2325FDEAEE0052E75C /* AppDelegate.swift in Sources */,
+				55C6764B26021A0A006CCE15 /* ClipboardElement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,7 +307,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "xyz.helloyunho.Paste-alt-rewrite";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -319,7 +331,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "xyz.helloyunho.Paste-alt-rewrite";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

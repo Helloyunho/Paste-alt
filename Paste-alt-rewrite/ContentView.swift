@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+        ClipboardElement(name: "DJ GAY", content: "DJ GAY")
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

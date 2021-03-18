@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "UIImageColors",
+        "repositoryURL": "https://github.com/YuAo/UIImageColors",
+        "state": {
+          "branch": "patch-1",
+          "revision": "a2eec3f8650778ab0267658fa01a3d2f634d80bd",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -3,19 +3,27 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		555033112603325600D5F7C5 /* NSColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555033102603325600D5F7C5 /* NSColor+Extensions.swift */; };
 		55C3FB2325FDEAEE0052E75C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C3FB2225FDEAEE0052E75C /* AppDelegate.swift */; };
 		55C3FB2525FDEAEE0052E75C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C3FB2425FDEAEE0052E75C /* ContentView.swift */; };
 		55C3FB2725FDEAF20052E75C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55C3FB2625FDEAF20052E75C /* Assets.xcassets */; };
 		55C3FB2A25FDEAF20052E75C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55C3FB2925FDEAF20052E75C /* Preview Assets.xcassets */; };
 		55C3FB2D25FDEAF20052E75C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55C3FB2B25FDEAF20052E75C /* Main.storyboard */; };
 		55C6764B26021A0A006CCE15 /* ClipboardElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C6764A26021A0A006CCE15 /* ClipboardElement.swift */; };
+		55C6765026025688006CCE15 /* NSNotification.Name+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C6764F26025688006CCE15 /* NSNotification.Name+Extensions.swift */; };
+		55C6765526025A89006CCE15 /* SnippetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C6765426025A89006CCE15 /* SnippetItem.swift */; };
+		55C6765A26032377006CCE15 /* SnippetContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C6765926032377006CCE15 /* SnippetContentType.swift */; };
+		55C6765D26032B5E006CCE15 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C6765C26032B5E006CCE15 /* Array+Extensions.swift */; };
+		55E535492603609A00B8D42C /* UIImageColors in Frameworks */ = {isa = PBXBuildFile; productRef = 55E535482603609A00B8D42C /* UIImageColors */; };
+		55E53555260362F500B8D42C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 55E53554260362F500B8D42C /* LICENSE */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		555033102603325600D5F7C5 /* NSColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extensions.swift"; sourceTree = "<group>"; };
 		55C3FB1F25FDEAEE0052E75C /* Paste-alt-rewrite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Paste-alt-rewrite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55C3FB2225FDEAEE0052E75C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55C3FB2425FDEAEE0052E75C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -25,6 +33,11 @@
 		55C3FB2E25FDEAF20052E75C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55C3FB2F25FDEAF20052E75C /* Paste_alt_rewrite.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Paste_alt_rewrite.entitlements; sourceTree = "<group>"; };
 		55C6764A26021A0A006CCE15 /* ClipboardElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardElement.swift; sourceTree = "<group>"; };
+		55C6764F26025688006CCE15 /* NSNotification.Name+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification.Name+Extensions.swift"; sourceTree = "<group>"; };
+		55C6765426025A89006CCE15 /* SnippetItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetItem.swift; sourceTree = "<group>"; };
+		55C6765926032377006CCE15 /* SnippetContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetContentType.swift; sourceTree = "<group>"; };
+		55C6765C26032B5E006CCE15 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		55E53554260362F500B8D42C /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55E535492603609A00B8D42C /* UIImageColors in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,6 +71,9 @@
 		55C3FB2125FDEAEE0052E75C /* Paste-alt-rewrite */ = {
 			isa = PBXGroup;
 			children = (
+				55C6765826032362006CCE15 /* Protocols */,
+				55C6765326025A68006CCE15 /* Structs */,
+				55C6764E260255DD006CCE15 /* Extensions */,
 				55C67649260219E8006CCE15 /* Views */,
 				55C3FB2225FDEAEE0052E75C /* AppDelegate.swift */,
 				55C3FB2425FDEAEE0052E75C /* ContentView.swift */,
@@ -65,6 +82,7 @@
 				55C3FB2E25FDEAF20052E75C /* Info.plist */,
 				55C3FB2F25FDEAF20052E75C /* Paste_alt_rewrite.entitlements */,
 				55C3FB2825FDEAF20052E75C /* Preview Content */,
+				55E53554260362F500B8D42C /* LICENSE */,
 			);
 			path = "Paste-alt-rewrite";
 			sourceTree = "<group>";
@@ -85,6 +103,32 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		55C6764E260255DD006CCE15 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				55C6764F26025688006CCE15 /* NSNotification.Name+Extensions.swift */,
+				55C6765C26032B5E006CCE15 /* Array+Extensions.swift */,
+				555033102603325600D5F7C5 /* NSColor+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		55C6765326025A68006CCE15 /* Structs */ = {
+			isa = PBXGroup;
+			children = (
+				55C6765426025A89006CCE15 /* SnippetItem.swift */,
+			);
+			path = Structs;
+			sourceTree = "<group>";
+		};
+		55C6765826032362006CCE15 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				55C6765926032377006CCE15 /* SnippetContentType.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -101,6 +145,9 @@
 			dependencies = (
 			);
 			name = "Paste-alt-rewrite";
+			packageProductDependencies = (
+				55E535482603609A00B8D42C /* UIImageColors */,
+			);
 			productName = "Paste-alt-rewrite";
 			productReference = 55C3FB1F25FDEAEE0052E75C /* Paste-alt-rewrite.app */;
 			productType = "com.apple.product-type.application";
@@ -128,6 +175,9 @@
 				Base,
 			);
 			mainGroup = 55C3FB1625FDEAEE0052E75C;
+			packageReferences = (
+				55E535472603609A00B8D42C /* XCRemoteSwiftPackageReference "UIImageColors" */,
+			);
 			productRefGroup = 55C3FB2025FDEAEE0052E75C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -144,6 +194,7 @@
 			files = (
 				55C3FB2D25FDEAF20052E75C /* Main.storyboard in Resources */,
 				55C3FB2A25FDEAF20052E75C /* Preview Assets.xcassets in Resources */,
+				55E53555260362F500B8D42C /* LICENSE in Resources */,
 				55C3FB2725FDEAF20052E75C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,6 +207,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				55C3FB2525FDEAEE0052E75C /* ContentView.swift in Sources */,
+				55C6765A26032377006CCE15 /* SnippetContentType.swift in Sources */,
+				555033112603325600D5F7C5 /* NSColor+Extensions.swift in Sources */,
+				55C6765026025688006CCE15 /* NSNotification.Name+Extensions.swift in Sources */,
+				55C6765D26032B5E006CCE15 /* Array+Extensions.swift in Sources */,
+				55C6765526025A89006CCE15 /* SnippetItem.swift in Sources */,
 				55C3FB2325FDEAEE0052E75C /* AppDelegate.swift in Sources */,
 				55C6764B26021A0A006CCE15 /* ClipboardElement.swift in Sources */,
 			);
@@ -360,6 +416,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		55E535472603609A00B8D42C /* XCRemoteSwiftPackageReference "UIImageColors" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/YuAo/UIImageColors";
+			requirement = {
+				branch = "patch-1";
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		55E535482603609A00B8D42C /* UIImageColors */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55E535472603609A00B8D42C /* XCRemoteSwiftPackageReference "UIImageColors" */;
+			productName = UIImageColors;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 55C3FB1725FDEAEE0052E75C /* Project object */;
 }

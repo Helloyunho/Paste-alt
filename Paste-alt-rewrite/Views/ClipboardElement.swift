@@ -6,24 +6,25 @@
 //
 
 import SwiftUI
-
-protocol StringOrImage {}
-extension String: StringOrImage {}
-extension Image: StringOrImage {}
+import UIImageColors
 
 struct ClipboardElement: View {
     var name: String
-    var content: StringOrImage
-    var image: Image?
+    var content: SnippetContentType
+    var image: NSImage?
     
     var body: some View {
+        let image = self.image ?? NSImage(named: "BlankAppIcon")!
+        let colorBasedImage = image.getColors()?.background ?? NSColor.systemIndigo
+        let lightedColor = colorBasedImage.lighter(by: 10)
+
         GeometryReader { geometry in
             VStack(spacing: 0) {
                 GeometryReader { geometry in
                     VStack {
                         GeometryReader { geometry in
                             HStack(spacing: 0) {
-                                (image ?? Image("BlankAppIcon"))
+                                Image(nsImage: image)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: geometry.size.height * 0.75, height: geometry.size.height * 0.75)
@@ -32,6 +33,7 @@ struct ClipboardElement: View {
                                     .padding(.leading, geometry.size.height * 0.125)
                                 VStack {
                                     Text(name)
+                                        .foregroundColor(lightedColor.isDarkText ? .black : .white)
                                         .font(.custom("SF Pro Rounded", size: geometry.size.height * 0.25))
                                         .fontWeight(.bold)
                                         .lineLimit(1)
@@ -42,12 +44,12 @@ struct ClipboardElement: View {
                         }
                         .frame(width: geometry.size.width * 0.85, height: geometry.size.height * 0.75)
                         .background(RoundedRectangle(cornerRadius: geometry.size.width / 2)
-                                        .fill(Color.purple))
+                                        .fill(Color(lightedColor)))
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height / 3)
-                .background(Rectangle().fill(Color.blue))
+                .background(Rectangle().fill(Color(colorBasedImage)))
                 GeometryReader { geometry in
                     if let contentText = content as? String {
                         Text(contentText)
@@ -56,8 +58,8 @@ struct ClipboardElement: View {
                             .padding(.horizontal, geometry.size.width * 0.02)
                             .padding(.top, geometry.size.height * 0.02)
                             .padding(.bottom, geometry.size.width / 10)
-                    } else if let contentImage = content as? Image {
-                        contentImage
+                    } else if let contentImage = content as? NSImage {
+                        Image(nsImage: contentImage)
                             .resizable()
                             .scaledToFit()
                             .frame(width: geometry.size.width, height: geometry.size.height)

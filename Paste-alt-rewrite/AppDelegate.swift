@@ -8,6 +8,8 @@
 import Cocoa
 import SwiftUI
 
+var dontUpdate = false
+
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
@@ -37,8 +39,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
             if self.lastChangeCount != self.pasteboard.changeCount {
                 self.lastChangeCount = self.pasteboard.changeCount
-                if self.firstPasteEvent {
+                if self.firstPasteEvent || dontUpdate {
                     self.firstPasteEvent = false
+                    dontUpdate = false
                     return
                 }
                 NotificationCenter.default.post(
@@ -53,6 +56,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidResignActive(_ notification: Notification) {
+        NSApplication.shared.hide(nil)
+    }
+    
+    @IBAction func copyCommand(_ sender: Any) {
+        NotificationCenter.default.post(name: .CopyCommandCalled, object: nil)
+    }
+    
+    @IBAction func deleteCommand(_ sender: Any) {
+        NotificationCenter.default.post(name: .DeleteCommandCalled, object: nil)
+    }
+    
+    @IBAction func minimizeCommand(_ sender: Any) {
         NSApplication.shared.hide(nil)
     }
 }

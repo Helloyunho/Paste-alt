@@ -69,7 +69,7 @@ struct ClipboardElement: View {
                 .frame(width: geometry.size.width, height: geometry.size.height * 2 / 3)
                 .background(VisualEffectView(blendingMode: .withinWindow, appearance: NSAppearance(named: .aqua)))
             }
-            .clipShape(RoundedRectangle(cornerRadius: geometry.size.width / 10))
+            .cornerRadius(geometry.size.width / 10)
         }
         .aspectRatio(1.0, contentMode: .fit)
         .frame(maxWidth: .infinity, maxHeight: .infinity)

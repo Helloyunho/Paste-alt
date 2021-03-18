@@ -9,14 +9,43 @@ import SwiftUI
 
 struct ContentView: View {
     @State var snippetItems: [SnippetItem] = []
+    @State var selectedSnippet: SnippetItem?
+    let strokeSize: CGFloat = 0.02
+
     var body: some View {
         GeometryReader { geometry in
+            let smallSize = geometry.size.width > geometry.size.height ? geometry.size.height : geometry.size.width
             ScrollView(.horizontal, showsIndicators: true) {
                 LazyHStack(spacing: 0) {
                     ForEach(snippetItems) { snippet in
                         ClipboardElement(name: snippet.program.programName, content: snippet.getBestData(), image: snippet.program.programIcon)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .padding(geometry.size.height * 0.05)
+                            .padding(smallSize * strokeSize)
+                            .overlay(RoundedRectangle(cornerRadius: smallSize / 10 + smallSize * strokeSize).strokeBorder(Color.accentColor, lineWidth: selectedSnippet == snippet ? smallSize * strokeSize : 0))
+                            .padding(smallSize * (0.05 - strokeSize))
+                            .onTapGesture {
+                                selectedSnippet = snippet
+                            }
+                            .contextMenu {
+                                Button("Copy") {
+                                    let item = NSPasteboardItem()
+                                    for (type, content) in snippet.contentForType {
+                                        item.setData(content, forType: type)
+                                    }
+                                    NSPasteboard.general.clearContents()
+                                    dontUpdate = true
+                                    NSPasteboard.general.writeObjects([item])
+                                    if !self.snippetItems.move(snippet, to: 0) {
+                                        self.snippetItems.insert(snippet, at: 0)
+                                    }
+                                }.keyboardShortcut("c", modifiers: [.command])
+                                    .onAppear {
+                                        selectedSnippet = snippet
+                                    }
+                                Button("Delete") {
+                                    _ = self.snippetItems.remove(snippet)
+                                }.keyboardShortcut(.delete)
+                            }
                     }
                 }
             }
@@ -46,16 +75,15 @@ struct ContentView: View {
                     let program = SnippetProgram(
                         programName: programName,
                         programIcon: programIcon,
-                        programIdentifier: programIdentifier
-                    )
+                        programIdentifier: programIdentifier)
                     let snippetItem = SnippetItem(
                         id: nil, program: program,
                         contentForType: contents, time: nil)
-                    self.snippetItems = self.snippetItems.filter({ item in
-                        return item.program.programIdentifier != programIdentifier
+                    self.snippetItems = self.snippetItems.filter { item in
+                        item.program.programIdentifier != programIdentifier
                             || item.contentForType != contents
-                    })
-                    
+                    }
+
                     if self.snippetItems.count != 0 {
                         self.snippetItems.insert(snippetItem, at: 0)
                     } else {
@@ -73,9 +101,26 @@ struct ContentView: View {
                 }
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: .CopyCommandCalled)) { _ in
+            guard let snippet = selectedSnippet else { return }
+
+            let item = NSPasteboardItem()
+            for (type, content) in snippet.contentForType {
+                item.setData(content, forType: type)
+            }
+            NSPasteboard.general.clearContents()
+            dontUpdate = true
+            NSPasteboard.general.writeObjects([item])
+            if !self.snippetItems.move(snippet, to: 0) {
+                self.snippetItems.insert(snippet, at: 0)
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .DeleteCommandCalled)) { _ in
+            guard let snippet = selectedSnippet else { return }
+            _ = self.snippetItems.remove(snippet)
+        }
     }
 }
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

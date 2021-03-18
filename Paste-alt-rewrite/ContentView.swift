@@ -29,12 +29,14 @@ struct ContentView: View {
 
             for item in items {
                 var isHandoff = false
-                var contents: [NSPasteboard.PasteboardType: Data?] = [:]
+                var contents: [NSPasteboard.PasteboardType: Data] = [:]
                 for type in item.types {
                     if type == .init("com.apple.is-remote-clipboard") {
                         isHandoff = true
                     }
-                    contents[type] = item.data(forType: type)
+                    if let data = item.data(forType: type) {
+                        contents[type] = data
+                    }
                 }
 
                 if isHandoff {

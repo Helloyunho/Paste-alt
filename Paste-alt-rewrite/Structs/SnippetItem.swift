@@ -23,10 +23,10 @@ struct SnippetItem: Identifiable, Equatable {
 
     var id: String
     var program: SnippetProgram
-    var contentForType: [NSPasteboard.PasteboardType: Data?]
+    var contentForType: [NSPasteboard.PasteboardType: Data]
     var time: Date
 
-    init(id: String?, program: NSRunningApplication?, contentForType: [NSPasteboard.PasteboardType: Data?], time: Date?) {
+    init(id: String?, program: NSRunningApplication?, contentForType: [NSPasteboard.PasteboardType: Data], time: Date?) {
         let bundleID = program?.bundleIdentifier ?? "com.example.untitled"
         if !programs.keys.contains(bundleID) {
             programs[bundleID] = .init(
@@ -40,7 +40,7 @@ struct SnippetItem: Identifiable, Equatable {
         self.time = time ?? Date()
     }
 
-    init(id: String?, program: SnippetProgram, contentForType: [NSPasteboard.PasteboardType: Data?], time: Date?) {
+    init(id: String?, program: SnippetProgram, contentForType: [NSPasteboard.PasteboardType: Data], time: Date?) {
         let bundleID = program.programIdentifier
         if !programs.keys.contains(bundleID) {
             programs[bundleID] = program
@@ -53,11 +53,11 @@ struct SnippetItem: Identifiable, Equatable {
 
     func getBestData() -> SnippetContentType {
         if let content = contentForType[.png] ?? contentForType[.tiff] {
-            if let image = NSImage(data: content!) {
-                return image
+            if let nsimage = NSImage(data: content) {
+                return nsimage
             }
         } else if let content = contentForType[.string] {
-            return String(data: content!, encoding: .utf8)!
+            return String(data: content, encoding: .utf8)!
         }
 
         return "Cannot find good data"

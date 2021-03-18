@@ -12,7 +12,7 @@ struct ClipboardElement: View {
     var name: String
     var content: SnippetContentType
     var image: NSImage?
-    
+
     var body: some View {
         let image = self.image ?? NSImage(named: "BlankAppIcon")!
         let colorBasedImage = image.getColors()?.background ?? NSColor.systemIndigo
@@ -34,7 +34,7 @@ struct ClipboardElement: View {
                                 VStack {
                                     Text(name)
                                         .foregroundColor(lightedColor.isDarkText ? .black : .white)
-                                        .font(.custom("SF Pro Rounded", size: geometry.size.height * 0.25))
+                                        .font(.custom("SF Pro Rounded", size: geometry.size.height * 0.3))
                                         .fontWeight(.bold)
                                         .lineLimit(1)
                                 }
@@ -43,18 +43,19 @@ struct ClipboardElement: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                         .frame(width: geometry.size.width * 0.85, height: geometry.size.height * 0.75)
-                        .background(RoundedRectangle(cornerRadius: geometry.size.width / 2)
-                                        .fill(Color(lightedColor)))
+                        .background(Color(lightedColor).opacity(0.8))
+                        .clipShape(RoundedRectangle(cornerRadius: geometry.size.width / 2))
+                        .shadow(color: Color.black.opacity(0.2), radius: geometry.size.height * 0.1)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height / 3)
-                .background(Rectangle().fill(Color(colorBasedImage)))
+                .background(Color(colorBasedImage).opacity(0.8))
                 GeometryReader { geometry in
                     if let contentText = content as? String {
                         Text(contentText)
                             .foregroundColor(.black)
-                            .font(.footnote)
+                            .font(.system(size: geometry.size.height * 0.07))
                             .padding(.horizontal, geometry.size.width * 0.02)
                             .padding(.top, geometry.size.height * 0.02)
                             .padding(.bottom, geometry.size.width / 10)
@@ -66,7 +67,7 @@ struct ClipboardElement: View {
                     }
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height * 2 / 3)
-                .background(Rectangle().fill(Color.white))
+                .background(VisualEffectView(blendingMode: .withinWindow, appearance: NSAppearance(named: .aqua)))
             }
             .clipShape(RoundedRectangle(cornerRadius: geometry.size.width / 10))
         }

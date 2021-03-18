@@ -20,6 +20,7 @@
 		55C6765D26032B5E006CCE15 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C6765C26032B5E006CCE15 /* Array+Extensions.swift */; };
 		55E535492603609A00B8D42C /* UIImageColors in Frameworks */ = {isa = PBXBuildFile; productRef = 55E535482603609A00B8D42C /* UIImageColors */; };
 		55E53555260362F500B8D42C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 55E53554260362F500B8D42C /* LICENSE */; };
+		55E53558260363A400B8D42C /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E53557260363A400B8D42C /* VisualEffectView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		55C6765926032377006CCE15 /* SnippetContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetContentType.swift; sourceTree = "<group>"; };
 		55C6765C26032B5E006CCE15 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		55E53554260362F500B8D42C /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		55E53557260363A400B8D42C /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				55C6764A26021A0A006CCE15 /* ClipboardElement.swift */,
+				55E53557260363A400B8D42C /* VisualEffectView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 			files = (
 				55C3FB2525FDEAEE0052E75C /* ContentView.swift in Sources */,
 				55C6765A26032377006CCE15 /* SnippetContentType.swift in Sources */,
+				55E53558260363A400B8D42C /* VisualEffectView.swift in Sources */,
 				555033112603325600D5F7C5 /* NSColor+Extensions.swift in Sources */,
 				55C6765026025688006CCE15 /* NSNotification.Name+Extensions.swift in Sources */,
 				55C6765D26032B5E006CCE15 /* Array+Extensions.swift in Sources */,

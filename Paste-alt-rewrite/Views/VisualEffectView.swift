@@ -18,14 +18,14 @@ struct VisualEffectView: NSViewRepresentable {
         let visualEffectView = NSVisualEffectView()
         visualEffectView.material = material ?? visualEffectView.material
         visualEffectView.blendingMode = blendingMode ?? visualEffectView.blendingMode
+        visualEffectView.appearance = appearance ?? visualEffectView.appearance
         visualEffectView.state = NSVisualEffectView.State.active
-        visualEffectView.appearance = visualEffectView.appearance ?? appearance
         return visualEffectView
     }
 
     func updateNSView(_ visualEffectView: NSVisualEffectView, context: Context) {
         visualEffectView.material = material ?? visualEffectView.material
         visualEffectView.blendingMode = blendingMode ?? visualEffectView.blendingMode
-        visualEffectView.appearance = visualEffectView.appearance ?? appearance
+        visualEffectView.appearance = appearance ?? visualEffectView.appearance
     }
 }

@@ -7,6 +7,8 @@
 
 import Cocoa
 import SwiftUI
+import Preferences
+import KeyboardShortcuts
 
 var dontUpdate = false
 
@@ -17,6 +19,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var lastChangeCount: Int = 0
     let pasteboard: NSPasteboard = .general
     var firstPasteEvent = true
+    
+    lazy var preferencesWindowController = PreferencesWindowController(
+        panes: [
+            Preferences.Pane(
+                identifier: Preferences.PaneIdentifier(rawValue: "general"),
+                title: "General",
+                toolbarIcon: NSImage(named: NSImage.preferencesGeneralName)!
+            ) {
+                PreferencesView()
+            }
+        ]
+    )
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Create the SwiftUI view that provides the window contents.
@@ -48,6 +62,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     name: .NSPasteboardDidChange, object: self.pasteboard)
             }
         }
+        
+        KeyboardShortcuts.onKeyDown(for: .openSnippetsView) {
+            NSApplication.shared.activate(ignoringOtherApps: true)
+        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -70,6 +88,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func minimizeCommand(_ sender: Any) {
         NSApplication.shared.hide(nil)
     }
+    
+    @IBAction func showPreferencesCommand(_ sender: Any) {
+        preferencesWindowController.show()
+    }
 }
-
-// DJ GAY

@@ -2,6 +2,33 @@
   "object": {
     "pins": [
       {
+        "package": "KeyboardShortcuts",
+        "repositoryURL": "https://github.com/sindresorhus/KeyboardShortcuts",
+        "state": {
+          "branch": null,
+          "revision": "f09de800a4f05d66fe2a9924c81a932454a9f39a",
+          "version": "0.7.1"
+        }
+      },
+      {
+        "package": "LaunchAtLogin",
+        "repositoryURL": "https://github.com/sindresorhus/LaunchAtLogin",
+        "state": {
+          "branch": null,
+          "revision": "0f39982b9d6993eef253b81219d3c39ba1e680f3",
+          "version": "4.0.0"
+        }
+      },
+      {
+        "package": "Preferences",
+        "repositoryURL": "https://github.com/sindresorhus/Preferences",
+        "state": {
+          "branch": null,
+          "revision": "886324b2f1ba58d9cda745a6dd53253179d73433",
+          "version": "2.2.1"
+        }
+      },
+      {
         "package": "UIImageColors",
         "repositoryURL": "https://github.com/YuAo/UIImageColors",
         "state": {

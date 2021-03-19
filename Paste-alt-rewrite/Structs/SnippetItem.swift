@@ -24,9 +24,9 @@ struct SnippetItem: Identifiable, Equatable {
     var id: String
     var program: SnippetProgram
     var contentForType: [NSPasteboard.PasteboardType: Data]
-    var time: Date
+    var date: Date
 
-    init(id: String?, program: NSRunningApplication?, contentForType: [NSPasteboard.PasteboardType: Data], time: Date?) {
+    init(id: String?, program: NSRunningApplication?, contentForType: [NSPasteboard.PasteboardType: Data], date: Date?) {
         let bundleID = program?.bundleIdentifier ?? "com.example.untitled"
         if !programs.keys.contains(bundleID) {
             programs[bundleID] = .init(
@@ -37,10 +37,10 @@ struct SnippetItem: Identifiable, Equatable {
         self.program = programs[bundleID]!
         self.contentForType = contentForType
         self.id = id ?? UUID().uuidString
-        self.time = time ?? Date()
+        self.date = date ?? Date()
     }
 
-    init(id: String?, program: SnippetProgram, contentForType: [NSPasteboard.PasteboardType: Data], time: Date?) {
+    init(id: String?, program: SnippetProgram, contentForType: [NSPasteboard.PasteboardType: Data], date: Date?) {
         let bundleID = program.programIdentifier
         if !programs.keys.contains(bundleID) {
             programs[bundleID] = program
@@ -48,7 +48,7 @@ struct SnippetItem: Identifiable, Equatable {
         self.program = programs[bundleID]!
         self.contentForType = contentForType
         self.id = id ?? UUID().uuidString
-        self.time = time ?? Date()
+        self.date = date ?? Date()
     }
 
     func getBestData() -> SnippetContentType {
@@ -61,5 +61,9 @@ struct SnippetItem: Identifiable, Equatable {
         }
 
         return "Cannot find good data"
+    }
+    
+    mutating func updateDate() {
+        self.date = Date()
     }
 }

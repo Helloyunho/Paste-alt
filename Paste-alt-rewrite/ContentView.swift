@@ -11,6 +11,28 @@ struct ContentView: View {
     @State var snippetItems: [SnippetItem] = []
     @State var selectedSnippet: SnippetItem?
     let strokeSize: CGFloat = 0.02
+    
+    func copySnippet(_ snippet: SnippetItem) {
+        let item = NSPasteboardItem()
+        for (type, content) in snippet.contentForType {
+            item.setData(content, forType: type)
+        }
+        NSPasteboard.general.clearContents()
+        dontUpdate = true
+        NSPasteboard.general.writeObjects([item])
+        if self.snippetItems.move(snippet, to: 0) {
+            self.snippetItems[0].date = Date()
+        } else {
+            self.snippetItems.insert(snippet, at: 0)
+        }
+    }
+    
+    func deleteSnippet(_ snippet: SnippetItem) {
+        _ = self.snippetItems.remove(snippet)
+        if snippet == selectedSnippet {
+            selectedSnippet = nil
+        }
+    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -28,22 +50,10 @@ struct ContentView: View {
                             }
                             .contextMenu {
                                 Button("Copy") {
-                                    let item = NSPasteboardItem()
-                                    for (type, content) in snippet.contentForType {
-                                        item.setData(content, forType: type)
-                                    }
-                                    NSPasteboard.general.clearContents()
-                                    dontUpdate = true
-                                    NSPasteboard.general.writeObjects([item])
-                                    if !self.snippetItems.move(snippet, to: 0) {
-                                        self.snippetItems.insert(snippet, at: 0)
-                                    }
+                                    self.copySnippet(snippet)
                                 }.keyboardShortcut("c", modifiers: [.command])
-                                    .onAppear {
-                                        selectedSnippet = snippet
-                                    }
                                 Button("Delete") {
-                                    _ = self.snippetItems.remove(snippet)
+                                    self.deleteSnippet(snippet)
                                 }.keyboardShortcut(.delete)
                             }
                     }
@@ -78,24 +88,26 @@ struct ContentView: View {
                         programIdentifier: programIdentifier)
                     let snippetItem = SnippetItem(
                         id: nil, program: program,
-                        contentForType: contents, time: nil)
+                        contentForType: contents, date: nil)
                     self.snippetItems = self.snippetItems.filter { item in
                         item.program.programIdentifier != programIdentifier
                             || item.contentForType != contents
                     }
 
-                    if self.snippetItems.count != 0 {
-                        self.snippetItems.insert(snippetItem, at: 0)
+                    if self.snippetItems.move(snippetItem, to: 0) {
+                        self.snippetItems[0].date = Date()
                     } else {
-                        self.snippetItems.append(snippetItem)
+                        self.snippetItems.insert(snippetItem, at: 0)
                     }
                 } else {
                     let frontmost = NSWorkspace.shared.frontmostApplication
                     let snippetItem = SnippetItem(
                         id: nil, program: frontmost,
-                        contentForType: contents, time: nil)
+                        contentForType: contents, date: nil)
 
-                    if !self.snippetItems.move(snippetItem, to: 0) {
+                    if self.snippetItems.move(snippetItem, to: 0) {
+                        self.snippetItems[0].date = Date()
+                    } else {
                         self.snippetItems.insert(snippetItem, at: 0)
                     }
                 }
@@ -103,21 +115,11 @@ struct ContentView: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: .CopyCommandCalled)) { _ in
             guard let snippet = selectedSnippet else { return }
-
-            let item = NSPasteboardItem()
-            for (type, content) in snippet.contentForType {
-                item.setData(content, forType: type)
-            }
-            NSPasteboard.general.clearContents()
-            dontUpdate = true
-            NSPasteboard.general.writeObjects([item])
-            if !self.snippetItems.move(snippet, to: 0) {
-                self.snippetItems.insert(snippet, at: 0)
-            }
+            self.copySnippet(snippet)
         }
         .onReceive(NotificationCenter.default.publisher(for: .DeleteCommandCalled)) { _ in
             guard let snippet = selectedSnippet else { return }
-            _ = self.snippetItems.remove(snippet)
+            self.deleteSnippet(snippet)
         }
     }
 }

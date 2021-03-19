@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		555033112603325600D5F7C5 /* NSColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555033102603325600D5F7C5 /* NSColor+Extensions.swift */; };
+		5577CBC12604488400B56776 /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 5577CBC02604488400B56776 /* Preferences */; };
+		5577CBC52604489B00B56776 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 5577CBC42604489B00B56776 /* KeyboardShortcuts */; };
+		5577CBC8260448ED00B56776 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577CBC7260448ED00B56776 /* PreferencesView.swift */; };
+		5577CBCC26044BF900B56776 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 5577CBCB26044BF900B56776 /* LaunchAtLogin */; };
+		5577CBCF26044C7800B56776 /* KeyboardShortcuts.Name+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577CBCE26044C7800B56776 /* KeyboardShortcuts.Name+Extensions.swift */; };
 		55C3FB2325FDEAEE0052E75C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C3FB2225FDEAEE0052E75C /* AppDelegate.swift */; };
 		55C3FB2525FDEAEE0052E75C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C3FB2425FDEAEE0052E75C /* ContentView.swift */; };
 		55C3FB2725FDEAF20052E75C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55C3FB2625FDEAF20052E75C /* Assets.xcassets */; };
@@ -25,6 +30,8 @@
 
 /* Begin PBXFileReference section */
 		555033102603325600D5F7C5 /* NSColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extensions.swift"; sourceTree = "<group>"; };
+		5577CBC7260448ED00B56776 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		5577CBCE26044C7800B56776 /* KeyboardShortcuts.Name+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyboardShortcuts.Name+Extensions.swift"; sourceTree = "<group>"; };
 		55C3FB1F25FDEAEE0052E75C /* Paste-alt-rewrite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Paste-alt-rewrite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55C3FB2225FDEAEE0052E75C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55C3FB2425FDEAEE0052E75C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -48,6 +55,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				55E535492603609A00B8D42C /* UIImageColors in Frameworks */,
+				5577CBC12604488400B56776 /* Preferences in Frameworks */,
+				5577CBCC26044BF900B56776 /* LaunchAtLogin in Frameworks */,
+				5577CBC52604489B00B56776 /* KeyboardShortcuts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +112,7 @@
 			children = (
 				55C6764A26021A0A006CCE15 /* ClipboardElement.swift */,
 				55E53557260363A400B8D42C /* VisualEffectView.swift */,
+				5577CBC7260448ED00B56776 /* PreferencesView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -112,6 +123,7 @@
 				55C6764F26025688006CCE15 /* NSNotification.Name+Extensions.swift */,
 				55C6765C26032B5E006CCE15 /* Array+Extensions.swift */,
 				555033102603325600D5F7C5 /* NSColor+Extensions.swift */,
+				5577CBCE26044C7800B56776 /* KeyboardShortcuts.Name+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -150,6 +162,9 @@
 			name = "Paste-alt-rewrite";
 			packageProductDependencies = (
 				55E535482603609A00B8D42C /* UIImageColors */,
+				5577CBC02604488400B56776 /* Preferences */,
+				5577CBC42604489B00B56776 /* KeyboardShortcuts */,
+				5577CBCB26044BF900B56776 /* LaunchAtLogin */,
 			);
 			productName = "Paste-alt-rewrite";
 			productReference = 55C3FB1F25FDEAEE0052E75C /* Paste-alt-rewrite.app */;
@@ -180,6 +195,9 @@
 			mainGroup = 55C3FB1625FDEAEE0052E75C;
 			packageReferences = (
 				55E535472603609A00B8D42C /* XCRemoteSwiftPackageReference "UIImageColors" */,
+				5577CBBF2604488400B56776 /* XCRemoteSwiftPackageReference "Preferences" */,
+				5577CBC32604489B00B56776 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+				5577CBCA26044BF900B56776 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
 			);
 			productRefGroup = 55C3FB2025FDEAEE0052E75C /* Products */;
 			projectDirPath = "";
@@ -214,8 +232,10 @@
 				55E53558260363A400B8D42C /* VisualEffectView.swift in Sources */,
 				555033112603325600D5F7C5 /* NSColor+Extensions.swift in Sources */,
 				55C6765026025688006CCE15 /* NSNotification.Name+Extensions.swift in Sources */,
+				5577CBC8260448ED00B56776 /* PreferencesView.swift in Sources */,
 				55C6765D26032B5E006CCE15 /* Array+Extensions.swift in Sources */,
 				55C6765526025A89006CCE15 /* SnippetItem.swift in Sources */,
+				5577CBCF26044C7800B56776 /* KeyboardShortcuts.Name+Extensions.swift in Sources */,
 				55C3FB2325FDEAEE0052E75C /* AppDelegate.swift in Sources */,
 				55C6764B26021A0A006CCE15 /* ClipboardElement.swift in Sources */,
 			);
@@ -422,6 +442,30 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5577CBBF2604488400B56776 /* XCRemoteSwiftPackageReference "Preferences" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Preferences";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.1;
+			};
+		};
+		5577CBC32604489B00B56776 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.7.1;
+			};
+		};
+		5577CBCA26044BF900B56776 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		55E535472603609A00B8D42C /* XCRemoteSwiftPackageReference "UIImageColors" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/YuAo/UIImageColors";
@@ -433,6 +477,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5577CBC02604488400B56776 /* Preferences */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5577CBBF2604488400B56776 /* XCRemoteSwiftPackageReference "Preferences" */;
+			productName = Preferences;
+		};
+		5577CBC42604489B00B56776 /* KeyboardShortcuts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5577CBC32604489B00B56776 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
+		};
+		5577CBCB26044BF900B56776 /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5577CBCA26044BF900B56776 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
+			productName = LaunchAtLogin;
+		};
 		55E535482603609A00B8D42C /* UIImageColors */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 55E535472603609A00B8D42C /* XCRemoteSwiftPackageReference "UIImageColors" */;

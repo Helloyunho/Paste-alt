@@ -43,7 +43,7 @@ struct ContentView: View {
                         ClipboardElement(name: snippet.program.programName, content: snippet.getBestData(), image: snippet.program.programIcon)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .padding(smallSize * strokeSize)
-                            .overlay(RoundedRectangle(cornerRadius: smallSize / 10 + smallSize * strokeSize).strokeBorder(Color.accentColor, lineWidth: selectedSnippet == snippet ? smallSize * strokeSize : 0))
+                            .overlay(RoundedRectangle(cornerRadius: smallSize / 10 + smallSize * strokeSize).strokeBorder(Color.accentColor, lineWidth: selectedSnippet?.id == snippet.id ? smallSize * strokeSize : 0))
                             .padding(smallSize * (0.05 - strokeSize))
                             .onTapGesture {
                                 selectedSnippet = snippet

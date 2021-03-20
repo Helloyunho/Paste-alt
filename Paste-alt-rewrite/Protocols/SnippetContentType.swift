@@ -12,3 +12,6 @@ import AppKit
 protocol SnippetContentType {}
 extension String: SnippetContentType {}
 extension NSImage: SnippetContentType {}
+extension NSAttributedString: SnippetContentType {}
+extension NSColor: SnippetContentType {}
+extension URLWithMetadatas: SnippetContentType {}

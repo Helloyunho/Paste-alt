@@ -7,12 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5509296F26059E29001971F9 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5509296E26059E29001971F9 /* String+Extensions.swift */; };
 		555033112603325600D5F7C5 /* NSColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555033102603325600D5F7C5 /* NSColor+Extensions.swift */; };
+		55682718260511E00081F54B /* UIColor_Hex_Swift in Frameworks */ = {isa = PBXBuildFile; productRef = 55682717260511E00081F54B /* UIColor_Hex_Swift */; };
+		5568271B2605167E0081F54B /* URLWithMetadatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5568271A2605167E0081F54B /* URLWithMetadatas.swift */; };
+		5568271F260519120081F54B /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 5568271E260519120081F54B /* SwiftSoup */; };
+		556827232605192A0081F54B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 556827222605192A0081F54B /* Alamofire */; };
+		55682726260528C30081F54B /* ContentURLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55682725260528C30081F54B /* ContentURLView.swift */; };
 		5577CBC12604488400B56776 /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 5577CBC02604488400B56776 /* Preferences */; };
 		5577CBC52604489B00B56776 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 5577CBC42604489B00B56776 /* KeyboardShortcuts */; };
 		5577CBC8260448ED00B56776 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577CBC7260448ED00B56776 /* PreferencesView.swift */; };
 		5577CBCC26044BF900B56776 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 5577CBCB26044BF900B56776 /* LaunchAtLogin */; };
 		5577CBCF26044C7800B56776 /* KeyboardShortcuts.Name+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577CBCE26044C7800B56776 /* KeyboardShortcuts.Name+Extensions.swift */; };
+		5577CBD52604671600B56776 /* AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577CBD42604671600B56776 /* AttributedText.swift */; };
 		55C3FB2325FDEAEE0052E75C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C3FB2225FDEAEE0052E75C /* AppDelegate.swift */; };
 		55C3FB2525FDEAEE0052E75C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C3FB2425FDEAEE0052E75C /* ContentView.swift */; };
 		55C3FB2725FDEAF20052E75C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55C3FB2625FDEAF20052E75C /* Assets.xcassets */; };
@@ -29,9 +36,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5509296E26059E29001971F9 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		555033102603325600D5F7C5 /* NSColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extensions.swift"; sourceTree = "<group>"; };
+		5568271A2605167E0081F54B /* URLWithMetadatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLWithMetadatas.swift; sourceTree = "<group>"; };
+		55682725260528C30081F54B /* ContentURLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentURLView.swift; sourceTree = "<group>"; };
 		5577CBC7260448ED00B56776 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		5577CBCE26044C7800B56776 /* KeyboardShortcuts.Name+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyboardShortcuts.Name+Extensions.swift"; sourceTree = "<group>"; };
+		5577CBD42604671600B56776 /* AttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedText.swift; sourceTree = "<group>"; };
 		55C3FB1F25FDEAEE0052E75C /* Paste-alt-rewrite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Paste-alt-rewrite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55C3FB2225FDEAEE0052E75C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55C3FB2425FDEAEE0052E75C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,9 +66,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				55E535492603609A00B8D42C /* UIImageColors in Frameworks */,
+				556827232605192A0081F54B /* Alamofire in Frameworks */,
 				5577CBC12604488400B56776 /* Preferences in Frameworks */,
 				5577CBCC26044BF900B56776 /* LaunchAtLogin in Frameworks */,
+				55682718260511E00081F54B /* UIColor_Hex_Swift in Frameworks */,
 				5577CBC52604489B00B56776 /* KeyboardShortcuts in Frameworks */,
+				5568271F260519120081F54B /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,6 +127,8 @@
 				55C6764A26021A0A006CCE15 /* ClipboardElement.swift */,
 				55E53557260363A400B8D42C /* VisualEffectView.swift */,
 				5577CBC7260448ED00B56776 /* PreferencesView.swift */,
+				5577CBD42604671600B56776 /* AttributedText.swift */,
+				55682725260528C30081F54B /* ContentURLView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -124,6 +140,7 @@
 				55C6765C26032B5E006CCE15 /* Array+Extensions.swift */,
 				555033102603325600D5F7C5 /* NSColor+Extensions.swift */,
 				5577CBCE26044C7800B56776 /* KeyboardShortcuts.Name+Extensions.swift */,
+				5509296E26059E29001971F9 /* String+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -132,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				55C6765426025A89006CCE15 /* SnippetItem.swift */,
+				5568271A2605167E0081F54B /* URLWithMetadatas.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -165,6 +183,9 @@
 				5577CBC02604488400B56776 /* Preferences */,
 				5577CBC42604489B00B56776 /* KeyboardShortcuts */,
 				5577CBCB26044BF900B56776 /* LaunchAtLogin */,
+				55682717260511E00081F54B /* UIColor_Hex_Swift */,
+				5568271E260519120081F54B /* SwiftSoup */,
+				556827222605192A0081F54B /* Alamofire */,
 			);
 			productName = "Paste-alt-rewrite";
 			productReference = 55C3FB1F25FDEAEE0052E75C /* Paste-alt-rewrite.app */;
@@ -198,6 +219,9 @@
 				5577CBBF2604488400B56776 /* XCRemoteSwiftPackageReference "Preferences" */,
 				5577CBC32604489B00B56776 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
 				5577CBCA26044BF900B56776 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
+				55682716260511E00081F54B /* XCRemoteSwiftPackageReference "UIColor-Hex-Swift" */,
+				5568271D260519120081F54B /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				556827212605192A0081F54B /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 55C3FB2025FDEAEE0052E75C /* Products */;
 			projectDirPath = "";
@@ -227,13 +251,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55682726260528C30081F54B /* ContentURLView.swift in Sources */,
 				55C3FB2525FDEAEE0052E75C /* ContentView.swift in Sources */,
 				55C6765A26032377006CCE15 /* SnippetContentType.swift in Sources */,
 				55E53558260363A400B8D42C /* VisualEffectView.swift in Sources */,
 				555033112603325600D5F7C5 /* NSColor+Extensions.swift in Sources */,
 				55C6765026025688006CCE15 /* NSNotification.Name+Extensions.swift in Sources */,
+				5577CBD52604671600B56776 /* AttributedText.swift in Sources */,
 				5577CBC8260448ED00B56776 /* PreferencesView.swift in Sources */,
+				5568271B2605167E0081F54B /* URLWithMetadatas.swift in Sources */,
 				55C6765D26032B5E006CCE15 /* Array+Extensions.swift in Sources */,
+				5509296F26059E29001971F9 /* String+Extensions.swift in Sources */,
 				55C6765526025A89006CCE15 /* SnippetItem.swift in Sources */,
 				5577CBCF26044C7800B56776 /* KeyboardShortcuts.Name+Extensions.swift in Sources */,
 				55C3FB2325FDEAEE0052E75C /* AppDelegate.swift in Sources */,
@@ -442,6 +470,30 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		55682716260511E00081F54B /* XCRemoteSwiftPackageReference "UIColor-Hex-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yeahdongcn/UIColor-Hex-Swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
+		5568271D260519120081F54B /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.2;
+			};
+		};
+		556827212605192A0081F54B /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.1;
+			};
+		};
 		5577CBBF2604488400B56776 /* XCRemoteSwiftPackageReference "Preferences" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sindresorhus/Preferences";
@@ -477,6 +529,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		55682717260511E00081F54B /* UIColor_Hex_Swift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55682716260511E00081F54B /* XCRemoteSwiftPackageReference "UIColor-Hex-Swift" */;
+			productName = UIColor_Hex_Swift;
+		};
+		5568271E260519120081F54B /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5568271D260519120081F54B /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+		556827222605192A0081F54B /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 556827212605192A0081F54B /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		5577CBC02604488400B56776 /* Preferences */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5577CBBF2604488400B56776 /* XCRemoteSwiftPackageReference "Preferences" */;

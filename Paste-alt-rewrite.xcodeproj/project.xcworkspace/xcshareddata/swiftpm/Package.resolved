@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "Alamofire",
+        "repositoryURL": "https://github.com/Alamofire/Alamofire",
+        "state": {
+          "branch": null,
+          "revision": "eaf6e622dd41b07b251d8f01752eab31bc811493",
+          "version": "5.4.1"
+        }
+      },
+      {
         "package": "KeyboardShortcuts",
         "repositoryURL": "https://github.com/sindresorhus/KeyboardShortcuts",
         "state": {
@@ -26,6 +35,24 @@
           "branch": null,
           "revision": "886324b2f1ba58d9cda745a6dd53253179d73433",
           "version": "2.2.1"
+        }
+      },
+      {
+        "package": "SwiftSoup",
+        "repositoryURL": "https://github.com/scinfu/SwiftSoup",
+        "state": {
+          "branch": null,
+          "revision": "774dc9c7213085db8aa59595e27c1cd22e428904",
+          "version": "2.3.2"
+        }
+      },
+      {
+        "package": "UIColor_Hex_Swift",
+        "repositoryURL": "https://github.com/yeahdongcn/UIColor-Hex-Swift",
+        "state": {
+          "branch": null,
+          "revision": "7043811d77df477bf0df3e3bc4269cbd44b3f1a4",
+          "version": "5.1.1"
         }
       },
       {

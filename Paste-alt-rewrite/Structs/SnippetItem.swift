@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import UIColor_Hex_Swift
 
 struct SnippetProgram {
     var programName: String
@@ -14,7 +15,8 @@ struct SnippetProgram {
     var programIdentifier: String
 }
 
-var programs: [String: SnippetProgram] = [:]
+private var programs: [String: SnippetProgram] = [:]
+private var datas: [Data: SnippetContentType] = [:]
 
 struct SnippetItem: Identifiable, Equatable {
     static func == (lhs: SnippetItem, rhs: SnippetItem) -> Bool {
@@ -53,11 +55,59 @@ struct SnippetItem: Identifiable, Equatable {
 
     func getBestData() -> SnippetContentType {
         if let content = contentForType[.png] ?? contentForType[.tiff] {
-            if let nsimage = NSImage(data: content) {
-                return nsimage
+            if let cached = datas[content] {
+                return cached
+            } else {
+                if let nsimage = NSImage(data: content) {
+                    datas[content] = nsimage
+                    return nsimage
+                }
             }
-        } else if let content = contentForType[.string] {
-            return String(data: content, encoding: .utf8)!
+        }
+        
+        if let content = contentForType[.URL] {
+            if let cached = datas[content] {
+                return cached
+            } else {
+                if let url = String(data: content, encoding: .utf8) {
+                    if url.validateUrl() {
+                        let urlWithMetas = URLWithMetadatas(url: url)
+                        datas[content] = urlWithMetas
+                        return urlWithMetas
+                    }
+                }
+            }
+        }
+        
+        if let content = contentForType[.string] {
+            if let cached = datas[content] {
+                return cached
+            } else {
+                if let string = String(data: content, encoding: .utf8) {
+                    if string.starts(with: "#") {
+                        if let nsColor = NSColor.init(string) {
+                            datas[content] = nsColor
+                            return nsColor
+                        }
+                    }
+                    
+                    if string.validateUrl() {
+                        let urlWithMetas = URLWithMetadatas(url: string)
+                        datas[content] = urlWithMetas
+                        return urlWithMetas
+                    }
+                    
+                    if let content = contentForType[.rtf] {
+                        if let nsattributedstring = NSAttributedString(rtf: content, documentAttributes: nil) {
+                            datas[content] = nsattributedstring
+                            return nsattributedstring
+                        }
+                    } else {
+                        datas[content] = string
+                        return string
+                    }
+                }
+            }
         }
 
         return "Cannot find good data"

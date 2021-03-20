@@ -6,9 +6,9 @@
 //
 
 import Cocoa
-import SwiftUI
-import Preferences
 import KeyboardShortcuts
+import Preferences
+import SwiftUI
 
 var dontUpdate = false
 
@@ -19,15 +19,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var lastChangeCount: Int = 0
     let pasteboard: NSPasteboard = .general
     var firstPasteEvent = true
-    
+
     lazy var preferencesWindowController = PreferencesWindowController(
         panes: [
             Preferences.Pane(
                 identifier: Preferences.PaneIdentifier(rawValue: "general"),
                 title: "General",
-                toolbarIcon: NSImage(named: NSImage.preferencesGeneralName)!
-            ) {
-                PreferencesView()
+                toolbarIcon: NSImage(named: NSImage.preferencesGeneralName)!) {
+                    PreferencesView()
             }
         ]
     )
@@ -35,6 +34,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView()
+            .background(VisualEffectView(
+                material: .selection,
+                blendingMode: .behindWindow))
+
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
+            switch event.keyCode {
+                case 53:
+                    NSApplication.shared.hide(nil)
+                default: break
+            }
+
+            return event
+        }
+
+        let contentHostingView = NSHostingView(rootView: contentView)
 
         // Create the window and set the content view.
         let screen = NSScreen.main!
@@ -42,11 +56,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             contentRect: NSRect(x: 0, y: 0, width: screen.frame.width, height: screen.frame.height * 0.3),
             styleMask: [.closable, .miniaturizable],
             backing: .buffered, defer: false)
-        window.contentView = NSHostingView(
-            rootView: contentView.background(
-                VisualEffectView(
-                    material: .selection,
-                    blendingMode: .behindWindow)))
+        window.contentView = contentHostingView
         window.makeKeyAndOrderFront(nil)
         window.level = .floating
 
@@ -62,7 +72,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     name: .NSPasteboardDidChange, object: self.pasteboard)
             }
         }
-        
+
         KeyboardShortcuts.onKeyDown(for: .openSnippetsView) {
             NSApplication.shared.activate(ignoringOtherApps: true)
         }
@@ -76,19 +86,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidResignActive(_ notification: Notification) {
         NSApplication.shared.hide(nil)
     }
-    
+
     @IBAction func copyCommand(_ sender: Any) {
         NotificationCenter.default.post(name: .CopyCommandCalled, object: nil)
     }
-    
+
     @IBAction func deleteCommand(_ sender: Any) {
         NotificationCenter.default.post(name: .DeleteCommandCalled, object: nil)
     }
-    
+
     @IBAction func minimizeCommand(_ sender: Any) {
         NSApplication.shared.hide(nil)
     }
-    
+
     @IBAction func showPreferencesCommand(_ sender: Any) {
         preferencesWindowController.show()
     }

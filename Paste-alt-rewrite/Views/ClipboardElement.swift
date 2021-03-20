@@ -54,22 +54,34 @@ struct ClipboardElement: View {
                 GeometryReader { geometry in
                     if let contentText = content as? String {
                         Text(contentText)
-                            .foregroundColor(.black)
                             .font(.system(size: geometry.size.height * 0.07))
+                            .foregroundColor(.black)
                             .padding(.horizontal, geometry.size.width * 0.02)
                             .padding(.top, geometry.size.height * 0.02)
-                            .padding(.bottom, geometry.size.width / 10)
                     } else if let contentImage = content as? NSImage {
                         Image(nsImage: contentImage)
                             .resizable()
                             .scaledToFit()
                             .frame(width: geometry.size.width, height: geometry.size.height)
+                    } else if let contentText = content as? NSAttributedString {
+                        AttributedText(attributedText: contentText)
+                            .padding(.horizontal, geometry.size.width * 0.02)
+                            .padding(.top, geometry.size.height * 0.02)
+                    } else if let contentColor = content as? NSColor {
+                        Text(contentColor.hexString(contentColor.alphaComponent != 1))
+                            .foregroundColor(Color(contentColor.isDarkText ? contentColor.darker(by: 20) : contentColor.lighter(by: 20)))
+                            .font(.custom("SF Pro Rounded", size: geometry.size.height * 0.2))
+                            .fontWeight(.bold)
+                            .frame(width: geometry.size.width, height: geometry.size.height)
+                            .background(Color(contentColor))
+                    } else if let contentURL = content as? URLWithMetadatas {
+                        ContentURLView(contentURL: contentURL)
                     }
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height * 2 / 3)
                 .background(VisualEffectView(blendingMode: .withinWindow, appearance: NSAppearance(named: .aqua)))
             }
-            .cornerRadius(geometry.size.width / 10)
+            .clipShape(RoundedRectangle(cornerRadius: geometry.size.width / 10))
         }
         .aspectRatio(1.0, contentMode: .fit)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -81,3 +93,5 @@ struct ClipboardElement_Previews: PreviewProvider {
         ClipboardElement(name: "DJ GAY", content: "DJ GAY")
     }
 }
+
+// #18F72DF2

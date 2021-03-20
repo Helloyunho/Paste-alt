@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FileURLView: View {
     var fileURL: FileURLStruct
-    
+
     var body: some View {
         GeometryReader { geometry in
             VStack {

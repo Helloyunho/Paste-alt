@@ -5,9 +5,9 @@
 //  Created by Helloyunho on 2021/03/20.
 //
 
-import Foundation
-import AppKit
 import Alamofire
+import AppKit
+import Foundation
 import SwiftSoup
 
 class URLWithMetadatas: ObservableObject {
@@ -15,7 +15,7 @@ class URLWithMetadatas: ObservableObject {
     @Published var title: String?
     @Published var description: String?
     var url: String
-    
+
     init(url: String) {
         self.url = url
         DispatchQueue.main.async {
@@ -83,7 +83,7 @@ class URLWithMetadatas: ObservableObject {
             }
         }
     }
-    
+
     private func setImage(urlString: String, headers: HTTPHeaders) -> Bool {
         var url: URL?
         if !urlString.validateUrl() {

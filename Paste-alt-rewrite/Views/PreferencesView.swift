@@ -5,10 +5,10 @@
 //  Created by Helloyunho on 2021/03/19.
 //
 
-import SwiftUI
-import Preferences
 import KeyboardShortcuts
 import LaunchAtLogin
+import Preferences
+import SwiftUI
 
 struct PreferencesView: View {
     var body: some View {

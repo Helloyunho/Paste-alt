@@ -10,8 +10,6 @@ import KeyboardShortcuts
 import Preferences
 import SwiftUI
 
-var dontUpdate = false
-
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
@@ -19,6 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var lastChangeCount: Int = 0
     let pasteboard: NSPasteboard = .general
     var firstPasteEvent = true
+    var snippetItems: [SnippetItem] = []
 
     lazy var preferencesWindowController = PreferencesWindowController(
         panes: [
@@ -31,9 +30,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ]
     )
 
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        try! dbPool.write { db in
+            SnippetItem.createTable(db)
+            SnippetContentTable.createTable(db)
+        }
+
+        try! dbPool.read { db in
+            if let items = try? SnippetItem.order(SnippetItem.Columns.date.desc).fetchAll(db) {
+                for item in items {
+                    self.snippetItems.append(item.fetchingContentsFromDB(db))
+                }
+            }
+        }
+    }
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
+        let contentView = ContentView(snippetItems: snippetItems)
             .background(VisualEffectView(
                 material: .selection,
                 blendingMode: .behindWindow))

@@ -5,9 +5,9 @@
 //  Created by Helloyunho on 2021/03/18.
 //
 
-import SwiftUI
-import Foundation
 import AppKit
+import Foundation
+import SwiftUI
 
 protocol SnippetContentType {}
 extension String: SnippetContentType {}

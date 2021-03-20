@@ -78,6 +78,7 @@ struct ContentView: View {
                     }
                 }
 
+                var snippetItem: SnippetItem
                 if isHandoff {
                     let programName = "Hand-off"
                     let programIcon = NSImage(named: "Hand-off")!
@@ -86,7 +87,7 @@ struct ContentView: View {
                         programName: programName,
                         programIcon: programIcon,
                         programIdentifier: programIdentifier)
-                    let snippetItem = SnippetItem(
+                    snippetItem = SnippetItem(
                         id: nil, program: program,
                         contentForType: contents, date: nil)
                     self.snippetItems = self.snippetItems.filter { item in
@@ -95,20 +96,26 @@ struct ContentView: View {
                     }
 
                     if self.snippetItems.move(snippetItem, to: 0) {
-                        self.snippetItems[0].date = Date()
+                        self.snippetItems[0].updateDate()
                     } else {
                         self.snippetItems.insert(snippetItem, at: 0)
                     }
                 } else {
                     let frontmost = NSWorkspace.shared.frontmostApplication
-                    let snippetItem = SnippetItem(
+                    snippetItem = SnippetItem(
                         id: nil, program: frontmost,
                         contentForType: contents, date: nil)
 
                     if self.snippetItems.move(snippetItem, to: 0) {
-                        self.snippetItems[0].date = Date()
+                        self.snippetItems[0].updateDate()
                     } else {
                         self.snippetItems.insert(snippetItem, at: 0)
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    try? dbPool.write { db in
+                        try? snippetItem.insertSelf(db)
                     }
                 }
             }

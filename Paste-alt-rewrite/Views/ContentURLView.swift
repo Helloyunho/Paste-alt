@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentURLView: View {
     @ObservedObject var contentURL: URLWithMetadatas
-    
+
     var body: some View {
         GeometryReader { geometry in
             VStack {
@@ -37,7 +37,6 @@ struct ContentURLView: View {
                     .font(.system(size: geometry.size.height * 0.05))
                     .foregroundColor(.black)
                     .lineLimit(1)
-                
             }
             .padding(.bottom, geometry.size.width / 10)
             .padding(.horizontal, geometry.size.width * 0.02)

@@ -5,9 +5,9 @@
 //  Created by Helloyunho on 2021/03/19.
 //
 
+import AppKit
 import Foundation
 import SwiftUI
-import AppKit
 
 // From https://github.com/sindresorhus/Pasteboard-Viewer/blob/main/Pasteboard%20Viewer/Utilities.swift
 // And heavily modified by Helloyunho

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import GRDB
 import SwiftUI
 import UIColor_Hex_Swift
 
@@ -18,7 +19,7 @@ struct SnippetProgram {
 private var programs: [String: SnippetProgram] = [:]
 private var datas: [Data: SnippetContentType] = [:]
 
-struct SnippetItem: Identifiable, Equatable {
+struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, PersistableRecord {
     static func == (lhs: SnippetItem, rhs: SnippetItem) -> Bool {
         lhs.program.programIdentifier == rhs.program.programIdentifier && lhs.contentForType == rhs.contentForType
     }
@@ -30,7 +31,7 @@ struct SnippetItem: Identifiable, Equatable {
 
     init(id: String?, program: NSRunningApplication?, contentForType: [NSPasteboard.PasteboardType: Data], date: Date?) {
         let bundleID = program?.bundleIdentifier ?? "com.example.untitled"
-        if !programs.keys.contains(bundleID) {
+        if programs[bundleID] == nil {
             programs[bundleID] = .init(
                 programName: program?.localizedName ?? "Untitled",
                 programIcon: program?.icon, programIdentifier: bundleID)
@@ -44,13 +45,72 @@ struct SnippetItem: Identifiable, Equatable {
 
     init(id: String?, program: SnippetProgram, contentForType: [NSPasteboard.PasteboardType: Data], date: Date?) {
         let bundleID = program.programIdentifier
-        if !programs.keys.contains(bundleID) {
+        if programs[bundleID] == nil {
             programs[bundleID] = program
         }
         self.program = programs[bundleID]!
         self.contentForType = contentForType
         self.id = id ?? UUID().uuidString
         self.date = date ?? Date()
+    }
+    
+    static var databaseTableName = "snippetItems"
+    
+    enum Columns: String, ColumnExpression {
+        case id, programName, programIdentifier, programIcon, date
+    }
+    
+    static func createTable(_ db: Database) {
+        try! db.create(table: databaseTableName, ifNotExists: true) { t in
+            t.column("id", .text).notNull().unique().primaryKey()
+            t.column("programName", .text)
+            t.column("programIdentifier", .text)
+            t.column("programIcon", .blob)
+            t.column("date", .date)
+        }
+    }
+    
+    init(row: Row) {
+        id = row[Columns.id]
+        let bundleID: String = row[Columns.programIdentifier] ?? "com.example.untitled"
+        if programs[bundleID] == nil {
+            let programName: String? = row[Columns.programName]
+            let programIcon: Data? = row[Columns.programIcon]
+            programs[bundleID] = SnippetProgram(programName: programName ?? "Untitled", programIcon: programIcon != nil ? NSImage(data: programIcon!) : nil, programIdentifier: bundleID)
+        }
+        program = programs[bundleID]!
+        date = row[Columns.date]
+        contentForType = [:]
+    }
+    
+    func fetchingContentsFromDB(_ db: Database) -> SnippetItem {
+        var contentForType: [NSPasteboard.PasteboardType: Data] = [:]
+        if let contents = try? SnippetContentTable.filter(SnippetContentTable.Columns.forID == id).fetchAll(db) {
+            for content in contents {
+                contentForType[content.type] = content.data
+            }
+        }
+        
+        return SnippetItem(id: id, program: program, contentForType: contentForType, date: date)
+    }
+    
+    func encode(to container: inout PersistenceContainer) {
+        container[Columns.id] = id
+        container[Columns.programName] = program.programName
+        container[Columns.programIcon] = program.programIcon?.tiffRepresentation
+        container[Columns.programIdentifier] = program.programIdentifier
+        container[Columns.date] = date
+    }
+    
+    func insertContents(_ db: Database) throws -> Void {
+        for (type, data) in contentForType {
+            try SnippetContentTable(id: nil, forID: id, type: type, data: data).insert(db)
+        }
+    }
+    
+    func insertSelf(_ db: Database) throws -> Void {
+        try self.insert(db)
+        try self.insertContents(db)
     }
 
     func getBestData() -> SnippetContentType {
@@ -97,7 +157,7 @@ struct SnippetItem: Identifiable, Equatable {
             } else {
                 if let string = String(data: content, encoding: .utf8) {
                     if string.starts(with: "#") {
-                        if let nsColor = NSColor.init(string) {
+                        if let nsColor = NSColor(string) {
                             datas[content] = nsColor
                             return nsColor
                         }
@@ -126,6 +186,6 @@ struct SnippetItem: Identifiable, Equatable {
     }
     
     mutating func updateDate() {
-        self.date = Date()
+        date = Date()
     }
 }

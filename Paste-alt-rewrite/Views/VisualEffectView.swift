@@ -5,8 +5,8 @@
 //  Created by Helloyunho on 2021/03/18.
 //
 
-import Foundation
 import AppKit
+import Foundation
 import SwiftUI
 
 struct VisualEffectView: NSViewRepresentable {

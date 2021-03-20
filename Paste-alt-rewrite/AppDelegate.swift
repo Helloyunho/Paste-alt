@@ -17,7 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var lastChangeCount: Int = 0
     let pasteboard: NSPasteboard = .general
     var firstPasteEvent = true
-    var snippetItems: [SnippetItem] = []
+    let snippetItems = SnippetItems()
 
     lazy var preferencesWindowController = PreferencesWindowController(
         panes: [
@@ -32,17 +32,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillFinishLaunching(_ notification: Notification) {
         try! dbPool.write { db in
-            SnippetItem.createTable(db)
-            SnippetContentTable.createTable(db)
+            try SnippetItem.createTable(db)
+            try SnippetContentTable.createTable(db)
         }
 
         try! dbPool.read { db in
             if let items = try? SnippetItem.order(SnippetItem.Columns.date.desc).fetchAll(db) {
                 for item in items {
-                    self.snippetItems.append(item.fetchingContentsFromDB(db))
+                    self.snippetItems.items.append(item.fetchingContentsFromDB(db))
                 }
             }
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onDeleteAllDatas), name: .DeleteAllCommandCalled, object: nil)
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -99,6 +101,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidResignActive(_ notification: Notification) {
         NSApplication.shared.hide(nil)
+    }
+    
+    @objc func onDeleteAllDatas(_ notification: Notification) {
+        snippetItems.items = []
     }
 
     @IBAction func copyCommand(_ sender: Any) {

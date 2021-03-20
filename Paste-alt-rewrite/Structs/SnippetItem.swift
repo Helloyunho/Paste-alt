@@ -60,8 +60,8 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
         case id, programName, programIdentifier, programIcon, date
     }
     
-    static func createTable(_ db: Database) {
-        try! db.create(table: databaseTableName, ifNotExists: true) { t in
+    static func createTable(_ db: Database) throws -> Void {
+        try db.create(table: databaseTableName, ifNotExists: true) { t in
             t.column("id", .text).notNull().unique().primaryKey()
             t.column("programName", .text)
             t.column("programIdentifier", .text)

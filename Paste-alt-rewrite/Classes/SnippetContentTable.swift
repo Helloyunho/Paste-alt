@@ -15,8 +15,8 @@ class SnippetContentTable: Record {
     var type: NSPasteboard.PasteboardType
     var data: Data
     
-    static func createTable(_ db: Database) {
-        try! db.create(table: databaseTableName, ifNotExists: true) { t in
+    static func createTable(_ db: Database) throws -> Void {
+        try db.create(table: databaseTableName, ifNotExists: true) { t in
             t.autoIncrementedPrimaryKey("id")
             t.column("forID", .text).notNull()
             t.column("type", .text).notNull()

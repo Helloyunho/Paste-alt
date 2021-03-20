@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var snippetItems: [SnippetItem] = []
+    @ObservedObject var snippetItems: SnippetItems
     @State var selectedSnippet: SnippetItem?
     let strokeSize: CGFloat = 0.02
     
@@ -20,15 +20,15 @@ struct ContentView: View {
         NSPasteboard.general.clearContents()
         dontUpdate = true
         NSPasteboard.general.writeObjects([item])
-        if self.snippetItems.move(snippet, to: 0) {
-            self.snippetItems[0].date = Date()
+        if self.snippetItems.items.move(snippet, to: 0) {
+            self.snippetItems.items[0].date = Date()
         } else {
-            self.snippetItems.insert(snippet, at: 0)
+            self.snippetItems.items.insert(snippet, at: 0)
         }
     }
     
     func deleteSnippet(_ snippet: SnippetItem) {
-        _ = self.snippetItems.remove(snippet)
+        _ = self.snippetItems.items.remove(snippet)
         if snippet == selectedSnippet {
             selectedSnippet = nil
         }
@@ -39,7 +39,7 @@ struct ContentView: View {
             let smallSize = geometry.size.width > geometry.size.height ? geometry.size.height : geometry.size.width
             ScrollView(.horizontal, showsIndicators: true) {
                 LazyHStack(spacing: 0) {
-                    ForEach(snippetItems) { snippet in
+                    ForEach(snippetItems.items) { snippet in
                         ClipboardElement(name: snippet.program.programName, content: snippet.getBestData(), image: snippet.program.programIcon)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .padding(smallSize * strokeSize)
@@ -90,15 +90,11 @@ struct ContentView: View {
                     snippetItem = SnippetItem(
                         id: nil, program: program,
                         contentForType: contents, date: nil)
-                    self.snippetItems = self.snippetItems.filter { item in
-                        item.program.programIdentifier != programIdentifier
-                            || item.contentForType != contents
-                    }
 
-                    if self.snippetItems.move(snippetItem, to: 0) {
-                        self.snippetItems[0].updateDate()
+                    if self.snippetItems.items.move(snippetItem, to: 0) {
+                        self.snippetItems.items[0].updateDate()
                     } else {
-                        self.snippetItems.insert(snippetItem, at: 0)
+                        self.snippetItems.items.insert(snippetItem, at: 0)
                     }
                 } else {
                     let frontmost = NSWorkspace.shared.frontmostApplication
@@ -106,10 +102,10 @@ struct ContentView: View {
                         id: nil, program: frontmost,
                         contentForType: contents, date: nil)
 
-                    if self.snippetItems.move(snippetItem, to: 0) {
-                        self.snippetItems[0].updateDate()
+                    if self.snippetItems.items.move(snippetItem, to: 0) {
+                        self.snippetItems.items[0].updateDate()
                     } else {
-                        self.snippetItems.insert(snippetItem, at: 0)
+                        self.snippetItems.items.insert(snippetItem, at: 0)
                     }
                 }
                 
@@ -128,11 +124,8 @@ struct ContentView: View {
             guard let snippet = selectedSnippet else { return }
             self.deleteSnippet(snippet)
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+        .onReceive(NotificationCenter.default.publisher(for: .DeleteAllCommandCalled)) { _ in
+            selectedSnippet = nil
+        }
     }
 }

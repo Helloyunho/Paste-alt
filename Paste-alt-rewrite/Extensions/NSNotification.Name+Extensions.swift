@@ -11,4 +11,5 @@ extension NSNotification.Name {
     static let NSPasteboardDidChange: NSNotification.Name = .init("NSPasteboardDidChange")
     static let CopyCommandCalled: NSNotification.Name = .init("CopyCommandCalled")
     static let DeleteCommandCalled: NSNotification.Name = .init("DeleteCommandCalled")
+    static let DeleteAllCommandCalled: NSNotification.Name = .init("DeleteAllCommandCalled")
 }

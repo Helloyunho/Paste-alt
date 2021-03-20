@@ -67,6 +67,7 @@
 		55C6765C26032B5E006CCE15 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		55C79AD726063C3100ED8AD7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		55C79AE526065F8D00ED8AD7 /* SnippetItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetItems.swift; sourceTree = "<group>"; };
+		55C79AE8260661AE00ED8AD7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		55E53554260362F500B8D42C /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		55E53557260363A400B8D42C /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,6 +104,8 @@
 		55C3FB1625FDEAEE0052E75C = {
 			isa = PBXGroup;
 			children = (
+				55C79AE8260661AE00ED8AD7 /* README.md */,
+				55E53554260362F500B8D42C /* LICENSE */,
 				55C3FB2125FDEAEE0052E75C /* Paste-alt-rewrite */,
 				55C3FB2025FDEAEE0052E75C /* Products */,
 			);
@@ -131,7 +134,6 @@
 				55C3FB2E25FDEAF20052E75C /* Info.plist */,
 				55C3FB2F25FDEAF20052E75C /* Paste_alt_rewrite.entitlements */,
 				55C3FB2825FDEAF20052E75C /* Preview Content */,
-				55E53554260362F500B8D42C /* LICENSE */,
 				55C79AD726063C3100ED8AD7 /* Constants.swift */,
 			);
 			path = "Paste-alt-rewrite";

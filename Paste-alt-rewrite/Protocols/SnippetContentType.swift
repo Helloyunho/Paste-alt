@@ -15,3 +15,4 @@ extension NSImage: SnippetContentType {}
 extension NSAttributedString: SnippetContentType {}
 extension NSColor: SnippetContentType {}
 extension URLWithMetadatas: SnippetContentType {}
+extension FileURLStruct: SnippetContentType {}

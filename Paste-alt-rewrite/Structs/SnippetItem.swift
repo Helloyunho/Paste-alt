@@ -79,6 +79,18 @@ struct SnippetItem: Identifiable, Equatable {
             }
         }
         
+        if let content = contentForType[.fileURL] {
+            if let cached = datas[content] {
+                return cached
+            } else {
+                if let url = String(data: content, encoding: .utf8) {
+                    let fileUrlStruct = FileURLStruct(url: url)
+                    datas[content] = fileUrlStruct
+                    return fileUrlStruct
+                }
+            }
+        }
+        
         if let content = contentForType[.string] {
             if let cached = datas[content] {
                 return cached

@@ -76,6 +76,8 @@ struct ClipboardElement: View {
                             .background(Color(contentColor))
                     } else if let contentURL = content as? URLWithMetadatas {
                         ContentURLView(contentURL: contentURL)
+                    } else if let fileURL = content as? FileURLStruct {
+                        FileURLView(fileURL: fileURL)
                     }
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height * 2 / 3)

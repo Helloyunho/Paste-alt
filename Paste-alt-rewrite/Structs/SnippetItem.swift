@@ -10,10 +10,26 @@ import GRDB
 import SwiftUI
 import UIColor_Hex_Swift
 
-struct SnippetProgram {
+struct SnippetProgram: Equatable {
     var programName: String
     var programIcon: NSImage?
     var programIdentifier: String
+    
+    static func == (lhs: SnippetProgram, rhs: SnippetProgram?) -> Bool {
+        lhs.programName == rhs?.programName && lhs.programIdentifier == rhs?.programIdentifier && lhs.programIcon == rhs?.programIcon
+    }
+    
+    static func == (lhs: SnippetProgram, rhs: NSRunningApplication?) -> Bool {
+        lhs.programName == rhs?.localizedName && lhs.programIdentifier == rhs?.bundleIdentifier && lhs.programIcon == rhs?.icon
+    }
+    
+    static func != (lhs: SnippetProgram, rhs: SnippetProgram?) -> Bool {
+        !(lhs == rhs)
+    }
+    
+    static func != (lhs: SnippetProgram, rhs: NSRunningApplication?) -> Bool {
+        !(lhs == rhs)
+    }
 }
 
 private var programs: [String: SnippetProgram] = [:]
@@ -31,7 +47,7 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
 
     init(id: String?, program: NSRunningApplication?, contentForType: [NSPasteboard.PasteboardType: Data], date: Date?) {
         let bundleID = program?.bundleIdentifier ?? "com.example.untitled"
-        if programs[bundleID] == nil {
+        if programs[bundleID] == nil || programs[bundleID]! != program {
             programs[bundleID] = .init(
                 programName: program?.localizedName ?? "Untitled",
                 programIcon: program?.icon, programIdentifier: bundleID)
@@ -45,7 +61,7 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
 
     init(id: String?, program: SnippetProgram, contentForType: [NSPasteboard.PasteboardType: Data], date: Date?) {
         let bundleID = program.programIdentifier
-        if programs[bundleID] == nil {
+        if programs[bundleID] == nil || programs[bundleID]! != program {
             programs[bundleID] = program
         }
         self.program = programs[bundleID]!

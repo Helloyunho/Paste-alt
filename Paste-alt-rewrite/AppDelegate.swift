@@ -13,6 +13,7 @@ import SwiftUI
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
+    var statusItem: NSStatusItem!
     var timer: Timer!
     var lastChangeCount: Int = 0
     let pasteboard: NSPasteboard = .general
@@ -74,6 +75,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.contentView = contentHostingView
         window.makeKeyAndOrderFront(nil)
         window.level = .floating
+        
+        // StatusItem is stored as a class property.
+        self.statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        self.statusItem.button?.title = "P"
+        
+        self.makeMenusInMenuBar()
 
         timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
             if self.lastChangeCount != self.pasteboard.changeCount {
@@ -92,6 +99,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             NSApplication.shared.activate(ignoringOtherApps: true)
         }
     }
+    
+    func makeMenusInMenuBar() {
+        let menu = NSMenu()
+        menu.addItem(NSMenuItem(title: "Open Paste-alt", action: #selector(self.openApplication), keyEquivalent: "o"))
+        menu.addItem(NSMenuItem(title: "Preferences", action: #selector(self.showPreferences), keyEquivalent: ","))
+        menu.addItem(NSMenuItem.separator())
+        menu.addItem(NSMenuItem(title: "Quit Paste-alt", action: #selector(self.quitApplication), keyEquivalent: "q"))
+        
+        self.statusItem.menu = menu
+    }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
@@ -104,6 +121,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc func onDeleteAllDatas(_ notification: Notification) {
         snippetItems.items = []
+    }
+    
+    @objc func showPreferences(_ sender: Any?) {
+        preferencesWindowController.show()
+    }
+    
+    @objc func quitApplication(_ sender: Any?) {
+        NSApplication.shared.terminate(nil)
+    }
+    
+    @objc func openApplication(_ sender: Any?) {
+        NSApplication.shared.activate(ignoringOtherApps: true)
     }
 
     @IBAction func copyCommand(_ sender: Any) {

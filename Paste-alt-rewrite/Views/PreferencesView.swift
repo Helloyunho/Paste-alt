@@ -30,7 +30,7 @@ struct PreferencesView: View {
         .alert(isPresented: $alertDeleteAllDatas) {
             Alert(title: Text("Are you sure?"), message: Text("Once all data is deleted you can no longer recover your data!"), primaryButton: .destructive(Text("Yes")) {
                 DispatchQueue.main.async {
-                    try? dbPool.write { db in
+                    dbPool.writeSafely { db in
                         try SnippetItem.deleteAll(db)
                         try SnippetContentTable.deleteAll(db)
                     }

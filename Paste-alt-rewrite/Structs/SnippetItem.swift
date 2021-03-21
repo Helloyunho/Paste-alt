@@ -185,7 +185,8 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
         return "Cannot find good data"
     }
     
-    mutating func updateDate() {
+    mutating func updateDate(_ db: Database) throws -> Void {
         date = Date()
+        try self.update(db)
     }
 }

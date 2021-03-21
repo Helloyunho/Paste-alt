@@ -31,16 +31,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     )
 
     func applicationWillFinishLaunching(_ notification: Notification) {
-        try! dbPool.write { db in
+        dbPool.writeSafely { db in
             try SnippetItem.createTable(db)
             try SnippetContentTable.createTable(db)
         }
 
-        try! dbPool.read { db in
-            if let items = try? SnippetItem.order(SnippetItem.Columns.date.desc).fetchAll(db) {
-                for item in items {
-                    self.snippetItems.items.append(item.fetchingContentsFromDB(db))
-                }
+        dbPool.readSafely { db in
+            let items = try SnippetItem.order(SnippetItem.Columns.date.desc).fetchAll(db)
+            for item in items {
+                self.snippetItems.items.append(item.fetchingContentsFromDB(db))
             }
         }
         

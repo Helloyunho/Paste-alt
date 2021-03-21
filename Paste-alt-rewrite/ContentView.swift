@@ -21,7 +21,11 @@ struct ContentView: View {
         dontUpdate = true
         NSPasteboard.general.writeObjects([item])
         if self.snippetItems.items.move(snippet, to: 0) {
-            self.snippetItems.items[0].date = Date()
+            DispatchQueue.main.async {
+                dbPool.writeSafely { db in
+                    try self.snippetItems.items[0].updateDate(db)
+                }
+            }
         } else {
             self.snippetItems.items.insert(snippet, at: 0)
         }
@@ -29,6 +33,11 @@ struct ContentView: View {
     
     func deleteSnippet(_ snippet: SnippetItem) {
         _ = self.snippetItems.items.remove(snippet)
+        DispatchQueue.main.async {
+            dbPool.writeSafely { db in
+                try snippet.delete(db)
+            }
+        }
         if snippet == selectedSnippet {
             selectedSnippet = nil
         }
@@ -92,7 +101,11 @@ struct ContentView: View {
                         contentForType: contents, date: nil)
 
                     if self.snippetItems.items.move(snippetItem, to: 0) {
-                        self.snippetItems.items[0].updateDate()
+                        DispatchQueue.main.async {
+                            dbPool.writeSafely { db in
+                                try self.snippetItems.items[0].updateDate(db)
+                            }
+                        }
                     } else {
                         self.snippetItems.items.insert(snippetItem, at: 0)
                     }
@@ -103,15 +116,19 @@ struct ContentView: View {
                         contentForType: contents, date: nil)
 
                     if self.snippetItems.items.move(snippetItem, to: 0) {
-                        self.snippetItems.items[0].updateDate()
+                        DispatchQueue.main.async {
+                            dbPool.writeSafely { db in
+                                try self.snippetItems.items[0].updateDate(db)
+                            }
+                        }
                     } else {
                         self.snippetItems.items.insert(snippetItem, at: 0)
                     }
                 }
                 
                 DispatchQueue.main.async {
-                    try? dbPool.write { db in
-                        try? snippetItem.insertSelf(db)
+                    dbPool.writeSafely { db in
+                        try snippetItem.insertSelf(db)
                     }
                 }
             }

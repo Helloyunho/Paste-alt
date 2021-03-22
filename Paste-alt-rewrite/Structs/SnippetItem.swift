@@ -167,6 +167,19 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
             }
         }
         
+        if let content = contentForType[.color] {
+            if let cached = datas[content] {
+                return cached
+            } else {
+                if let color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSColor.self, from: content) {
+                    // Seems like color from pasteboard is wide display color and uicolor hex swift hates it
+                    let nsColor = NSColor(red: color.redComponent, green: color.greenComponent, blue: color.blueComponent, alpha: color.alphaComponent)
+                    datas[content] = nsColor
+                    return nsColor
+                }
+            }
+        }
+        
         if let content = contentForType[.string] {
             if let cached = datas[content] {
                 return cached

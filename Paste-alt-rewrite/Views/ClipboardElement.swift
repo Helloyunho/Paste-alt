@@ -7,6 +7,7 @@
 
 import SwiftUI
 import UIImageColors
+import PDFKit
 
 struct ClipboardElement: View {
     var name: String
@@ -78,6 +79,10 @@ struct ClipboardElement: View {
                         ContentURLView(contentURL: contentURL)
                     } else if let fileURL = content as? FileURLStruct {
                         FileURLView(fileURL: fileURL)
+                    } else if let pdf = content as? PDFDocument {
+                        PDFRepresentedView(pdfDocument: pdf)
+                            .padding(.horizontal, geometry.size.width * 0.02)
+                            .padding(.top, geometry.size.height * 0.02)
                     }
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height * 2 / 3)

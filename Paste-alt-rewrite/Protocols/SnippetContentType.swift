@@ -8,6 +8,7 @@
 import AppKit
 import Foundation
 import SwiftUI
+import PDFKit
 
 protocol SnippetContentType {}
 extension String: SnippetContentType {}
@@ -16,3 +17,4 @@ extension NSAttributedString: SnippetContentType {}
 extension NSColor: SnippetContentType {}
 extension URLWithMetadatas: SnippetContentType {}
 extension FileURLStruct: SnippetContentType {}
+extension PDFDocument: SnippetContentType {}

@@ -38,6 +38,7 @@
 		55C79AE626065F8D00ED8AD7 /* SnippetItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C79AE526065F8D00ED8AD7 /* SnippetItems.swift */; };
 		55C79AEE260664AF00ED8AD7 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 55C79AED260664AF00ED8AD7 /* .gitignore */; };
 		55C79AF12607095400ED8AD7 /* DatabasePool+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C79AF02607095300ED8AD7 /* DatabasePool+Extensions.swift */; };
+		55DF4F202608F79C0044DC73 /* PDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF4F1F2608F79C0044DC73 /* PDFView.swift */; };
 		55E535492603609A00B8D42C /* UIImageColors in Frameworks */ = {isa = PBXBuildFile; productRef = 55E535482603609A00B8D42C /* UIImageColors */; };
 		55E53555260362F500B8D42C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 55E53554260362F500B8D42C /* LICENSE */; };
 		55E53558260363A400B8D42C /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E53557260363A400B8D42C /* VisualEffectView.swift */; };
@@ -72,6 +73,7 @@
 		55C79AE8260661AE00ED8AD7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		55C79AED260664AF00ED8AD7 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		55C79AF02607095300ED8AD7 /* DatabasePool+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabasePool+Extensions.swift"; sourceTree = "<group>"; };
+		55DF4F1F2608F79C0044DC73 /* PDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFView.swift; sourceTree = "<group>"; };
 		55E53554260362F500B8D42C /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		55E53557260363A400B8D42C /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -161,6 +163,7 @@
 				5577CBD42604671600B56776 /* AttributedText.swift */,
 				55682725260528C30081F54B /* ContentURLView.swift */,
 				550929762605A56A001971F9 /* FileURLView.swift */,
+				55DF4F1F2608F79C0044DC73 /* PDFView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				55E53558260363A400B8D42C /* VisualEffectView.swift in Sources */,
 				550929772605A56A001971F9 /* FileURLView.swift in Sources */,
 				555033112603325600D5F7C5 /* NSColor+Extensions.swift in Sources */,
+				55DF4F202608F79C0044DC73 /* PDFView.swift in Sources */,
 				55C6765026025688006CCE15 /* NSNotification.Name+Extensions.swift in Sources */,
 				550929732605A294001971F9 /* FileURLStruct.swift in Sources */,
 				5577CBD52604671600B56776 /* AttributedText.swift in Sources */,

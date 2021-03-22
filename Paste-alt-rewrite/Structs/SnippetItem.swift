@@ -7,6 +7,7 @@
 
 import Foundation
 import GRDB
+import PDFKit
 import SwiftUI
 import UIColor_Hex_Swift
 
@@ -198,14 +199,27 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
                         return urlWithMetas
                     }
                     
-                    if let content = contentForType[.rtf] {
-                        if let nsattributedstring = NSAttributedString(rtf: content, documentAttributes: nil) {
+                    if let content = contentForType[.pdf] {
+                        if let cached = datas[content] {
+                            return cached
+                        } else if let pdf = PDFDocument(data: content) {
+                            datas[content] = pdf
+                            return pdf
+                        }
+                    } else if let content = contentForType[.rtf] {
+                        if let cached = datas[content] {
+                            return cached
+                        } else if let nsattributedstring = NSAttributedString(rtf: content, documentAttributes: nil) {
                             datas[content] = nsattributedstring
                             return nsattributedstring
                         }
                     } else {
-                        datas[content] = string
-                        return string
+                        if let cached = datas[content] {
+                            return cached
+                        } else {
+                            datas[content] = string
+                            return string
+                        }
                     }
                 }
             }

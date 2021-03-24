@@ -41,6 +41,7 @@
 		55DF4F202608F79C0044DC73 /* PDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF4F1F2608F79C0044DC73 /* PDFView.swift */; };
 		55DF4F30260B7D540044DC73 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55DF4F2E260B7D4F0044DC73 /* Sparkle.framework */; };
 		55DF4F31260B7D540044DC73 /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55DF4F2E260B7D4F0044DC73 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		55DF4F34260B8B290044DC73 /* appcast.xml in Resources */ = {isa = PBXBuildFile; fileRef = 55DF4F33260B8B290044DC73 /* appcast.xml */; };
 		55E535492603609A00B8D42C /* UIImageColors in Frameworks */ = {isa = PBXBuildFile; productRef = 55E535482603609A00B8D42C /* UIImageColors */; };
 		55E53555260362F500B8D42C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 55E53554260362F500B8D42C /* LICENSE */; };
 		55E53558260363A400B8D42C /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E53557260363A400B8D42C /* VisualEffectView.swift */; };
@@ -91,6 +92,7 @@
 		55C79AF02607095300ED8AD7 /* DatabasePool+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabasePool+Extensions.swift"; sourceTree = "<group>"; };
 		55DF4F1F2608F79C0044DC73 /* PDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFView.swift; sourceTree = "<group>"; };
 		55DF4F2E260B7D4F0044DC73 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		55DF4F33260B8B290044DC73 /* appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = appcast.xml; sourceTree = "<group>"; };
 		55E53554260362F500B8D42C /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		55E53557260363A400B8D42C /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,6 +130,7 @@
 		55C3FB1625FDEAEE0052E75C = {
 			isa = PBXGroup;
 			children = (
+				55DF4F33260B8B290044DC73 /* appcast.xml */,
 				55C79AED260664AF00ED8AD7 /* .gitignore */,
 				55C79AE8260661AE00ED8AD7 /* README.md */,
 				55E53554260362F500B8D42C /* LICENSE */,
@@ -305,6 +308,7 @@
 			files = (
 				55C79AEE260664AF00ED8AD7 /* .gitignore in Resources */,
 				55C3FB2D25FDEAF20052E75C /* Main.storyboard in Resources */,
+				55DF4F34260B8B290044DC73 /* appcast.xml in Resources */,
 				55C3FB2A25FDEAF20052E75C /* Preview Assets.xcassets in Resources */,
 				55E53555260362F500B8D42C /* LICENSE in Resources */,
 				55C3FB2725FDEAF20052E75C /* Assets.xcassets in Resources */,
@@ -480,6 +484,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Paste-alt-rewrite/Paste_alt_rewrite.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Paste-alt-rewrite/Preview Content\"";
 				DEVELOPMENT_TEAM = 32Z9KZZ4PU;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -494,7 +499,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 0.0.3;
+				MARKETING_VERSION = 0.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "xyz.helloyunho.Paste-alt-rewrite";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -509,6 +514,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Paste-alt-rewrite/Paste_alt_rewrite.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Paste-alt-rewrite/Preview Content\"";
 				DEVELOPMENT_TEAM = 32Z9KZZ4PU;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -523,7 +529,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 0.0.3;
+				MARKETING_VERSION = 0.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "xyz.helloyunho.Paste-alt-rewrite";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

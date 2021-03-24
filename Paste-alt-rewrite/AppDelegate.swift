@@ -20,7 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let pasteboard: NSPasteboard = .general
     var firstPasteEvent = true
     let snippetItems = SnippetItems()
-    var updater = SPUUpdater(hostBundle: Bundle.main, applicationBundle: Bundle.main, userDriver: SPUStandardUserDriver(), delegate: nil)
+    var updater = SPUUpdater(hostBundle: Bundle.main, applicationBundle: Bundle.main, userDriver: SPUStandardUserDriver(hostBundle: Bundle.main, delegate: nil), delegate: nil)
 
     lazy var preferencesWindowController = PreferencesWindowController(
         panes: [
@@ -50,12 +50,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        do {
-            try updater.start()
-        } catch {
-            defaultLogger.error("\(String(describing: error))")
-        }
-        
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView(snippetItems: snippetItems)
             .background(VisualEffectView(
@@ -89,6 +83,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.statusItem.button?.title = "P"
         
         self.makeMenusInMenuBar()
+        
+        do {
+            try updater.start()
+        } catch {
+            defaultLogger.error("\(String(describing: error))")
+        }
 
         timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
             if self.lastChangeCount != self.pasteboard.changeCount {
@@ -141,7 +141,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func checkForUpdate(_ sender: Any) {
-        updater.checkForUpdates()
+        if updater.canCheckForUpdates {
+            updater.checkForUpdates()
+        }
     }
     
     @objc func openApplication(_ sender: Any?) {
@@ -165,6 +167,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func checkForUpdateCommand(_ sender: Any) {
-        updater.checkForUpdates()
+        if updater.canCheckForUpdates {
+            updater.checkForUpdates()
+        }
     }
 }

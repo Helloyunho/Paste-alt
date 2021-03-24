@@ -39,10 +39,26 @@
 		55C79AEE260664AF00ED8AD7 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 55C79AED260664AF00ED8AD7 /* .gitignore */; };
 		55C79AF12607095400ED8AD7 /* DatabasePool+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C79AF02607095300ED8AD7 /* DatabasePool+Extensions.swift */; };
 		55DF4F202608F79C0044DC73 /* PDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF4F1F2608F79C0044DC73 /* PDFView.swift */; };
+		55DF4F30260B7D540044DC73 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55DF4F2E260B7D4F0044DC73 /* Sparkle.framework */; };
+		55DF4F31260B7D540044DC73 /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55DF4F2E260B7D4F0044DC73 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55E535492603609A00B8D42C /* UIImageColors in Frameworks */ = {isa = PBXBuildFile; productRef = 55E535482603609A00B8D42C /* UIImageColors */; };
 		55E53555260362F500B8D42C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 55E53554260362F500B8D42C /* LICENSE */; };
 		55E53558260363A400B8D42C /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E53557260363A400B8D42C /* VisualEffectView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		55DF4F2D260A3E060044DC73 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				55DF4F31260B7D540044DC73 /* Sparkle.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5509296E26059E29001971F9 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
@@ -74,6 +90,7 @@
 		55C79AED260664AF00ED8AD7 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		55C79AF02607095300ED8AD7 /* DatabasePool+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabasePool+Extensions.swift"; sourceTree = "<group>"; };
 		55DF4F1F2608F79C0044DC73 /* PDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFView.swift; sourceTree = "<group>"; };
+		55DF4F2E260B7D4F0044DC73 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		55E53554260362F500B8D42C /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		55E53557260363A400B8D42C /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,6 +104,7 @@
 				556827232605192A0081F54B /* Alamofire in Frameworks */,
 				5577CBC12604488400B56776 /* Preferences in Frameworks */,
 				5509297E2605F0C3001971F9 /* GRDB in Frameworks */,
+				55DF4F30260B7D540044DC73 /* Sparkle.framework in Frameworks */,
 				5577CBCC26044BF900B56776 /* LaunchAtLogin in Frameworks */,
 				55682718260511E00081F54B /* UIColor_Hex_Swift in Frameworks */,
 				5577CBC52604489B00B56776 /* KeyboardShortcuts in Frameworks */,
@@ -115,6 +133,7 @@
 				55E53554260362F500B8D42C /* LICENSE */,
 				55C3FB2125FDEAEE0052E75C /* Paste-alt-rewrite */,
 				55C3FB2025FDEAEE0052E75C /* Products */,
+				55DF4F22260A3DE50044DC73 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -198,6 +217,14 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		55DF4F22260A3DE50044DC73 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				55DF4F2E260B7D4F0044DC73 /* Sparkle.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -208,6 +235,7 @@
 				55C3FB1B25FDEAEE0052E75C /* Sources */,
 				55C3FB1C25FDEAEE0052E75C /* Frameworks */,
 				55C3FB1D25FDEAEE0052E75C /* Resources */,
+				55DF4F2D260A3E060044DC73 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -456,13 +484,17 @@
 				DEVELOPMENT_TEAM = 32Z9KZZ4PU;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Paste-alt-rewrite/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "xyz.helloyunho.Paste-alt-rewrite";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -481,13 +513,17 @@
 				DEVELOPMENT_TEAM = 32Z9KZZ4PU;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Paste-alt-rewrite/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "xyz.helloyunho.Paste-alt-rewrite";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

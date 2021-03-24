@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Paste-alt-rewrite</title>
+        <item>
+            <title>0.0.3</title>
+            <pubDate>Wed, 24 Mar 2021 23:23:09 +0900</pubDate>
+            <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/Helloyunho/Paste-alt/releases/download/v0.0.3/Paste-alt-rewrite.0.0.3.zip" sparkle:version="1" sparkle:shortVersionString="0.0.3" length="8159897" type="application/octet-stream" sparkle:edSignature="Rsh4pxvFONkgMxC8c5AyijGcoktPQHlA2OTxBjYEqCuUiPw3RCghTHJHjpLgA+6OguEe4JfElB5DDgmO3t7cCw=="/>
+        </item>
+        <item>
+            <title>0.0.3</title>
+            <pubDate>Wed, 24 Mar 2021 23:23:33 +0900</pubDate>
+            <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/Helloyunho/Paste-alt/releases/download/v0.0.3/Paste-alt-rewrite.0.0.3.dmg" sparkle:version="1" sparkle:shortVersionString="0.0.3" length="8039026" type="application/octet-stream" sparkle:edSignature="8H9CZrm8XL90DnspGDpXRLq5ZUEwJyaCUweA1mrJ1COa1RDzAtPU3Or4v3lh2BZzdLZhwAPGLPcaBqFAT19DCA=="/>
+        </item>
+    </channel>
+</rss>

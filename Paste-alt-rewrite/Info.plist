@@ -30,5 +30,9 @@
 	<string>Main</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>SUFeedURL</key>
+	<string>https://raw.githubusercontent.com/Helloyunho/Paste-alt/rewrite/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>2bWU80OG18c8LhyKotBmWJb+MEq22/gMQSAe8GdbqOI=</string>
 </dict>
 </plist>

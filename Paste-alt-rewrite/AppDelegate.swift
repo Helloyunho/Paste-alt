@@ -9,6 +9,7 @@ import Cocoa
 import KeyboardShortcuts
 import Preferences
 import SwiftUI
+import Sparkle
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -19,6 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let pasteboard: NSPasteboard = .general
     var firstPasteEvent = true
     let snippetItems = SnippetItems()
+    var updater = SPUUpdater(hostBundle: Bundle.main, applicationBundle: Bundle.main, userDriver: SPUStandardUserDriver(), delegate: nil)
 
     lazy var preferencesWindowController = PreferencesWindowController(
         panes: [
@@ -48,6 +50,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        do {
+            try updater.start()
+        } catch {
+            defaultLogger.error("\(String(describing: error))")
+        }
+        
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView(snippetItems: snippetItems)
             .background(VisualEffectView(
@@ -105,6 +113,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(NSMenuItem(title: "Open Paste-alt", action: #selector(self.openApplication), keyEquivalent: "o"))
         menu.addItem(NSMenuItem(title: "Preferences", action: #selector(self.showPreferences), keyEquivalent: ","))
         menu.addItem(NSMenuItem.separator())
+        menu.addItem(NSMenuItem(title: "Check for Updates...", action: #selector(self.checkForUpdate), keyEquivalent: ""))
         menu.addItem(NSMenuItem(title: "Quit Paste-alt", action: #selector(self.quitApplication), keyEquivalent: "q"))
         
         self.statusItem.menu = menu
@@ -131,6 +140,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSApplication.shared.terminate(nil)
     }
     
+    @objc func checkForUpdate(_ sender: Any) {
+        updater.checkForUpdates()
+    }
+    
     @objc func openApplication(_ sender: Any?) {
         NSApplication.shared.activate(ignoringOtherApps: true)
     }
@@ -149,5 +162,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBAction func showPreferencesCommand(_ sender: Any) {
         preferencesWindowController.show()
+    }
+    
+    @IBAction func checkForUpdateCommand(_ sender: Any) {
+        updater.checkForUpdates()
     }
 }

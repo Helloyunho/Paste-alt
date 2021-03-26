@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import GRDB
 
 struct ContentView: View {
     @ObservedObject var snippetItems: SnippetItems
     @State var selectedSnippet: SnippetItem?
+    @State var isLoading: Bool = false
     let strokeSize: CGFloat = 0.02
     
     func copySnippet(_ snippet: SnippetItem) {
@@ -21,7 +23,7 @@ struct ContentView: View {
         dontUpdate = true
         NSPasteboard.general.writeObjects([item])
         if self.snippetItems.items.move(snippet, to: 0) {
-            DispatchQueue.main.async {
+            DispatchQueue.global().async {
                 dbPool.writeSafely { db in
                     try self.snippetItems.items[0].updateDate(db)
                 }
@@ -33,7 +35,7 @@ struct ContentView: View {
     
     func deleteSnippet(_ snippet: SnippetItem) {
         _ = self.snippetItems.items.remove(snippet)
-        DispatchQueue.main.async {
+        DispatchQueue.global().async {
             dbPool.writeSafely { db in
                 try snippet.delete(db)
             }
@@ -65,11 +67,44 @@ struct ContentView: View {
                                     self.deleteSnippet(snippet)
                                 }.keyboardShortcut(.delete)
                             }
+                            .onAppear {
+                                if !isLoading {
+                                    if let currentIndex = self.snippetItems.items.firstIndex(of: snippet) {
+                                        if currentIndex >= self.snippetItems.items.count - limitAtOneSnippets {
+                                            if let lastDate = self.snippetItems.items.last?.date {
+                                                DispatchQueue.global().async {
+                                                    dbPool.readSafely { db in
+                                                        let items = try SnippetItem.filter(lastDate > SnippetItem.Columns.date).limit(limitAtOneSnippets).fetchAll(db)
+                                                        for item in items {
+                                                            let object = item.fetchingContentsFromDB(db)
+                                                            DispatchQueue.main.async {
+                                                                NotificationCenter.default.post(name: .AddSnippetItemFromBackground, object: object)
+                                                            }
+                                                        }
+                                                    }
+                                                    isLoading = false
+                                                }
+                                                isLoading = true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                    }
+                    if isLoading {
+                        ProgressView()
+                            .aspectRatio(1.0, contentMode: .fit)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .padding(smallSize * 0.05)
                     }
                 }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onReceive(NotificationCenter.default.publisher(for: .AddSnippetItemFromBackground)) { notification in
+            guard let item = notification.object as? SnippetItem else { return }
+            self.snippetItems.items.append(item)
+        }
         .onReceive(NotificationCenter.default.publisher(for: .NSPasteboardDidChange)) { notification in
             guard let pasteboard = notification.object as? NSPasteboard else { return }
             guard let items = pasteboard.pasteboardItems else { return }
@@ -101,7 +136,7 @@ struct ContentView: View {
                         contentForType: contents, date: nil)
 
                     if self.snippetItems.items.move(snippetItem, to: 0) {
-                        DispatchQueue.main.async {
+                        DispatchQueue.global().async {
                             dbPool.writeSafely { db in
                                 try self.snippetItems.items[0].updateDate(db)
                             }
@@ -116,7 +151,7 @@ struct ContentView: View {
                         contentForType: contents, date: nil)
 
                     if self.snippetItems.items.move(snippetItem, to: 0) {
-                        DispatchQueue.main.async {
+                        DispatchQueue.global().async {
                             dbPool.writeSafely { db in
                                 try self.snippetItems.items[0].updateDate(db)
                             }
@@ -126,7 +161,7 @@ struct ContentView: View {
                     }
                 }
                 
-                DispatchQueue.main.async {
+                DispatchQueue.global().async {
                     dbPool.writeSafely { db in
                         try snippetItem.insertSelf(db)
                     }

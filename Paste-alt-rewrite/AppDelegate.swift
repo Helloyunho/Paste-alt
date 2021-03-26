@@ -40,7 +40,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         dbPool.readSafely { db in
-            let items = try SnippetItem.order(SnippetItem.Columns.date.desc).fetchAll(db)
+            let items = try SnippetItem.order(SnippetItem.Columns.date.desc).limit(limitAtOneSnippets * 2).fetchAll(db)
             for item in items {
                 self.snippetItems.items.append(item.fetchingContentsFromDB(db))
             }

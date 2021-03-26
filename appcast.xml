@@ -3,6 +3,18 @@
     <channel>
         <title>Paste-alt-rewrite</title>
         <item>
+            <title>0.0.5</title>
+            <pubDate>Sat, 27 Mar 2021 02:45:55 +0900</pubDate>
+            <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/Helloyunho/Paste-alt/releases/download/v0.0.5/Paste-alt-rewrite.0.0.5.zip" sparkle:version="3" sparkle:shortVersionString="0.0.5" length="8171733" type="application/octet-stream" sparkle:edSignature="7Qc6Cc9AlBPRMkT78L0eIPFA3mL2bcJGSWBRzdyKdqp5qa9eUo+i//EyPh3gFwnynyPvSZ5rUp5BnD/+MivXBg=="/>
+        </item>
+        <item>
+            <title>0.0.5</title>
+            <pubDate>Sat, 27 Mar 2021 02:46:16 +0900</pubDate>
+            <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/Helloyunho/Paste-alt/releases/download/v0.0.5/Paste-alt-rewrite.0.0.5.dmg" sparkle:version="3" sparkle:shortVersionString="0.0.5" length="8047936" type="application/octet-stream" sparkle:edSignature="XkGv+6gVFtmosyACeImNVV8V1BUtZBn2hr++ZsrK+ax1c1NrBjm8cOg23SFFDrHNvL1Gem8VQ17BMU+dgoouDg=="/>
+        </item>
+        <item>
             <title>0.0.4</title>
             <pubDate>Thu, 25 Mar 2021 00:25:05 +0900</pubDate>
             <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>

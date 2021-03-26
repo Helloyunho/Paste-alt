@@ -12,4 +12,5 @@ extension NSNotification.Name {
     static let CopyCommandCalled: NSNotification.Name = .init("CopyCommandCalled")
     static let DeleteCommandCalled: NSNotification.Name = .init("DeleteCommandCalled")
     static let DeleteAllCommandCalled: NSNotification.Name = .init("DeleteAllCommandCalled")
+    static let AddSnippetItemFromBackground: NSNotification.Name = .init("AddSnippetItemFromBackground")
 }

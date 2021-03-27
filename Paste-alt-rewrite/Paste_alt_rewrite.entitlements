@@ -6,6 +6,10 @@
 	<true/>
 	<key>com.apple.security.files.user-selected.read-only</key>
 	<true/>
+	<key>com.apple.security.temporary-exception.shared-preference.read-write</key>
+	<array>
+		<string>xyz.helloyunho.Paste-alt-rewrite</string>
+	</array>
 	<key>com.apple.security.network.client</key>
 	<true/>
 </dict>

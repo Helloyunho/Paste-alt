@@ -36,6 +36,11 @@ struct SnippetProgram: Equatable {
 private var programs: [String: SnippetProgram] = [:]
 private var datas: [Data: SnippetContentType] = [:]
 
+func resetAllGlobalDatas() -> Void {
+    programs.removeAll()
+    datas.removeAll()
+}
+
 struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, PersistableRecord {
     static func == (lhs: SnippetItem, rhs: SnippetItem) -> Bool {
         lhs.program.programIdentifier == rhs.program.programIdentifier && lhs.contentForType == rhs.contentForType
@@ -128,6 +133,13 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
     func insertSelf(_ db: Database) throws -> Void {
         try self.insert(db)
         try self.insertContents(db)
+    }
+    
+    func deleteSelf(_ db: Database) throws -> Void {
+        try self.delete(db)
+        for (_, content) in contentForType {
+            datas.removeValue(forKey: content)
+        }
     }
 
     func getBestData() -> SnippetContentType {

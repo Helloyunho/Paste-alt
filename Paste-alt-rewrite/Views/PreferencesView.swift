@@ -33,6 +33,7 @@ struct PreferencesView: View {
                     dbPool.writeSafely { db in
                         try SnippetItem.deleteAll(db)
                         try SnippetContentTable.deleteAll(db)
+                        resetAllGlobalDatas()
                     }
                     NotificationCenter.default.post(.init(name: .DeleteAllCommandCalled))
                 }

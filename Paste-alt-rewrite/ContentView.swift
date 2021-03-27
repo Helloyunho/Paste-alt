@@ -30,6 +30,7 @@ struct ContentView: View {
             }
         } else {
             self.snippetItems.items.insert(snippet, at: 0)
+            self.snippetItems.items.removeLast()
         }
     }
     
@@ -37,9 +38,26 @@ struct ContentView: View {
         _ = self.snippetItems.items.remove(snippet)
         DispatchQueue.global().async {
             dbPool.writeSafely { db in
-                try snippet.delete(db)
+                try snippet.deleteSelf(db)
             }
         }
+
+        if let lastDate = self.snippetItems.items.last?.date {
+            DispatchQueue.global().async {
+                dbPool.readSafely { db in 
+                    let items = try SnippetItem.filter(lastDate > SnippetItem.Columns.date).limit(1).fetchAll(db)
+                    for item in items {
+                        let object = item.fetchingContentsFromDB(db)
+                        DispatchQueue.main.async {
+                            NotificationCenter.default.post(name: .AddSnippetItemFromBackground, object: object)
+                        }
+                    }
+                }
+                isLoading = false
+            }
+            isLoading = true
+        }
+        
         if snippet == selectedSnippet {
             selectedSnippet = nil
         }
@@ -134,31 +152,22 @@ struct ContentView: View {
                     snippetItem = SnippetItem(
                         id: nil, program: program,
                         contentForType: contents, date: nil)
-
-                    if self.snippetItems.items.move(snippetItem, to: 0) {
-                        DispatchQueue.global().async {
-                            dbPool.writeSafely { db in
-                                try self.snippetItems.items[0].updateDate(db)
-                            }
-                        }
-                    } else {
-                        self.snippetItems.items.insert(snippetItem, at: 0)
-                    }
                 } else {
                     let frontmost = NSWorkspace.shared.frontmostApplication
                     snippetItem = SnippetItem(
                         id: nil, program: frontmost,
                         contentForType: contents, date: nil)
-
-                    if self.snippetItems.items.move(snippetItem, to: 0) {
-                        DispatchQueue.global().async {
-                            dbPool.writeSafely { db in
-                                try self.snippetItems.items[0].updateDate(db)
-                            }
+                }
+                
+                if self.snippetItems.items.move(snippetItem, to: 0) {
+                    DispatchQueue.global().async {
+                        dbPool.writeSafely { db in
+                            try self.snippetItems.items[0].updateDate(db)
                         }
-                    } else {
-                        self.snippetItems.items.insert(snippetItem, at: 0)
                     }
+                } else {
+                    self.snippetItems.items.insert(snippetItem, at: 0)
+                    self.snippetItems.items.removeLast()
                 }
                 
                 DispatchQueue.global().async {

@@ -17,13 +17,17 @@ class URLWithMetadatas: ObservableObject {
     var url: String
 
     init(url: String) {
-        self.url = url
+        if !url.starts(with: "http") {
+            self.url = "https://\(url)"
+        } else {
+            self.url = url
+        }
         DispatchQueue.main.async {
             let headers: HTTPHeaders = [
                 "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1 Safari/605.1.15",
                 "Accept": "*/*"
             ]
-            AF.request(url, headers: headers).responseString { response in
+            AF.request(self.url, headers: headers).responseString { response in
                 if let html = response.value {
                     if let doc: Document = try? SwiftSoup.parse(html) {
                         if let head = doc.head() {

@@ -30,7 +30,9 @@ struct ContentView: View {
             }
         } else {
             self.snippetItems.items.insert(snippet, at: 0)
-            self.snippetItems.items.removeLast()
+            if self.snippetItems.items.count > limitAtOneSnippets * 2 {
+                self.snippetItems.items.removeLast()
+            }
         }
     }
     
@@ -167,7 +169,9 @@ struct ContentView: View {
                     }
                 } else {
                     self.snippetItems.items.insert(snippetItem, at: 0)
-                    self.snippetItems.items.removeLast()
+                    if self.snippetItems.items.count > limitAtOneSnippets * 2 {
+                        self.snippetItems.items.removeLast()
+                    }
                 }
                 
                 DispatchQueue.global().async {

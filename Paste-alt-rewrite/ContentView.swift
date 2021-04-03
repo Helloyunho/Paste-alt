@@ -5,15 +5,16 @@
 //  Created by Helloyunho on 2021/03/14.
 //
 
-import SwiftUI
 import GRDB
+import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var snippetItems: SnippetItems
     @State var selectedSnippet: SnippetItem?
     @State var isLoading: Bool = false
+    @State var searchFor: String = ""
     let strokeSize: CGFloat = 0.02
-    
+
     func copySnippet(_ snippet: SnippetItem) {
         let item = NSPasteboardItem()
         for (type, content) in snippet.contentForType {
@@ -35,7 +36,7 @@ struct ContentView: View {
             }
         }
     }
-    
+
     func deleteSnippet(_ snippet: SnippetItem) {
         _ = self.snippetItems.items.remove(snippet)
         DispatchQueue.global().async {
@@ -46,7 +47,7 @@ struct ContentView: View {
 
         if let lastDate = self.snippetItems.items.last?.date {
             DispatchQueue.global().async {
-                dbPool.readSafely { db in 
+                dbPool.readSafely { db in
                     let items = try SnippetItem.filter(lastDate > SnippetItem.Columns.date).limit(1).fetchAll(db)
                     for item in items {
                         let object = item.fetchingContentsFromDB(db)
@@ -57,65 +58,74 @@ struct ContentView: View {
                 }
                 isLoading = false
             }
-            isLoading = true
+            self.isLoading = true
         }
-        
-        if snippet == selectedSnippet {
-            selectedSnippet = nil
+
+        if snippet == self.selectedSnippet {
+            self.selectedSnippet = nil
         }
     }
 
     var body: some View {
         GeometryReader { geometry in
-            let smallSize = geometry.size.width > geometry.size.height ? geometry.size.height : geometry.size.width
-            ScrollView(.horizontal, showsIndicators: true) {
-                LazyHStack(spacing: 0) {
-                    ForEach(snippetItems.items) { snippet in
-                        ClipboardElement(name: snippet.program.programName, content: snippet.getBestData(), image: snippet.program.programIcon)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .padding(smallSize * strokeSize)
-                            .overlay(RoundedRectangle(cornerRadius: smallSize / 10 + smallSize * strokeSize).strokeBorder(Color.accentColor, lineWidth: selectedSnippet?.id == snippet.id ? smallSize * strokeSize : 0))
-                            .padding(smallSize * (0.05 - strokeSize))
-                            .onTapGesture {
-                                selectedSnippet = snippet
-                            }
-                            .contextMenu {
-                                Button("Copy") {
-                                    self.copySnippet(snippet)
-                                }.keyboardShortcut("c", modifiers: [.command])
-                                Button("Delete") {
-                                    self.deleteSnippet(snippet)
-                                }.keyboardShortcut(.delete)
-                            }
-                            .onAppear {
-                                if !isLoading {
-                                    if let currentIndex = self.snippetItems.items.firstIndex(of: snippet) {
-                                        if currentIndex >= self.snippetItems.items.count - limitAtOneSnippets {
-                                            if let lastDate = self.snippetItems.items.last?.date {
-                                                DispatchQueue.global().async {
-                                                    dbPool.readSafely { db in
-                                                        let items = try SnippetItem.filter(lastDate > SnippetItem.Columns.date).limit(limitAtOneSnippets).fetchAll(db)
-                                                        for item in items {
-                                                            let object = item.fetchingContentsFromDB(db)
-                                                            DispatchQueue.main.async {
-                                                                NotificationCenter.default.post(name: .AddSnippetItemFromBackground, object: object)
+            VStack(spacing: 0) {
+                TextField("Search...", text: $searchFor)
+                    .frame(width: geometry.size.width / 4)
+                    .padding(.top)
+                GeometryReader { geometry in
+                    let smallSize = geometry.size.width > geometry.size.height ? geometry.size.height : geometry.size.width
+                    ScrollView(.horizontal, showsIndicators: true) {
+                        LazyHStack(spacing: 0) {
+                            ForEach(snippetItems.items) { snippet in
+                                if snippet.search(for: searchFor) {
+                                    ClipboardElement(name: snippet.program.name, content: snippet.getBestData(), image: snippet.program.icon)
+                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                        .padding(smallSize * strokeSize)
+                                        .overlay(RoundedRectangle(cornerRadius: smallSize / 10 + smallSize * strokeSize).strokeBorder(Color.accentColor, lineWidth: selectedSnippet?.id == snippet.id ? smallSize * strokeSize : 0))
+                                        .padding(smallSize * (0.05 - strokeSize))
+                                        .onTapGesture {
+                                            selectedSnippet = snippet
+                                        }
+                                        .contextMenu {
+                                            Button("Copy") {
+                                                self.copySnippet(snippet)
+                                            }.keyboardShortcut("c", modifiers: [.command])
+                                            Button("Delete") {
+                                                self.deleteSnippet(snippet)
+                                            }.keyboardShortcut(.delete)
+                                        }
+                                        .onAppear {
+                                            if !isLoading {
+                                                if let currentIndex = self.snippetItems.items.firstIndex(of: snippet) {
+                                                    if currentIndex >= self.snippetItems.items.count - limitAtOneSnippets {
+                                                        if let lastDate = self.snippetItems.items.last?.date {
+                                                            DispatchQueue.global().async {
+                                                                dbPool.readSafely { db in
+                                                                    let items = try SnippetItem.filter(lastDate > SnippetItem.Columns.date).limit(limitAtOneSnippets).fetchAll(db)
+                                                                    for item in items {
+                                                                        let object = item.fetchingContentsFromDB(db)
+                                                                        DispatchQueue.main.async {
+                                                                            NotificationCenter.default.post(name: .AddSnippetItemFromBackground, object: object)
+                                                                        }
+                                                                    }
+                                                                }
+                                                                isLoading = false
                                                             }
+                                                            isLoading = true
                                                         }
                                                     }
-                                                    isLoading = false
                                                 }
-                                                isLoading = true
                                             }
                                         }
-                                    }
                                 }
                             }
-                    }
-                    if isLoading {
-                        ProgressView()
-                            .aspectRatio(1.0, contentMode: .fit)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .padding(smallSize * 0.05)
+                            if isLoading {
+                                ProgressView()
+                                    .aspectRatio(1.0, contentMode: .fit)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                    .padding(smallSize * 0.05)
+                            }
+                        }
                     }
                 }
             }
@@ -148,9 +158,9 @@ struct ContentView: View {
                     let programIcon = NSImage(named: "Hand-off")!
                     let programIdentifier = "com.apple.handoff"
                     let program = SnippetProgram(
-                        programName: programName,
-                        programIcon: programIcon,
-                        programIdentifier: programIdentifier)
+                        name: programName,
+                        icon: programIcon,
+                        identifier: programIdentifier)
                     snippetItem = SnippetItem(
                         id: nil, program: program,
                         contentForType: contents, date: nil)
@@ -160,7 +170,7 @@ struct ContentView: View {
                         id: nil, program: frontmost,
                         contentForType: contents, date: nil)
                 }
-                
+
                 if self.snippetItems.items.move(snippetItem, to: 0) {
                     DispatchQueue.global().async {
                         dbPool.writeSafely { db in
@@ -173,7 +183,7 @@ struct ContentView: View {
                         self.snippetItems.items.removeLast()
                     }
                 }
-                
+
                 DispatchQueue.global().async {
                     dbPool.writeSafely { db in
                         try snippetItem.insertSelf(db)

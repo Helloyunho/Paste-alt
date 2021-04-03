@@ -12,16 +12,16 @@ import SwiftUI
 import UIColor_Hex_Swift
 
 struct SnippetProgram: Equatable {
-    var programName: String
-    var programIcon: NSImage?
-    var programIdentifier: String
+    var name: String
+    var icon: NSImage?
+    var identifier: String
     
     static func == (lhs: SnippetProgram, rhs: SnippetProgram?) -> Bool {
-        lhs.programName == rhs?.programName && lhs.programIdentifier == rhs?.programIdentifier && lhs.programIcon == rhs?.programIcon
+        lhs.name == rhs?.name && lhs.identifier == rhs?.identifier && lhs.icon == rhs?.icon
     }
     
     static func == (lhs: SnippetProgram, rhs: NSRunningApplication?) -> Bool {
-        lhs.programName == rhs?.localizedName && lhs.programIdentifier == rhs?.bundleIdentifier && lhs.programIcon == rhs?.icon
+        lhs.name == rhs?.localizedName && lhs.identifier == rhs?.bundleIdentifier && lhs.icon == rhs?.icon
     }
     
     static func != (lhs: SnippetProgram, rhs: SnippetProgram?) -> Bool {
@@ -43,7 +43,7 @@ func resetAllGlobalDatas() -> Void {
 
 struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, PersistableRecord {
     static func == (lhs: SnippetItem, rhs: SnippetItem) -> Bool {
-        lhs.program.programIdentifier == rhs.program.programIdentifier && lhs.contentForType == rhs.contentForType
+        lhs.program.identifier == rhs.program.identifier && lhs.contentForType == rhs.contentForType
     }
 
     var id: String
@@ -55,8 +55,8 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
         let bundleID = program?.bundleIdentifier ?? "com.example.untitled"
         if programs[bundleID] == nil || programs[bundleID]! != program {
             programs[bundleID] = .init(
-                programName: program?.localizedName ?? "Untitled",
-                programIcon: program?.icon, programIdentifier: bundleID)
+                name: program?.localizedName ?? "Untitled",
+                icon: program?.icon, identifier: bundleID)
         }
 
         self.program = programs[bundleID]!
@@ -66,7 +66,7 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
     }
 
     init(id: String?, program: SnippetProgram, contentForType: [NSPasteboard.PasteboardType: Data], date: Date?) {
-        let bundleID = program.programIdentifier
+        let bundleID = program.identifier
         if programs[bundleID] == nil || programs[bundleID]! != program {
             programs[bundleID] = program
         }
@@ -98,7 +98,7 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
         if programs[bundleID] == nil {
             let programName: String? = row[Columns.programName]
             let programIcon: Data? = row[Columns.programIcon]
-            programs[bundleID] = SnippetProgram(programName: programName ?? "Untitled", programIcon: programIcon != nil ? NSImage(data: programIcon!) : nil, programIdentifier: bundleID)
+            programs[bundleID] = SnippetProgram(name: programName ?? "Untitled", icon: programIcon != nil ? NSImage(data: programIcon!) : nil, identifier: bundleID)
         }
         program = programs[bundleID]!
         date = row[Columns.date]
@@ -118,9 +118,9 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
     
     func encode(to container: inout PersistenceContainer) {
         container[Columns.id] = id
-        container[Columns.programName] = program.programName
-        container[Columns.programIcon] = program.programIcon?.tiffRepresentation
-        container[Columns.programIdentifier] = program.programIdentifier
+        container[Columns.programName] = program.name
+        container[Columns.programIcon] = program.icon?.tiffRepresentation
+        container[Columns.programIdentifier] = program.identifier
         container[Columns.date] = date
     }
     
@@ -146,24 +146,20 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
         if let content = contentForType[.png] ?? contentForType[.tiff] {
             if let cached = datas[content] {
                 return cached
-            } else {
-                if let nsimage = NSImage(data: content) {
-                    datas[content] = nsimage
-                    return nsimage
-                }
+            } else if let nsimage = NSImage(data: content) {
+                datas[content] = nsimage
+                return nsimage
             }
         }
         
         if let content = contentForType[.URL] {
             if let cached = datas[content] {
                 return cached
-            } else {
-                if let url = String(data: content, encoding: .utf8) {
-                    if url.validateUrl() {
-                        let urlWithMetas = URLWithMetadatas(url: url)
-                        datas[content] = urlWithMetas
-                        return urlWithMetas
-                    }
+            } else if let url = String(data: content, encoding: .utf8) {
+                if url.validateUrl() {
+                    let urlWithMetas = URLWithMetadatas(url: url)
+                    datas[content] = urlWithMetas
+                    return urlWithMetas
                 }
             }
         }
@@ -171,73 +167,161 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
         if let content = contentForType[.fileURL] {
             if let cached = datas[content] {
                 return cached
-            } else {
-                if let url = String(data: content, encoding: .utf8) {
-                    let fileUrlStruct = FileURLStruct(url: url)
-                    datas[content] = fileUrlStruct
-                    return fileUrlStruct
-                }
+            } else if let url = String(data: content, encoding: .utf8) {
+                let fileUrlStruct = FileURLStruct(url: url)
+                datas[content] = fileUrlStruct
+                return fileUrlStruct
             }
         }
         
         if let content = contentForType[.color] {
             if let cached = datas[content] {
                 return cached
-            } else {
-                if let color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSColor.self, from: content) {
-                    // Seems like color from pasteboard is wide display color and uicolor hex swift hates it
-                    let nsColor = NSColor(red: color.redComponent, green: color.greenComponent, blue: color.blueComponent, alpha: color.alphaComponent)
-                    datas[content] = nsColor
-                    return nsColor
-                }
+            } else if let color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSColor.self, from: content) {
+                // Seems like color from pasteboard is wide display color and uicolor hex swift hates it
+                let nsColor = NSColor(red: color.redComponent, green: color.greenComponent, blue: color.blueComponent, alpha: color.alphaComponent)
+                datas[content] = nsColor
+                return nsColor
             }
         }
         
         if let content = contentForType[.string] {
             if let cached = datas[content] {
                 return cached
-            } else {
-                if let string = String(data: content, encoding: .utf8) {
-                    if string.starts(with: "#") {
-                        if let nsColor = NSColor(string) {
-                            datas[content] = nsColor
-                            return nsColor
-                        }
+            } else if let string = String(data: content, encoding: .utf8) {
+                if string.validColorHex() {
+                    if let nsColor = NSColor(string) {
+                        datas[content] = nsColor
+                        return nsColor
                     }
-                    
-                    if string.validateUrl() {
-                        let urlWithMetas = URLWithMetadatas(url: string)
-                        datas[content] = urlWithMetas
-                        return urlWithMetas
+                }
+                
+                if string.validateUrl() {
+                    let urlWithMetas = URLWithMetadatas(url: string)
+                    datas[content] = urlWithMetas
+                    return urlWithMetas
+                }
+                
+                if let content = contentForType[.pdf] {
+                    if let cached = datas[content] {
+                        return cached
+                    } else if let pdf = PDFDocument(data: content) {
+                        datas[content] = pdf
+                        return pdf
                     }
-                    
-                    if let content = contentForType[.pdf] {
-                        if let cached = datas[content] {
-                            return cached
-                        } else if let pdf = PDFDocument(data: content) {
-                            datas[content] = pdf
-                            return pdf
-                        }
-                    } else if let content = contentForType[.rtf] {
-                        if let cached = datas[content] {
-                            return cached
-                        } else if let nsattributedstring = NSAttributedString(rtf: content, documentAttributes: nil) {
-                            datas[content] = nsattributedstring
-                            return nsattributedstring
-                        }
-                    } else {
-                        if let cached = datas[content] {
-                            return cached
-                        } else {
-                            datas[content] = string
-                            return string
-                        }
+                } else if let content = contentForType[.rtf] {
+                    if let cached = datas[content] {
+                        return cached
+                    } else if let nsattributedstring = NSAttributedString(rtf: content, documentAttributes: nil) {
+                        datas[content] = nsattributedstring
+                        return nsattributedstring
                     }
+                } else {
+                    datas[content] = string
+                    return string
                 }
             }
         }
 
         return "Cannot find good data"
+    }
+    
+    func search(for searchString: String) -> Bool {
+        if searchString == "" {
+            return true
+        }
+
+        if program.name.contains(searchString) {
+            return true
+        }
+        if program.identifier.contains(searchString) {
+            return true
+        }
+        
+        if let content = contentForType[.URL] {
+            if let cached = datas[content] {
+                if let url = cached as? URLWithMetadatas {
+                    if url.url.contains(searchString) {
+                        return true
+                    }
+                }
+            } else {
+                if let url = String(data: content, encoding: .utf8) {
+                    if url.contains(searchString) {
+                        return true
+                    }
+                }
+            }
+        }
+        
+        if let content = contentForType[.fileURL] {
+            if let cached = datas[content] {
+                if let url = cached as? FileURLStruct {
+                    if url.url.contains(searchString) {
+                        return true
+                    }
+                }
+            } else {
+                if let url = String(data: content, encoding: .utf8) {
+                    if url.contains(searchString) {
+                        return true
+                    }
+                }
+            }
+        }
+        
+        if let content = contentForType[.color] {
+            if let cached = datas[content] {
+                if let color = cached as? NSColor {
+                    if color.hexString().contains(searchString) {
+                        return true
+                    }
+                }
+            } else {
+                if let color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSColor.self, from: content) {
+                    let nsColor = NSColor(red: color.redComponent, green: color.greenComponent, blue: color.blueComponent, alpha: color.alphaComponent)
+                    if nsColor.hexString().contains(searchString) {
+                        return true
+                    }
+                }
+            }
+        }
+        
+        if let content = contentForType[.string] {
+            if let cached = datas[content] {
+                if let color = cached as? NSColor {
+                    if color.hexString().contains(searchString) {
+                        return true
+                    }
+                }
+
+                if let url = cached as? FileURLStruct {
+                    if url.url.contains(searchString) {
+                        return true
+                    }
+                }
+                
+                if let pdf = cached as? PDFDocument {
+                    if pdf.string?.contains(searchString) ?? false {
+                        return true
+                    }
+                }
+                
+                if let nsattributedstring = NSAttributedString(rtf: content, documentAttributes: nil) {
+                    if nsattributedstring.string.contains(searchString) {
+                        return true
+                    }
+                }
+            } else {
+                if let string = String(data: content, encoding: .utf8) {
+                    if string.contains(searchString) {
+                        return true
+                    }
+                }
+            }
+        }
+        
+        return false
     }
     
     mutating func updateDate(_ db: Database) throws -> Void {

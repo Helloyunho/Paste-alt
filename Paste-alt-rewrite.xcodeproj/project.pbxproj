@@ -13,6 +13,9 @@
 		550929772605A56A001971F9 /* FileURLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550929762605A56A001971F9 /* FileURLView.swift */; };
 		5509297A2605F041001971F9 /* SnippetContentTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550929792605F041001971F9 /* SnippetContentTable.swift */; };
 		5509297E2605F0C3001971F9 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 5509297D2605F0C3001971F9 /* GRDB */; };
+		550C64F826B31C830087A41D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550C64F726B31C820087A41D /* Sparkle.framework */; };
+		550C64F926B31C840087A41D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550C64F726B31C820087A41D /* Sparkle.framework */; };
+		550C64FA26B31C840087A41D /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 550C64F726B31C820087A41D /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		555033112603325600D5F7C5 /* NSColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555033102603325600D5F7C5 /* NSColor+Extensions.swift */; };
 		55682718260511E00081F54B /* UIColor_Hex_Swift in Frameworks */ = {isa = PBXBuildFile; productRef = 55682717260511E00081F54B /* UIColor_Hex_Swift */; };
 		5568271B2605167E0081F54B /* URLWithMetadatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5568271A2605167E0081F54B /* URLWithMetadatas.swift */; };
@@ -40,21 +43,19 @@
 		55C79AEE260664AF00ED8AD7 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 55C79AED260664AF00ED8AD7 /* .gitignore */; };
 		55C79AF12607095400ED8AD7 /* DatabasePool+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C79AF02607095300ED8AD7 /* DatabasePool+Extensions.swift */; };
 		55DF4F202608F79C0044DC73 /* PDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF4F1F2608F79C0044DC73 /* PDFView.swift */; };
-		55DF4F30260B7D540044DC73 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55DF4F2E260B7D4F0044DC73 /* Sparkle.framework */; };
-		55DF4F31260B7D540044DC73 /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55DF4F2E260B7D4F0044DC73 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55DF4F34260B8B290044DC73 /* appcast.xml in Resources */ = {isa = PBXBuildFile; fileRef = 55DF4F33260B8B290044DC73 /* appcast.xml */; };
 		55E53555260362F500B8D42C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 55E53554260362F500B8D42C /* LICENSE */; };
 		55E53558260363A400B8D42C /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E53557260363A400B8D42C /* VisualEffectView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		55DF4F2D260A3E060044DC73 /* Embed Frameworks */ = {
+		550C64FB26B31C840087A41D /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				55DF4F31260B7D540044DC73 /* Sparkle.framework in Embed Frameworks */,
+				550C64FA26B31C840087A41D /* Sparkle.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -66,6 +67,7 @@
 		550929722605A294001971F9 /* FileURLStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileURLStruct.swift; sourceTree = "<group>"; };
 		550929762605A56A001971F9 /* FileURLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileURLView.swift; sourceTree = "<group>"; };
 		550929792605F041001971F9 /* SnippetContentTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetContentTable.swift; sourceTree = "<group>"; };
+		550C64F726B31C820087A41D /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		555033102603325600D5F7C5 /* NSColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extensions.swift"; sourceTree = "<group>"; };
 		5568271A2605167E0081F54B /* URLWithMetadatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLWithMetadatas.swift; sourceTree = "<group>"; };
 		55682725260528C30081F54B /* ContentURLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentURLView.swift; sourceTree = "<group>"; };
@@ -91,7 +93,6 @@
 		55C79AED260664AF00ED8AD7 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		55C79AF02607095300ED8AD7 /* DatabasePool+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabasePool+Extensions.swift"; sourceTree = "<group>"; };
 		55DF4F1F2608F79C0044DC73 /* PDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFView.swift; sourceTree = "<group>"; };
-		55DF4F2E260B7D4F0044DC73 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		55DF4F33260B8B290044DC73 /* appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = appcast.xml; sourceTree = "<group>"; };
 		55E53554260362F500B8D42C /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		55E53557260363A400B8D42C /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
@@ -105,10 +106,11 @@
 				556827232605192A0081F54B /* Alamofire in Frameworks */,
 				5577CBC12604488400B56776 /* Preferences in Frameworks */,
 				5509297E2605F0C3001971F9 /* GRDB in Frameworks */,
-				55DF4F30260B7D540044DC73 /* Sparkle.framework in Frameworks */,
 				5577CBCC26044BF900B56776 /* LaunchAtLogin in Frameworks */,
+				550C64F826B31C830087A41D /* Sparkle.framework in Frameworks */,
 				55682718260511E00081F54B /* UIColor_Hex_Swift in Frameworks */,
 				550373312654267000B8E8D4 /* UIImageColors in Frameworks */,
+				550C64F926B31C840087A41D /* Sparkle.framework in Frameworks */,
 				5577CBC52604489B00B56776 /* KeyboardShortcuts in Frameworks */,
 				5568271F260519120081F54B /* SwiftSoup in Frameworks */,
 			);
@@ -223,7 +225,7 @@
 		55DF4F22260A3DE50044DC73 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				55DF4F2E260B7D4F0044DC73 /* Sparkle.framework */,
+				550C64F726B31C820087A41D /* Sparkle.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -238,8 +240,8 @@
 				55C3FB1B25FDEAEE0052E75C /* Sources */,
 				55C3FB1C25FDEAEE0052E75C /* Frameworks */,
 				55C3FB1D25FDEAEE0052E75C /* Resources */,
-				55DF4F2D260A3E060044DC73 /* Embed Frameworks */,
 				550C64F226B314A40087A41D /* ShellScript */,
+				550C64FB26B31C840087A41D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -433,7 +435,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -488,7 +490,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;

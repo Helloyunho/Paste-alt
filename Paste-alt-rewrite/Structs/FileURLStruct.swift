@@ -13,8 +13,8 @@ struct FileURLStruct {
     var icon: NSImage
 
     init(url: String) {
-        self.url = url
         let urlToURL = URL(string: url)!
+        self.url = urlToURL.path
         self.icon = NSWorkspace.shared.icon(forFile: urlToURL.path)
     }
 }

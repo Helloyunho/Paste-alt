@@ -21,6 +21,7 @@ struct FileURLView: View {
                     .font(.system(size: geometry.size.height * 0.07))
                     .fontWeight(.bold)
                     .foregroundColor(.black)
+                    .multilineTextAlignment(.center)
                     .lineLimit(3)
             }
             .padding(.bottom, geometry.size.width / 10)

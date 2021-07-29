@@ -10,4 +10,5 @@ import SwiftUI
 
 class SnippetItems: ObservableObject {
     @Published var items: [SnippetItem] = []
+    @Published var isLoading: Bool = true
 }

@@ -11,7 +11,6 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var snippetItems: SnippetItems
     @State var selectedSnippet: SnippetItem?
-    @State var isLoading: Bool = false
     @State var searchFor: String = ""
     let strokeSize: CGFloat = 0.02
 
@@ -56,9 +55,11 @@ struct ContentView: View {
                         }
                     }
                 }
-                isLoading = false
+                DispatchQueue.main.async {
+                    snippetItems.isLoading = false
+                }
             }
-            self.isLoading = true
+            self.snippetItems.isLoading = true
         }
 
         if snippet == self.selectedSnippet {
@@ -95,7 +96,7 @@ struct ContentView: View {
                                             }.keyboardShortcut(.delete)
                                         }
                                         .onAppear {
-                                            if !isLoading {
+                                            if !snippetItems.isLoading {
                                                 if let currentIndex = self.snippetItems.items.firstIndex(of: snippet) {
                                                     if currentIndex >= self.snippetItems.items.count - limitAtOneSnippets {
                                                         if let lastDate = self.snippetItems.items.last?.date {
@@ -109,9 +110,11 @@ struct ContentView: View {
                                                                         }
                                                                     }
                                                                 }
-                                                                isLoading = false
+                                                                DispatchQueue.main.async {
+                                                                    snippetItems.isLoading = false
+                                                                }
                                                             }
-                                                            isLoading = true
+                                                            snippetItems.isLoading = true
                                                         }
                                                     }
                                                 }
@@ -119,7 +122,7 @@ struct ContentView: View {
                                         }
                                 }
                             }
-                            if isLoading {
+                            if snippetItems.isLoading {
                                 ProgressView()
                                     .aspectRatio(1.0, contentMode: .fit)
                                     .frame(maxWidth: .infinity, maxHeight: .infinity)

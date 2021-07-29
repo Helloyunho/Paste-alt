@@ -38,14 +38,14 @@ struct ContentView: View {
 
     func deleteSnippet(_ snippet: SnippetItem) {
         _ = self.snippetItems.items.remove(snippet)
-        DispatchQueue.global().async {
+        DispatchQueue.global(qos: .userInitiated).async {
             dbPool.writeSafely { db in
                 try snippet.deleteSelf(db)
             }
         }
 
         if let lastDate = self.snippetItems.items.last?.date {
-            DispatchQueue.global().async {
+            DispatchQueue.global(qos: .userInitiated).async {
                 dbPool.readSafely { db in
                     let items = try SnippetItem.filter(lastDate > SnippetItem.Columns.date).limit(1).fetchAll(db)
                     for item in items {
@@ -68,13 +68,11 @@ struct ContentView: View {
     }
 
     var body: some View {
-        GeometryReader { geometry in
+        GeometryReader { windowGeometry in
             VStack(spacing: 0) {
-                TextField("Search...", text: $searchFor)
-                    .frame(width: geometry.size.width / 4)
-                    .padding(.top)
-                GeometryReader { geometry in
-                    let smallSize = geometry.size.width > geometry.size.height ? geometry.size.height : geometry.size.width
+                // TODO: Make search bar
+                GeometryReader { scrollviewGeometry in
+                    let smallSize = scrollviewGeometry.size.width > scrollviewGeometry.size.height ? scrollviewGeometry.size.height : scrollviewGeometry.size.width
                     ScrollView(.horizontal, showsIndicators: true) {
                         LazyHStack(spacing: 0) {
                             ForEach(snippetItems.items) { snippet in
@@ -100,7 +98,7 @@ struct ContentView: View {
                                                 if let currentIndex = self.snippetItems.items.firstIndex(of: snippet) {
                                                     if currentIndex >= self.snippetItems.items.count - limitAtOneSnippets {
                                                         if let lastDate = self.snippetItems.items.last?.date {
-                                                            DispatchQueue.global().async {
+                                                            DispatchQueue.global(qos: .userInteractive).async {
                                                                 dbPool.readSafely { db in
                                                                     let items = try SnippetItem.filter(lastDate > SnippetItem.Columns.date).limit(limitAtOneSnippets).fetchAll(db)
                                                                     for item in items {
@@ -175,7 +173,7 @@ struct ContentView: View {
                 }
 
                 if self.snippetItems.items.move(snippetItem, to: 0) {
-                    DispatchQueue.global().async {
+                    DispatchQueue.global(qos: .userInitiated).async {
                         dbPool.writeSafely { db in
                             try self.snippetItems.items[0].updateDate(db)
                         }
@@ -187,7 +185,7 @@ struct ContentView: View {
                     }
                 }
 
-                DispatchQueue.global().async {
+                DispatchQueue.global(qos: .userInitiated).async {
                     dbPool.writeSafely { db in
                         try snippetItem.insertSelf(db)
                     }

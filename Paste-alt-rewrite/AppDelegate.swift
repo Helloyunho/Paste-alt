@@ -34,15 +34,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     )
 
     func applicationWillFinishLaunching(_ notification: Notification) {
-        dbPool.writeSafely { db in
-            try SnippetItem.createTable(db)
-            try SnippetContentTable.createTable(db)
-        }
+        DispatchQueue.global(qos: .userInitiated).async {
+            dbPool.writeSafely { db in
+                try SnippetItem.createTable(db)
+                try SnippetContentTable.createTable(db)
+            }
 
-        dbPool.readSafely { db in
-            let items = try SnippetItem.order(SnippetItem.Columns.date.desc).limit(limitAtOneSnippets * 2).fetchAll(db)
-            for item in items {
-                self.snippetItems.items.append(item.fetchingContentsFromDB(db))
+            dbPool.readSafely { db in
+                let items = try SnippetItem.order(SnippetItem.Columns.date.desc).limit(limitAtOneSnippets * 2).fetchAll(db)
+                for item in items {
+                    let fetchedContent = item.fetchingContentsFromDB(db)
+                    DispatchQueue.main.async {
+                        self.snippetItems.items.append(fetchedContent)
+                    }
+                }
+            }
+            
+            DispatchQueue.main.async {
+                self.snippetItems.isLoading = false
             }
         }
         
@@ -69,11 +78,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let contentHostingView = NSHostingView(rootView: contentView)
 
         // Create the window and set the content view.
-        let screen = NSScreen.main!
+        let screen = NSScreen.screens[0]
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: screen.frame.width, height: screen.frame.height * 0.3),
             styleMask: [.closable, .miniaturizable],
-            backing: .buffered, defer: false)
+            backing: .buffered, defer: false, screen: screen)
         window.contentView = contentHostingView
         window.makeKeyAndOrderFront(nil)
         window.level = .floating

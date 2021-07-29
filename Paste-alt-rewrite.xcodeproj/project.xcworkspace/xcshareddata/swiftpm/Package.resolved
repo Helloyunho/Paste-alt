@@ -11,12 +11,12 @@
         }
       },
       {
-        "package": "GRDB",
+        "package": "GRDB.swift",
         "repositoryURL": "https://github.com/groue/GRDB.swift",
         "state": {
-          "branch": null,
-          "revision": "ae3c491661c4dd6771d996beb6fc869f4520701f",
-          "version": "5.6.0"
+          "branch": "development",
+          "revision": "c45f68181340ee1eaa16338f01f17d282f339a50",
+          "version": null
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/sindresorhus/KeyboardShortcuts",
         "state": {
           "branch": null,
-          "revision": "f09de800a4f05d66fe2a9924c81a932454a9f39a",
-          "version": "0.7.1"
+          "revision": "a7a3ff6248b7564ef4ef2e9003672bf1b9f77ad1",
+          "version": "1.2.0"
         }
       },
       {
@@ -56,7 +56,7 @@
         }
       },
       {
-        "package": "UIColor_Hex_Swift",
+        "package": "UIColor-Hex-Swift",
         "repositoryURL": "https://github.com/yeahdongcn/UIColor-Hex-Swift",
         "state": {
           "branch": null,
@@ -66,10 +66,10 @@
       },
       {
         "package": "UIImageColors",
-        "repositoryURL": "https://github.com/YuAo/UIImageColors",
+        "repositoryURL": "https://github.com/jathu/UIImageColors",
         "state": {
-          "branch": "patch-1",
-          "revision": "a2eec3f8650778ab0267658fa01a3d2f634d80bd",
+          "branch": "master",
+          "revision": "f064be8ee0b03158e61135e6c384aee18d7a5414",
           "version": null
         }
       }

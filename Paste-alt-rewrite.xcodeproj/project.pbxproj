@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		550373312654267000B8E8D4 /* UIImageColors in Frameworks */ = {isa = PBXBuildFile; productRef = 550373302654267000B8E8D4 /* UIImageColors */; };
 		5509296F26059E29001971F9 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5509296E26059E29001971F9 /* String+Extensions.swift */; };
 		550929732605A294001971F9 /* FileURLStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550929722605A294001971F9 /* FileURLStruct.swift */; };
 		550929772605A56A001971F9 /* FileURLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550929762605A56A001971F9 /* FileURLView.swift */; };
@@ -42,7 +43,6 @@
 		55DF4F30260B7D540044DC73 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55DF4F2E260B7D4F0044DC73 /* Sparkle.framework */; };
 		55DF4F31260B7D540044DC73 /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55DF4F2E260B7D4F0044DC73 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55DF4F34260B8B290044DC73 /* appcast.xml in Resources */ = {isa = PBXBuildFile; fileRef = 55DF4F33260B8B290044DC73 /* appcast.xml */; };
-		55E535492603609A00B8D42C /* UIImageColors in Frameworks */ = {isa = PBXBuildFile; productRef = 55E535482603609A00B8D42C /* UIImageColors */; };
 		55E53555260362F500B8D42C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 55E53554260362F500B8D42C /* LICENSE */; };
 		55E53558260363A400B8D42C /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E53557260363A400B8D42C /* VisualEffectView.swift */; };
 /* End PBXBuildFile section */
@@ -102,13 +102,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55E535492603609A00B8D42C /* UIImageColors in Frameworks */,
 				556827232605192A0081F54B /* Alamofire in Frameworks */,
 				5577CBC12604488400B56776 /* Preferences in Frameworks */,
 				5509297E2605F0C3001971F9 /* GRDB in Frameworks */,
 				55DF4F30260B7D540044DC73 /* Sparkle.framework in Frameworks */,
 				5577CBCC26044BF900B56776 /* LaunchAtLogin in Frameworks */,
 				55682718260511E00081F54B /* UIColor_Hex_Swift in Frameworks */,
+				550373312654267000B8E8D4 /* UIImageColors in Frameworks */,
 				5577CBC52604489B00B56776 /* KeyboardShortcuts in Frameworks */,
 				5568271F260519120081F54B /* SwiftSoup in Frameworks */,
 			);
@@ -246,7 +246,6 @@
 			);
 			name = "Paste-alt-rewrite";
 			packageProductDependencies = (
-				55E535482603609A00B8D42C /* UIImageColors */,
 				5577CBC02604488400B56776 /* Preferences */,
 				5577CBC42604489B00B56776 /* KeyboardShortcuts */,
 				5577CBCB26044BF900B56776 /* LaunchAtLogin */,
@@ -254,6 +253,7 @@
 				5568271E260519120081F54B /* SwiftSoup */,
 				556827222605192A0081F54B /* Alamofire */,
 				5509297D2605F0C3001971F9 /* GRDB */,
+				550373302654267000B8E8D4 /* UIImageColors */,
 			);
 			productName = "Paste-alt-rewrite";
 			productReference = 55C3FB1F25FDEAEE0052E75C /* Paste-alt-rewrite.app */;
@@ -266,7 +266,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1300;
 				TargetAttributes = {
 					55C3FB1E25FDEAEE0052E75C = {
 						CreatedOnToolsVersion = 12.4;
@@ -283,7 +283,6 @@
 			);
 			mainGroup = 55C3FB1625FDEAEE0052E75C;
 			packageReferences = (
-				55E535472603609A00B8D42C /* XCRemoteSwiftPackageReference "UIImageColors" */,
 				5577CBBF2604488400B56776 /* XCRemoteSwiftPackageReference "Preferences" */,
 				5577CBC32604489B00B56776 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
 				5577CBCA26044BF900B56776 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
@@ -291,6 +290,7 @@
 				5568271D260519120081F54B /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				556827212605192A0081F54B /* XCRemoteSwiftPackageReference "Alamofire" */,
 				5509297C2605F0C3001971F9 /* XCRemoteSwiftPackageReference "GRDB" */,
+				5503732F2654267000B8E8D4 /* XCRemoteSwiftPackageReference "UIImageColors" */,
 			);
 			productRefGroup = 55C3FB2025FDEAEE0052E75C /* Products */;
 			projectDirPath = "";
@@ -482,6 +482,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Paste-alt-rewrite/Paste_alt_rewrite.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 3;
@@ -512,6 +513,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Paste-alt-rewrite/Paste_alt_rewrite.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 3;
@@ -560,12 +562,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5503732F2654267000B8E8D4 /* XCRemoteSwiftPackageReference "UIImageColors" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jathu/UIImageColors";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		5509297C2605F0C3001971F9 /* XCRemoteSwiftPackageReference "GRDB" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/groue/GRDB.swift";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.6.0;
+				branch = development;
+				kind = branch;
 			};
 		};
 		55682716260511E00081F54B /* XCRemoteSwiftPackageReference "UIColor-Hex-Swift" */ = {
@@ -605,7 +615,7 @@
 			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.7.1;
+				minimumVersion = 1.2.0;
 			};
 		};
 		5577CBCA26044BF900B56776 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
@@ -616,17 +626,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
-		55E535472603609A00B8D42C /* XCRemoteSwiftPackageReference "UIImageColors" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/YuAo/UIImageColors";
-			requirement = {
-				branch = "patch-1";
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		550373302654267000B8E8D4 /* UIImageColors */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5503732F2654267000B8E8D4 /* XCRemoteSwiftPackageReference "UIImageColors" */;
+			productName = UIImageColors;
+		};
 		5509297D2605F0C3001971F9 /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5509297C2605F0C3001971F9 /* XCRemoteSwiftPackageReference "GRDB" */;
@@ -661,11 +668,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5577CBCA26044BF900B56776 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
 			productName = LaunchAtLogin;
-		};
-		55E535482603609A00B8D42C /* UIImageColors */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 55E535472603609A00B8D42C /* XCRemoteSwiftPackageReference "UIImageColors" */;
-			productName = UIImageColors;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

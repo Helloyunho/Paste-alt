@@ -239,6 +239,7 @@
 				55C3FB1C25FDEAEE0052E75C /* Frameworks */,
 				55C3FB1D25FDEAEE0052E75C /* Resources */,
 				55DF4F2D260A3E060044DC73 /* Embed Frameworks */,
+				550C64F226B314A40087A41D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -316,6 +317,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		550C64F226B314A40087A41D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /usr/bin/python3;
+			shellScript = "import os\nfrom pathlib import Path\nimport shutil\nfrom tempfile import mkstemp\n\nproject_pbxproj_path = Path(os.getenv(\"PROJECT_FILE_PATH\")).joinpath(\"project.pbxproj\")\n\nfile_in = open(project_pbxproj_path, \"r\")\n_, temp_file_path = mkstemp()\ntemp_file = open(temp_file_path, \"w\")\n\nfor line in file_in:\n    if \"CURRENT_PROJECT_VERSION\" in line:\n        try:\n            space_count = line.count(\"\\t\")\n            print(space_count)\n            build_num = int(line.strip().replace(\"CURRENT_PROJECT_VERSION = \", \"\")[:-1])\n            build_num += 1\n            indents = \"\\t\" * space_count\n            temp_file.write(\n                f\"{indents}CURRENT_PROJECT_VERSION = {build_num};\\n\"\n            )\n        except:\n            temp_file.write(line)\n    else:\n        temp_file.write(line)\n\nfile_in.close()\ntemp_file.close()\n\nshutil.move(temp_file_path, project_pbxproj_path)\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		55C3FB1B25FDEAEE0052E75C /* Sources */ = {
@@ -485,7 +506,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"Paste-alt-rewrite/Preview Content\"";
 				DEVELOPMENT_TEAM = 32Z9KZZ4PU;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -516,7 +537,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"Paste-alt-rewrite/Preview Content\"";
 				DEVELOPMENT_TEAM = 32Z9KZZ4PU;
 				ENABLE_HARDENED_RUNTIME = YES;

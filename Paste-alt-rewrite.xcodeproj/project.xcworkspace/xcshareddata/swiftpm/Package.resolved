@@ -11,7 +11,7 @@
         }
       },
       {
-        "package": "GRDB.swift",
+        "package": "GRDB",
         "repositoryURL": "https://github.com/groue/GRDB.swift",
         "state": {
           "branch": "development",
@@ -56,7 +56,7 @@
         }
       },
       {
-        "package": "UIColor-Hex-Swift",
+        "package": "UIColor_Hex_Swift",
         "repositoryURL": "https://github.com/yeahdongcn/UIColor-Hex-Swift",
         "state": {
           "branch": null,

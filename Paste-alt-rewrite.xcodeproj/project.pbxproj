@@ -14,7 +14,6 @@
 		5509297A2605F041001971F9 /* SnippetContentTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550929792605F041001971F9 /* SnippetContentTable.swift */; };
 		5509297E2605F0C3001971F9 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 5509297D2605F0C3001971F9 /* GRDB */; };
 		550C64F826B31C830087A41D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550C64F726B31C820087A41D /* Sparkle.framework */; };
-		550C64F926B31C840087A41D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550C64F726B31C820087A41D /* Sparkle.framework */; };
 		550C64FA26B31C840087A41D /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 550C64F726B31C820087A41D /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		555033112603325600D5F7C5 /* NSColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555033102603325600D5F7C5 /* NSColor+Extensions.swift */; };
 		55682718260511E00081F54B /* UIColor_Hex_Swift in Frameworks */ = {isa = PBXBuildFile; productRef = 55682717260511E00081F54B /* UIColor_Hex_Swift */; };
@@ -110,7 +109,6 @@
 				550C64F826B31C830087A41D /* Sparkle.framework in Frameworks */,
 				55682718260511E00081F54B /* UIColor_Hex_Swift in Frameworks */,
 				550373312654267000B8E8D4 /* UIImageColors in Frameworks */,
-				550C64F926B31C840087A41D /* Sparkle.framework in Frameworks */,
 				5577CBC52604489B00B56776 /* KeyboardShortcuts in Frameworks */,
 				5568271F260519120081F54B /* SwiftSoup in Frameworks */,
 			);
@@ -323,7 +321,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		550C64F226B314A40087A41D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -335,8 +333,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /usr/bin/python3;
-			shellScript = "import os\nfrom pathlib import Path\nimport shutil\nfrom tempfile import mkstemp\n\nproject_pbxproj_path = Path(os.getenv(\"PROJECT_FILE_PATH\")).joinpath(\"project.pbxproj\")\n\nfile_in = open(project_pbxproj_path, \"r\")\n_, temp_file_path = mkstemp()\ntemp_file = open(temp_file_path, \"w\")\n\nfor line in file_in:\n    if \"CURRENT_PROJECT_VERSION\" in line:\n        try:\n            space_count = line.count(\"\\t\")\n            print(space_count)\n            build_num = int(line.strip().replace(\"CURRENT_PROJECT_VERSION = \", \"\")[:-1])\n            build_num += 1\n            indents = \"\\t\" * space_count\n            temp_file.write(\n                f\"{indents}CURRENT_PROJECT_VERSION = {build_num};\\n\"\n            )\n        except:\n            temp_file.write(line)\n    else:\n        temp_file.write(line)\n\nfile_in.close()\ntemp_file.close()\n\nshutil.move(temp_file_path, project_pbxproj_path)\n";
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -508,7 +506,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"Paste-alt-rewrite/Preview Content\"";
 				DEVELOPMENT_TEAM = 32Z9KZZ4PU;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -523,7 +521,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 0.0.5;
+				MARKETING_VERSION = 0.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = "xyz.helloyunho.Paste-alt-rewrite";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -539,7 +537,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"Paste-alt-rewrite/Preview Content\"";
 				DEVELOPMENT_TEAM = 32Z9KZZ4PU;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -554,7 +552,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 0.0.5;
+				MARKETING_VERSION = 0.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = "xyz.helloyunho.Paste-alt-rewrite";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

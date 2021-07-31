@@ -8,7 +8,7 @@
             <sparkle:version>16</sparkle:version>
             <sparkle:shortVersionString>0.0.6</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
-            <enclosure url="https://raw.githubusercontent.com/Helloyunho/Paste-alt/releases/download/v0.0.6/Paste-alt-rewrite.0.0.6.zip" length="8276474" type="application/octet-stream" sparkle:edSignature="6XwppKCbUr/pmFBKI8suz1Vwac93WzBDI8VKOyK+hTm26Zlym7j27hutUZfWv6jFMUPPPKypvrBKBdSDL2f+Dg=="/>
+            <enclosure url="https://github.com/Helloyunho/Paste-alt/releases/download/v0.0.6/Paste-alt-rewrite.0.0.6.zip" length="8276474" type="application/octet-stream" sparkle:edSignature="6XwppKCbUr/pmFBKI8suz1Vwac93WzBDI8VKOyK+hTm26Zlym7j27hutUZfWv6jFMUPPPKypvrBKBdSDL2f+Dg=="/>
         </item>
         <item>
             <title>0.0.6</title>
@@ -16,7 +16,7 @@
             <sparkle:version>16</sparkle:version>
             <sparkle:shortVersionString>0.0.6</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
-            <enclosure url="https://raw.githubusercontent.com/Helloyunho/Paste-alt/releases/download/v0.0.6/Paste-alt-rewrite.0.0.6.dmg" length="8140220" type="application/octet-stream" sparkle:edSignature="8US0VD0a3OD83Va1xGjlxaT+9QNEdYwFmBMyWJtFSAJOyqAaOiz1YfiEcbIMGoRCy39yqahXgTE5DHSl3+KYCQ=="/>
+            <enclosure url="https://github.com/Helloyunho/Paste-alt/releases/download/v0.0.6/Paste-alt-rewrite.0.0.6.dmg" length="8140220" type="application/octet-stream" sparkle:edSignature="8US0VD0a3OD83Va1xGjlxaT+9QNEdYwFmBMyWJtFSAJOyqAaOiz1YfiEcbIMGoRCy39yqahXgTE5DHSl3+KYCQ=="/>
         </item>
         <item>
             <title>0.0.5</title>

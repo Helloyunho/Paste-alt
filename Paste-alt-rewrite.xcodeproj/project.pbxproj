@@ -238,8 +238,9 @@
 				55C3FB1B25FDEAEE0052E75C /* Sources */,
 				55C3FB1C25FDEAEE0052E75C /* Frameworks */,
 				55C3FB1D25FDEAEE0052E75C /* Resources */,
-				550C64F226B314A40087A41D /* ShellScript */,
+				550C64F226B314A40087A41D /* Auto increase build number */,
 				550C64FB26B31C840087A41D /* Embed Frameworks */,
+				55DE8AFD26B54B64002F4ABC /* Launch at login */,
 			);
 			buildRules = (
 			);
@@ -319,7 +320,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		550C64F226B314A40087A41D /* ShellScript */ = {
+		550C64F226B314A40087A41D /* Auto increase build number */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
 			files = (
@@ -328,6 +329,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Auto increase build number";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -335,6 +337,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
+		};
+		55DE8AFD26B54B64002F4ABC /* Launch at login */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Launch at login";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILT_PRODUCTS_DIR}/LaunchAtLogin_LaunchAtLogin.bundle/Contents/Resources/copy-helper-swiftpm.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

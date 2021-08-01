@@ -37,6 +37,7 @@ struct ContentView: View {
     }
 
     func deleteSnippet(_ snippet: SnippetItem) {
+        let idx = self.snippetItems.items.firstIndex(of: snippet)
         _ = self.snippetItems.items.remove(snippet)
         DispatchQueue.global(qos: .userInitiated).async {
             dbPool.writeSafely { db in
@@ -63,7 +64,11 @@ struct ContentView: View {
         }
 
         if snippet == self.selectedSnippet {
-            self.selectedSnippet = nil
+            if let idx = idx {
+                self.selectedSnippet = self.snippetItems.items[idx]
+            } else {
+                self.selectedSnippet = nil
+            }
         }
     }
 

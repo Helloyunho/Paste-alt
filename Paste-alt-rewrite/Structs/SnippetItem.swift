@@ -131,95 +131,67 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
     }
 
     func insertSelf(_ db: Database) throws {
-        try self.insert(db)
-        try self.insertContents(db)
+        try insert(db)
+        try insertContents(db)
     }
 
     func deleteSelf(_ db: Database) throws {
-        try self.delete(db)
+        try delete(db)
         for (_, content) in contentForType {
             datas.removeValue(forKey: content)
         }
     }
 
     func getBestData() -> SnippetContentType {
-        if let content = contentForType[.png] ?? contentForType[.tiff] {
-            if let cached = datas[content] {
-                return cached
-            } else if let nsimage = NSImage(data: content) {
-                datas[content] = nsimage
-                return nsimage
-            }
+        if let content = contentForType[.png] ?? contentForType[.tiff],
+           let nsimage = NSImage(data: content)
+        {
+            return nsimage
         }
 
-        if let content = contentForType[.URL] {
-            if let cached = datas[content] {
-                return cached
-            } else if let url = String(data: content, encoding: .utf8) {
-                if url.validateUrl() {
-                    let urlWithMetas = URLWithMetadatas(url: url)
-                    datas[content] = urlWithMetas
-                    return urlWithMetas
-                }
-            }
+        if let content = contentForType[.URL],
+           let url = String(data: content, encoding: .utf8),
+           url.validateUrl()
+        {
+            let urlWithMetas = URLWithMetadatas(url: url)
+            return urlWithMetas
         }
 
-        if let content = contentForType[.fileURL] {
-            if let cached = datas[content] {
-                return cached
-            } else if let url = String(data: content, encoding: .utf8) {
-                let fileUrlStruct = FileURLStruct(url: url)
-                datas[content] = fileUrlStruct
-                return fileUrlStruct
-            }
+        if let content = contentForType[.fileURL],
+           let url = String(data: content, encoding: .utf8)
+        {
+            let fileUrlStruct = FileURLStruct(url: url)
+            return fileUrlStruct
         }
 
-        if let content = contentForType[.color] {
-            if let cached = datas[content] {
-                return cached
-            } else if let color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSColor.self, from: content) {
-                // Seems like color from pasteboard is wide display color and uicolor hex swift hates it
-                let nsColor = NSColor(red: color.redComponent, green: color.greenComponent, blue: color.blueComponent, alpha: color.alphaComponent)
-                datas[content] = nsColor
-                return nsColor
-            }
+        if let content = contentForType[.color],
+           let color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSColor.self, from: content)
+        {
+            // Seems like color from pasteboard is wide display color and uicolor hex swift hates it
+            let nsColor = NSColor(red: color.redComponent, green: color.greenComponent, blue: color.blueComponent, alpha: color.alphaComponent)
+            return nsColor
         }
 
-        if let content = contentForType[.string] {
-            if let cached = datas[content] {
-                return cached
-            } else if let string = String(data: content, encoding: .utf8) {
-                if string.validColorHex() {
-                    if let nsColor = NSColor(string) {
-                        datas[content] = nsColor
-                        return nsColor
-                    }
+        if let content = contentForType[.string],
+           let string = String(data: content, encoding: .utf8)
+        {
+            if string.validColorHex() {
+                if let nsColor = NSColor(string) {
+                    return nsColor
                 }
-
-                if string.validateUrl() {
-                    let urlWithMetas = URLWithMetadatas(url: string)
-                    datas[content] = urlWithMetas
-                    return urlWithMetas
-                }
-
-                if let content = contentForType[.pdf] {
-                    if let cached = datas[content] {
-                        return cached
-                    } else if let pdf = PDFDocument(data: content) {
-                        datas[content] = pdf
-                        return pdf
-                    }
-                } else if let content = contentForType[.rtf] {
-                    if let cached = datas[content] {
-                        return cached
-                    } else if let nsattributedstring = NSAttributedString(rtf: content, documentAttributes: nil) {
-                        datas[content] = nsattributedstring
-                        return nsattributedstring
-                    }
-                } else {
-                    datas[content] = string
-                    return string
-                }
+            } else if string.validateUrl() {
+                let urlWithMetas = URLWithMetadatas(url: string)
+                return urlWithMetas
+            } else if let content = contentForType[.pdf],
+                      let pdf = PDFDocument(data: content)
+            {
+                return pdf
+            } else if let content = contentForType[.rtf],
+                      let nsattributedstring = NSAttributedString(rtf: content, documentAttributes: nil)
+            {
+                return nsattributedstring
+            } else {
+                return string
             }
         }
 
@@ -227,105 +199,34 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
     }
 
     func search(for searchString: String) -> Bool {
-        if searchString == "" {
+        if searchString == "" ||
+            program.name.contains(searchString) ||
+            program.identifier.contains(searchString)
+        {
             return true
         }
 
-        if program.name.contains(searchString) {
-            return true
+        let content = getBestData()
+        switch content.self {
+        case let url as URLWithMetadatas:
+            return url.url.contains(searchString)
+        case let url as FileURLStruct:
+            return url.url.contains(searchString)
+        case let color as NSColor:
+            return color.hexString().contains(searchString)
+        case let pdf as PDFDocument:
+            return pdf.string?.contains(searchString) ?? false
+        case let nsattributedstring as NSAttributedString:
+            return nsattributedstring.string.contains(searchString)
+        case let string as String:
+            return string.contains(searchString)
+        default:
+            return false
         }
-        if program.identifier.contains(searchString) {
-            return true
-        }
-
-        if let content = contentForType[.URL] {
-            if let cached = datas[content] {
-                if let url = cached as? URLWithMetadatas {
-                    if url.url.contains(searchString) {
-                        return true
-                    }
-                }
-            } else {
-                if let url = String(data: content, encoding: .utf8) {
-                    if url.contains(searchString) {
-                        return true
-                    }
-                }
-            }
-        }
-
-        if let content = contentForType[.fileURL] {
-            if let cached = datas[content] {
-                if let url = cached as? FileURLStruct {
-                    if url.url.contains(searchString) {
-                        return true
-                    }
-                }
-            } else {
-                if let url = String(data: content, encoding: .utf8) {
-                    if url.contains(searchString) {
-                        return true
-                    }
-                }
-            }
-        }
-
-        if let content = contentForType[.color] {
-            if let cached = datas[content] {
-                if let color = cached as? NSColor {
-                    if color.hexString().contains(searchString) {
-                        return true
-                    }
-                }
-            } else {
-                if let color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSColor.self, from: content) {
-                    let nsColor = NSColor(red: color.redComponent, green: color.greenComponent, blue: color.blueComponent, alpha: color.alphaComponent)
-                    if nsColor.hexString().contains(searchString) {
-                        return true
-                    }
-                }
-            }
-        }
-
-        if let content = contentForType[.string] {
-            if let cached = datas[content] {
-                if let color = cached as? NSColor {
-                    if color.hexString().contains(searchString) {
-                        return true
-                    }
-                }
-
-                if let url = cached as? FileURLStruct {
-                    if url.url.contains(searchString) {
-                        return true
-                    }
-                }
-
-                if let pdf = cached as? PDFDocument {
-                    if pdf.string?.contains(searchString) ?? false {
-                        return true
-                    }
-                }
-
-                if let nsattributedstring = NSAttributedString(rtf: content, documentAttributes: nil) {
-                    if nsattributedstring.string.contains(searchString) {
-                        return true
-                    }
-                }
-            } else {
-                if let string = String(data: content, encoding: .utf8) {
-                    if string.contains(searchString) {
-                        return true
-                    }
-                }
-            }
-        }
-
-        return false
     }
 
     mutating func updateDate(_ db: Database) throws {
         date = Date()
-        try self.update(db)
+        try update(db)
     }
 }

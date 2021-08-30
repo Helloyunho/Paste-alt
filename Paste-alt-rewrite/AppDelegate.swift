@@ -8,8 +8,8 @@
 import Cocoa
 import KeyboardShortcuts
 import Preferences
-import SwiftUI
 import Sparkle
+import SwiftUI
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -55,7 +55,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
 
-        NotificationCenter.default.addObserver(self, selector: #selector(self.onDeleteAllDatas), name: .DeleteAllCommandCalled, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onDeleteAllDatas), name: .DeleteAllCommandCalled, object: nil)
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -88,10 +88,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.level = .floating
 
         // StatusItem is stored as a class property.
-        self.statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        self.statusItem.button?.title = "P"
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        statusItem.button?.title = "P"
 
-        self.makeMenusInMenuBar()
+        makeMenusInMenuBar()
 
         do {
             try updater.start()
@@ -119,13 +119,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func makeMenusInMenuBar() {
         let menu = NSMenu()
-        menu.addItem(NSMenuItem(title: "Open Paste-alt", action: #selector(self.openApplication), keyEquivalent: "o"))
-        menu.addItem(NSMenuItem(title: "Preferences", action: #selector(self.showPreferences), keyEquivalent: ","))
+        menu.addItem(NSMenuItem(title: "Open Paste-alt", action: #selector(openApplication), keyEquivalent: "o"))
+        menu.addItem(NSMenuItem(title: "Preferences", action: #selector(showPreferences), keyEquivalent: ","))
         menu.addItem(NSMenuItem.separator())
-        menu.addItem(NSMenuItem(title: "Check for Updates...", action: #selector(self.checkForUpdate), keyEquivalent: ""))
-        menu.addItem(NSMenuItem(title: "Quit Paste-alt", action: #selector(self.quitApplication), keyEquivalent: "q"))
+        menu.addItem(NSMenuItem(title: "Check for Updates...", action: #selector(checkForUpdate), keyEquivalent: ""))
+        menu.addItem(NSMenuItem(title: "Quit Paste-alt", action: #selector(quitApplication), keyEquivalent: "q"))
 
-        self.statusItem.menu = menu
+        statusItem.menu = menu
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

@@ -35,18 +35,19 @@ class URLWithMetadatas: ObservableObject {
                 if let title = try? head.select("title").first() {
                     self.title = try? title.text()
                 }
-                
+
                 if let links = try? head.select("link") {
                     for link in links {
                         if let rel = try? link.attr("rel"),
                            rel == "icon",
                            let urlString = try? link.attr("href"),
-                           self.setImage(urlString: urlString, headers: headers) {
+                           self.setImage(urlString: urlString, headers: headers)
+                        {
                             break
                         }
                     }
                 }
-                
+
                 if let metas = try? head.select("meta") {
                     for meta in metas {
                         if let name = try? meta.attr("name") {
@@ -71,7 +72,8 @@ class URLWithMetadatas: ObservableObject {
                         if let name = try? meta.attr("property"),
                            name == "og:image",
                            let urlString = try? meta.attr("content"),
-                           self.setImage(urlString: urlString, headers: headers) {
+                           self.setImage(urlString: urlString, headers: headers)
+                        {
                             continue
                         }
                     }

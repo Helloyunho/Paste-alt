@@ -7,8 +7,8 @@
 
 import AppKit
 import Foundation
-import SwiftUI
 import PDFKit
+import SwiftUI
 
 protocol SnippetContentType {}
 extension String: SnippetContentType {}

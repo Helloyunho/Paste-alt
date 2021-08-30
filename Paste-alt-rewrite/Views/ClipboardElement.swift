@@ -15,7 +15,7 @@ struct ClipboardElement: View {
     var image: NSImage?
 
     var body: some View {
-        let image = self.image ?? NSImage(named: "BlankAppIcon")!
+        let image = self.image ?? NSImage(systemSymbolName: "applicationIconName", accessibilityDescription: "Blank app")!
         let colorBasedImage = image.getColors()?.background ?? NSColor.systemIndigo
         let lightedColor = colorBasedImage.lighter(by: 10)
 

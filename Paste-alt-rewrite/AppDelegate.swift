@@ -49,12 +49,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     }
                 }
             }
-            
+
             DispatchQueue.main.async {
                 self.snippetItems.isLoading = false
             }
         }
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(self.onDeleteAllDatas), name: .DeleteAllCommandCalled, object: nil)
     }
 
@@ -67,9 +67,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
             switch event.keyCode {
-                case 53:
-                    NSApplication.shared.hide(nil)
-                default: break
+            case 53:
+                NSApplication.shared.hide(nil)
+            default: break
             }
 
             return event
@@ -86,13 +86,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.contentView = contentHostingView
         window.makeKeyAndOrderFront(nil)
         window.level = .floating
-        
+
         // StatusItem is stored as a class property.
         self.statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         self.statusItem.button?.title = "P"
-        
+
         self.makeMenusInMenuBar()
-        
+
         do {
             try updater.start()
         } catch {
@@ -116,7 +116,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             NSApplication.shared.activate(ignoringOtherApps: true)
         }
     }
-    
+
     func makeMenusInMenuBar() {
         let menu = NSMenu()
         menu.addItem(NSMenuItem(title: "Open Paste-alt", action: #selector(self.openApplication), keyEquivalent: "o"))
@@ -124,7 +124,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: "Check for Updates...", action: #selector(self.checkForUpdate), keyEquivalent: ""))
         menu.addItem(NSMenuItem(title: "Quit Paste-alt", action: #selector(self.quitApplication), keyEquivalent: "q"))
-        
+
         self.statusItem.menu = menu
     }
 
@@ -136,25 +136,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidResignActive(_ notification: Notification) {
         NSApplication.shared.hide(nil)
     }
-    
+
     @objc func onDeleteAllDatas(_ notification: Notification) {
         snippetItems.items = []
     }
-    
+
     @objc func showPreferences(_ sender: Any?) {
         preferencesWindowController.show()
     }
-    
+
     @objc func quitApplication(_ sender: Any?) {
         NSApplication.shared.terminate(nil)
     }
-    
+
     @objc func checkForUpdate(_ sender: Any) {
         if updater.canCheckForUpdates {
             updater.checkForUpdates()
         }
     }
-    
+
     @objc func openApplication(_ sender: Any?) {
         NSApplication.shared.activate(ignoringOtherApps: true)
     }
@@ -174,7 +174,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func showPreferencesCommand(_ sender: Any) {
         preferencesWindowController.show()
     }
-    
+
     @IBAction func checkForUpdateCommand(_ sender: Any) {
         if updater.canCheckForUpdates {
             updater.checkForUpdates()

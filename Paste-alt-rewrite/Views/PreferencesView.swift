@@ -12,7 +12,7 @@ import SwiftUI
 
 struct PreferencesView: View {
     @State var alertDeleteAllDatas = false
-    
+
     var body: some View {
         Preferences.Container(contentWidth: 450.0) {
             Preferences.Section(title: "Set snippet open shortcut:") {

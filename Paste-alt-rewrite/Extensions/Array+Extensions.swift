@@ -17,7 +17,7 @@ extension Array where Element: Equatable {
             return false
         }
     }
-    
+
     mutating func remove(_ element: Element) -> Bool {
         if let index: Int = self.firstIndex(of: element) {
             self.remove(at: index)

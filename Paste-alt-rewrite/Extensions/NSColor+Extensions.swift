@@ -14,9 +14,9 @@ extension NSColor {
         let red = clcolor.red <= 0.03928 ? clcolor.red / 12.92 : pow(((clcolor.red + 0.055) / 1.055), 2.4)
         let green = clcolor.green <= 0.03928 ? clcolor.green / 12.92 : pow(((clcolor.green + 0.055) / 1.055), 2.4)
         let blue = clcolor.blue <= 0.03928 ? clcolor.blue / 12.92 : pow(((clcolor.blue + 0.055) / 1.055), 2.4)
-        
+
         let L = (0.2126 * red) + (0.7152 * green) + (0.0722 * blue)
-        
+
         return L > 0.179
     }
 
@@ -42,7 +42,7 @@ extension NSColor {
             return NSColor(hue: h, saturation: newS, brightness: b, alpha: a)
         }
     }
-    
+
     func invertColor() -> NSColor {
         var h: CGFloat = 0
         var s: CGFloat = 0

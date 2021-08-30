@@ -28,59 +28,51 @@ class URLWithMetadatas: ObservableObject {
                 "Accept": "*/*"
             ]
             AF.request(self.url, headers: headers).responseString { response in
-                if let html = response.value {
-                    if let doc: Document = try? SwiftSoup.parse(html) {
-                        if let head = doc.head() {
-                            if let title = try? head.select("title").first() {
-                                self.title = try? title.text()
-                            }
-                            if let links = try? head.select("link") {
-                                for link in links {
-                                    if let rel = try? link.attr("rel") {
-                                        if rel == "icon" {
-                                            if let urlString = try? link.attr("href") {
-                                                if self.setImage(urlString: urlString, headers: headers) {
-                                                    break
-                                                }
-                                            }
-                                        }
-                                    }
+                guard let html = response.value,
+                      let doc: Document = try? SwiftSoup.parse(html),
+                      let head = doc.head() else { return }
+
+                if let title = try? head.select("title").first() {
+                    self.title = try? title.text()
+                }
+                
+                if let links = try? head.select("link") {
+                    for link in links {
+                        if let rel = try? link.attr("rel"),
+                           rel == "icon",
+                           let urlString = try? link.attr("href"),
+                           self.setImage(urlString: urlString, headers: headers) {
+                            break
+                        }
+                    }
+                }
+                
+                if let metas = try? head.select("meta") {
+                    for meta in metas {
+                        if let name = try? meta.attr("name") {
+                            switch name {
+                            case "title":
+                                self.title = try? meta.attr("content")
+                                continue
+                            case "description":
+                                self.description = try? meta.attr("content")
+                                continue
+                            case "og:description":
+                                self.description = try? meta.attr("content")
+                                continue
+                            case "og:image":
+                                if let urlString = try? meta.attr("content") {
+                                    _ = self.setImage(urlString: urlString, headers: headers)
                                 }
+                                continue
+                            default: break
                             }
-                            if let metas = try? head.select("meta") {
-                                for meta in metas {
-                                    if let name = try? meta.attr("name") {
-                                        if name == "title" {
-                                            self.title = try? meta.attr("content")
-                                            continue
-                                        }
-                                        if name == "description" {
-                                            self.description = try? meta.attr("content")
-                                            continue
-                                        }
-                                        if name == "og:description" {
-                                            self.description = try? meta.attr("content")
-                                            continue
-                                        }
-                                        if name == "og:image" {
-                                            if let urlString = try? meta.attr("content") {
-                                                if self.setImage(urlString: urlString, headers: headers) {
-                                                    continue
-                                                }
-                                            }
-                                        }
-                                    }
-                                    if let name = try? meta.attr("property") {
-                                        if name == "og:image" {
-                                            if let urlString = try? meta.attr("content") {
-                                                if self.setImage(urlString: urlString, headers: headers) {
-                                                    continue
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                        }
+                        if let name = try? meta.attr("property"),
+                           name == "og:image",
+                           let urlString = try? meta.attr("content"),
+                           self.setImage(urlString: urlString, headers: headers) {
+                            continue
                         }
                     }
                 }

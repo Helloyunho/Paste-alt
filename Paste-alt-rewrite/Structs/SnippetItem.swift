@@ -15,19 +15,19 @@ struct SnippetProgram: Equatable {
     var name: String
     var icon: NSImage?
     var identifier: String
-    
+
     static func == (lhs: SnippetProgram, rhs: SnippetProgram?) -> Bool {
         lhs.name == rhs?.name && lhs.identifier == rhs?.identifier && lhs.icon == rhs?.icon
     }
-    
+
     static func == (lhs: SnippetProgram, rhs: NSRunningApplication?) -> Bool {
         lhs.name == rhs?.localizedName && lhs.identifier == rhs?.bundleIdentifier && lhs.icon == rhs?.icon
     }
-    
+
     static func != (lhs: SnippetProgram, rhs: SnippetProgram?) -> Bool {
         !(lhs == rhs)
     }
-    
+
     static func != (lhs: SnippetProgram, rhs: NSRunningApplication?) -> Bool {
         !(lhs == rhs)
     }
@@ -36,7 +36,7 @@ struct SnippetProgram: Equatable {
 private var programs: [String: SnippetProgram] = [:]
 private var datas: [Data: SnippetContentType] = [:]
 
-func resetAllGlobalDatas() -> Void {
+func resetAllGlobalDatas() {
     programs.removeAll()
     datas.removeAll()
 }
@@ -75,14 +75,14 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
         self.id = id ?? UUID().uuidString
         self.date = date ?? Date()
     }
-    
+
     static var databaseTableName = "snippetItems"
-    
+
     enum Columns: String, ColumnExpression {
         case id, programName, programIdentifier, programIcon, date
     }
-    
-    static func createTable(_ db: Database) throws -> Void {
+
+    static func createTable(_ db: Database) throws {
         try db.create(table: databaseTableName, ifNotExists: true) { t in
             t.column("id", .text).notNull().unique().primaryKey()
             t.column("programName", .text)
@@ -91,7 +91,7 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
             t.column("date", .date)
         }
     }
-    
+
     init(row: Row) {
         id = row[Columns.id]
         let bundleID: String = row[Columns.programIdentifier] ?? "com.example.untitled"
@@ -104,7 +104,7 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
         date = row[Columns.date]
         contentForType = [:]
     }
-    
+
     func fetchingContentsFromDB(_ db: Database) -> SnippetItem {
         var contentForType: [NSPasteboard.PasteboardType: Data] = [:]
         if let contents = try? SnippetContentTable.filter(SnippetContentTable.Columns.forID == id).fetchAll(db) {
@@ -112,10 +112,10 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
                 contentForType[content.type] = content.data
             }
         }
-        
+
         return SnippetItem(id: id, program: program, contentForType: contentForType, date: date)
     }
-    
+
     func encode(to container: inout PersistenceContainer) {
         container[Columns.id] = id
         container[Columns.programName] = program.name
@@ -123,19 +123,19 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
         container[Columns.programIdentifier] = program.identifier
         container[Columns.date] = date
     }
-    
-    func insertContents(_ db: Database) throws -> Void {
+
+    func insertContents(_ db: Database) throws {
         for (type, data) in contentForType {
             try SnippetContentTable(id: nil, forID: id, type: type, data: data).insert(db)
         }
     }
-    
-    func insertSelf(_ db: Database) throws -> Void {
+
+    func insertSelf(_ db: Database) throws {
         try self.insert(db)
         try self.insertContents(db)
     }
-    
-    func deleteSelf(_ db: Database) throws -> Void {
+
+    func deleteSelf(_ db: Database) throws {
         try self.delete(db)
         for (_, content) in contentForType {
             datas.removeValue(forKey: content)
@@ -151,7 +151,7 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
                 return nsimage
             }
         }
-        
+
         if let content = contentForType[.URL] {
             if let cached = datas[content] {
                 return cached
@@ -163,7 +163,7 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
                 }
             }
         }
-        
+
         if let content = contentForType[.fileURL] {
             if let cached = datas[content] {
                 return cached
@@ -173,7 +173,7 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
                 return fileUrlStruct
             }
         }
-        
+
         if let content = contentForType[.color] {
             if let cached = datas[content] {
                 return cached
@@ -184,7 +184,7 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
                 return nsColor
             }
         }
-        
+
         if let content = contentForType[.string] {
             if let cached = datas[content] {
                 return cached
@@ -195,13 +195,13 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
                         return nsColor
                     }
                 }
-                
+
                 if string.validateUrl() {
                     let urlWithMetas = URLWithMetadatas(url: string)
                     datas[content] = urlWithMetas
                     return urlWithMetas
                 }
-                
+
                 if let content = contentForType[.pdf] {
                     if let cached = datas[content] {
                         return cached
@@ -225,7 +225,7 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
 
         return "Cannot find good data"
     }
-    
+
     func search(for searchString: String) -> Bool {
         if searchString == "" {
             return true
@@ -237,7 +237,7 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
         if program.identifier.contains(searchString) {
             return true
         }
-        
+
         if let content = contentForType[.URL] {
             if let cached = datas[content] {
                 if let url = cached as? URLWithMetadatas {
@@ -253,7 +253,7 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
                 }
             }
         }
-        
+
         if let content = contentForType[.fileURL] {
             if let cached = datas[content] {
                 if let url = cached as? FileURLStruct {
@@ -269,7 +269,7 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
                 }
             }
         }
-        
+
         if let content = contentForType[.color] {
             if let cached = datas[content] {
                 if let color = cached as? NSColor {
@@ -286,7 +286,7 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
                 }
             }
         }
-        
+
         if let content = contentForType[.string] {
             if let cached = datas[content] {
                 if let color = cached as? NSColor {
@@ -300,13 +300,13 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
                         return true
                     }
                 }
-                
+
                 if let pdf = cached as? PDFDocument {
                     if pdf.string?.contains(searchString) ?? false {
                         return true
                     }
                 }
-                
+
                 if let nsattributedstring = NSAttributedString(rtf: content, documentAttributes: nil) {
                     if nsattributedstring.string.contains(searchString) {
                         return true
@@ -320,11 +320,11 @@ struct SnippetItem: Identifiable, Equatable, FetchableRecord, TableRecord, Persi
                 }
             }
         }
-        
+
         return false
     }
-    
-    mutating func updateDate(_ db: Database) throws -> Void {
+
+    mutating func updateDate(_ db: Database) throws {
         date = Date()
         try self.update(db)
     }

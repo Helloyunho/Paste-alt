@@ -15,13 +15,11 @@ struct ContentView: View {
     let strokeSize: CGFloat = 0.02
 
     func copySnippet(_ snippet: SnippetItem) {
-        let item = NSPasteboardItem()
-        for (type, content) in snippet.contentForType {
-            item.setData(content, forType: type)
-        }
         NSPasteboard.general.clearContents()
         dontUpdate = true
-        NSPasteboard.general.writeObjects([item])
+        for (type, content) in snippet.contentForType {
+            NSPasteboard.general.setData(content, forType: type)
+        }
         if self.snippetItems.items.move(snippet, to: 0) {
             DispatchQueue.global().async {
                 dbPool.writeSafely { db in
@@ -73,9 +71,10 @@ struct ContentView: View {
     }
 
     var body: some View {
-        GeometryReader { windowGeometry in
+        GeometryReader { _ in
             VStack(spacing: 0) {
-                // TODO: Make search bar
+//                TextField("Search...", $searchFor)
+//                    .frame(width: windowGeometry.size.width / 2)
                 GeometryReader { scrollviewGeometry in
                     let smallSize = scrollviewGeometry.size.width > scrollviewGeometry.size.height ? scrollviewGeometry.size.height : scrollviewGeometry.size.width
                     ScrollView(.horizontal, showsIndicators: true) {
@@ -150,7 +149,7 @@ struct ContentView: View {
                 var isHandoff = false
                 var contents: [NSPasteboard.PasteboardType: Data] = [:]
                 for type in item.types {
-                    if type == .init("com.apple.is-remote-clipboard") {
+                    if type.rawValue == "com.apple.is-remote-clipboard" {
                         isHandoff = true
                     }
                     if let data = item.data(forType: type) {

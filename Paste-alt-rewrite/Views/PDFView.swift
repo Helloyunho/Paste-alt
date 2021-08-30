@@ -11,7 +11,7 @@ import PDFKit
 
 // From https://stackoverflow.com/a/61480852/9376340
 struct PDFRepresentedView: NSViewRepresentable {
-    
+
     var pdfDocument: PDFDocument
 
     func makeNSView(context: NSViewRepresentableContext<PDFRepresentedView>) -> PDFRepresentedView.NSViewType {

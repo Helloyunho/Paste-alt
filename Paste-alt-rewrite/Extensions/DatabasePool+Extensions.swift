@@ -18,7 +18,7 @@ extension DatabasePool {
             defaultLogger.error("\(String(describing: error))")
         }
     }
-    
+
     func readSafely(_ action: (Database) throws -> Void) {
         do {
             try self.read { db in
